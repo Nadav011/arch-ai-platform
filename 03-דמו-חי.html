@@ -2,1015 +2,870 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>דמו חי — AI לאדריכלים | סקריפט מלא</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דמו חי — AI Architecture Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#060912;--card:#0f1625;--card2:#111827;
-  --border:rgba(59,130,246,.18);--border2:rgba(255,255,255,.06);
-  --blue:#3b82f6;--indigo:#6366f1;--green:#10b981;--amber:#f59e0b;
-  --red:#f43f5e;--cyan:#06b6d4;--purple:#a78bfa;
-  --text:#f0f4ff;--muted:#7a8aaa;--soft:#94a3b8;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;line-height:1.5}
-.container{max-width:1080px;margin:0 auto;padding:2.5rem 1.75rem 4rem}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── PAGE HEADER ── */
-.page-header{text-align:center;margin-bottom:3rem;padding:2.5rem 2rem;background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(99,102,241,.07));border:1px solid var(--border);border-radius:20px}
-.page-kicker{font-size:.72rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:.75rem}
-.page-title{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#fff 30%,#93c5fd,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.6rem}
-.page-sub{color:var(--soft);font-size:1rem;max-width:600px;margin:0 auto 1.5rem}
-.flow-bar{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;margin-top:1.25rem}
-.flow-item{background:var(--card2);border:1px solid var(--border);padding:.45rem 1rem;font-size:.78rem;font-weight:700;color:var(--blue)}
-.flow-item:first-child{border-radius:8px 0 0 8px}
-.flow-item:last-child{border-radius:0 8px 8px 0}
-.flow-arrow{color:var(--muted);font-size:.75rem;padding:0 4px}
-.flow-badge{font-size:.68rem;color:var(--muted);display:block;font-weight:400;margin-top:1px}
+  :root {
+    --bg: #060912;
+    --bg2: #0a0d16;
+    --bg3: #0e1220;
+    --border: rgba(255,255,255,.06);
+    --blue: #3b82f6;
+    --green: #10b981;
+    --cyan: #06b6d4;
+    --purple: #6366f1;
+    --red: #f43f5e;
+    --amber: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --dim: #475569;
+  }
 
-/* ── SECTION TITLES ── */
-.section-title{font-size:1.1rem;font-weight:800;color:#93c5fd;margin-bottom:1.25rem;display:flex;align-items:center;gap:10px}
-.section-title::before{content:'';display:block;width:3px;height:1.1rem;background:linear-gradient(var(--blue),var(--indigo));border-radius:4px;flex-shrink:0}
+  html { scroll-behavior: smooth; }
 
-/* ── SETUP CHECKLIST ── */
-.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem}
-.setup-item{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:1rem 1.25rem;display:flex;gap:1rem;align-items:flex-start}
-.setup-num{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--indigo));display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0;margin-top:2px}
-.setup-label{font-weight:700;font-size:.88rem;margin-bottom:.2rem}
-.setup-desc{font-size:.79rem;color:var(--soft);line-height:1.5}
-.setup-code{font-family:'Courier New',monospace;font-size:.76rem;color:#93c5fd;background:#0a0f1e;border:1px solid rgba(59,130,246,.15);padding:3px 8px;border-radius:4px;margin-top:.4rem;display:inline-block}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
 
-/* ── DEMO CARD ── */
-.demo-wrap{margin-bottom:2rem}
-.demo-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
-.demo-card.active{border-color:var(--blue);box-shadow:0 0 0 2px rgba(59,130,246,.2),0 8px 40px rgba(0,0,0,.4)}
-.dc-header{padding:1.2rem 1.5rem;background:#0d1728;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.dc-header-left{display:flex;align-items:center;gap:12px}
-.dc-icon{font-size:1.6rem;line-height:1}
-.dc-title-wrap{}
-.dc-num{font-size:.65rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:2px}
-.dc-title{font-weight:800;font-size:1rem;line-height:1.2}
-.dc-meta{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
-.badge{font-size:.67rem;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap}
-.badge-tool{background:rgba(99,102,241,.15);color:#a5b4fc;border:1px solid rgba(99,102,241,.25)}
-.badge-time{background:rgba(245,158,11,.1);color:#fcd34d;border:1px solid rgba(245,158,11,.2)}
-.badge-wow{background:rgba(16,185,129,.1);color:#6ee7b7;border:1px solid rgba(16,185,129,.2);font-size:.62rem;letter-spacing:1px;text-transform:uppercase}
-.badge-money{background:rgba(244,63,94,.1);color:#fda4af;border:1px solid rgba(244,63,94,.2)}
+  /* HEADER */
+  .site-header {
+    background: linear-gradient(135deg, #0a0d16 0%, #0d1320 60%, #0a0f1e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+  }
+  .site-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, var(--cyan) 60%, var(--blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: .5rem;
+  }
+  .site-header p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
 
-.dc-body{padding:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-.dc-left{}
-.dc-right{}
-.dc-section-label{font-size:.68rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+  /* STATS ROW */
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-chip {
+    background: rgba(59,130,246,.1);
+    border: 1px solid rgba(59,130,246,.25);
+    border-radius: 50px;
+    padding: .35rem 1rem;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--cyan);
+    white-space: nowrap;
+  }
+  .stat-chip span { color: var(--muted); font-weight: 400; margin-right: .3rem; }
 
-.dc-desc{font-size:.85rem;color:var(--soft);margin-bottom:1.1rem;line-height:1.6}
+  /* NAV */
+  .demo-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding: 1rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+  .nav-link {
+    display: inline-block;
+    padding: .4rem 1rem;
+    border-radius: 8px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 500;
+    transition: all .2s;
+  }
+  .nav-link:hover {
+    background: rgba(59,130,246,.12);
+    border-color: rgba(59,130,246,.35);
+    color: var(--text);
+  }
+  .nav-link .num { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: .75rem; margin-left: .3rem; }
 
-/* Setup box */
-.dc-setup{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18);border-radius:10px;padding:.9rem 1rem;font-size:.8rem;color:#fde68a;margin-bottom:1.1rem;line-height:1.6}
-.dc-setup strong{color:var(--amber);display:block;margin-bottom:.3rem;font-size:.73rem;letter-spacing:1.5px;text-transform:uppercase}
+  /* MAIN */
+  .main-content { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-/* Terminal command */
-.dc-terminal{background:#060d1a;border:1px solid rgba(59,130,246,.2);border-radius:10px;overflow:hidden;margin-bottom:1.1rem}
-.dc-terminal-bar{background:#0d1728;padding:.45rem .8rem;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,.05)}
-.dot{width:10px;height:10px;border-radius:50%}
-.dot-red{background:#f43f5e}
-.dot-yellow{background:#f59e0b}
-.dot-green{background:#10b981}
-.term-label{font-size:.67rem;color:var(--muted);margin-right:auto;font-family:'Courier New',monospace}
-.dc-cmd{font-family:'Courier New',monospace;font-size:.8rem;color:#93c5fd;padding:.85rem 1rem;line-height:1.7;white-space:pre-wrap;word-break:break-all}
-.dc-cmd .prompt{color:var(--green)}
-.dc-cmd .flag{color:#fcd34d}
-.dc-cmd .string{color:#86efac}
-.dc-cmd .comment{color:var(--muted);font-style:italic}
+  /* DEMO CARD */
+  .demo-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,.4);
+    transition: border-color .2s;
+  }
+  .demo-card:hover { border-color: rgba(59,130,246,.2); }
 
-/* Expected output */
-.dc-output{background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.15);border-radius:10px;padding:.9rem 1rem;font-size:.8rem;color:#6ee7b7;font-family:'Courier New',monospace;line-height:1.7;white-space:pre-wrap;display:none}
-.dc-output.show{display:block}
-.dc-output .out-label{color:var(--muted);font-size:.7rem;display:block;margin-bottom:.4rem;font-style:normal;font-family:'Segoe UI',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+  /* DEMO HEAD */
+  .demo-head {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(90deg, rgba(59,130,246,.06) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .demo-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--cyan);
+    background: rgba(6,182,212,.1);
+    border: 1px solid rgba(6,182,212,.25);
+    border-radius: 6px;
+    padding: .25rem .65rem;
+    white-space: nowrap;
+    letter-spacing: .05em;
+  }
+  .demo-title-block { flex: 1; min-width: 180px; }
+  .demo-title { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: .15rem; }
+  .demo-sub { font-size: .82rem; color: var(--muted); }
+  .timing { display: flex; gap: .5rem; flex-wrap: wrap; margin-right: auto; }
+  .t-before, .t-after {
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: .75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .t-before { color: var(--red); background: rgba(244,63,94,.08); border: 1px solid rgba(244,63,94,.2); }
+  .t-after  { color: var(--green); background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.2); }
 
-/* Wow moment */
-.dc-wow{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(59,130,246,.08));border:1px solid rgba(99,102,241,.25);border-radius:10px;padding:.9rem 1rem;margin-bottom:1.1rem}
-.dc-wow-label{font-size:.67rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:.4rem}
-.dc-wow-text{font-size:.82rem;color:#c4b5fd;line-height:1.5}
+  /* DEMO BODY */
+  .demo-body {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 0;
+  }
+  @media (max-width: 768px) {
+    .demo-body { grid-template-columns: 1fr; }
+    .demo-script { border-left: none !important; border-bottom: 1px solid var(--border); }
+  }
 
-/* Presenter notes */
-.dc-notes{background:rgba(6,182,212,.04);border:1px solid rgba(6,182,212,.15);border-radius:10px;padding:.9rem 1rem}
-.dc-notes-label{font-size:.67rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:.5rem}
-.dc-notes-text{font-size:.8rem;color:#a5f3fc;line-height:1.6}
-.dc-notes-text li{margin-bottom:.25rem;padding-right:.5rem}
+  /* PRESENTER SCRIPT */
+  .demo-script {
+    padding: 1.25rem;
+    border-left: 1px solid var(--border);
+    background: rgba(0,0,0,.2);
+  }
+  .script-label {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .script-label::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--purple);
+  }
+  .script-text {
+    font-size: .8rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .script-text strong { color: var(--text); font-weight: 600; }
+  .script-text .highlight { color: var(--cyan); }
 
-/* Run button */
-.dc-footer{padding:1rem 1.5rem;background:rgba(0,0,0,.2);border-top:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.dc-timing-row{display:flex;gap:1.25rem;flex-wrap:wrap}
-.dc-timing-item{text-align:center}
-.dc-timing-num{font-size:1.2rem;font-weight:900;color:var(--green);line-height:1}
-.dc-timing-label{font-size:.67rem;color:var(--muted);margin-top:2px}
-.run-btn{background:linear-gradient(135deg,var(--blue),var(--indigo));color:#fff;border:none;padding:9px 22px;border-radius:9px;font-size:.85rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;flex-shrink:0}
-.run-btn:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(59,130,246,.4)}
-.run-btn.running{background:rgba(245,158,11,.15);color:var(--amber);border:1px solid rgba(245,158,11,.3)}
-.run-btn.done{background:rgba(16,185,129,.15);color:var(--green);border:1px solid rgba(16,185,129,.3)}
-.spinner{width:13px;height:13px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
+  /* TERMINAL WRAPPER */
+  .demo-term-wrap { display: flex; flex-direction: column; min-height: 340px; }
 
-/* ── TRANSITION TIP ── */
-.transition-tip{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:.75rem 1rem;margin:.75rem 0;font-size:.8rem;color:#fcd34d;display:flex;gap:.6rem;align-items:flex-start}
-.transition-tip::before{content:'→';flex-shrink:0;font-weight:900;color:var(--amber)}
+  /* TERM BAR */
+  .term-bar {
+    background: #0a0d16;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .term-dots { display: flex; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .dot.r { background: #ff5f57; }
+  .dot.y { background: #febc2e; }
+  .dot.g { background: #28c840; }
+  .term-title {
+    font-size: .72rem;
+    color: var(--dim);
+    font-family: 'JetBrains Mono', monospace;
+    margin-right: auto;
+  }
 
-/* ── OBJECTIONS ── */
-.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
-.obj-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:1.1rem 1.25rem}
-.obj-q{font-size:.83rem;font-weight:700;color:#fda4af;margin-bottom:.6rem;display:flex;gap:.5rem;align-items:flex-start}
-.obj-q::before{content:'Q';background:rgba(244,63,94,.15);border:1px solid rgba(244,63,94,.3);border-radius:4px;padding:1px 6px;font-size:.7rem;font-weight:900;color:var(--red);flex-shrink:0;margin-top:1px}
-.obj-a{font-size:.8rem;color:var(--soft);line-height:1.5;padding-right:.5rem}
-.obj-highlight{color:#86efac;font-weight:700}
+  /* TERM BODY */
+  .term-body {
+    background: #020510;
+    min-height: 280px;
+    max-height: 340px;
+    overflow-y: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem;
+    padding: 1.25rem;
+    direction: ltr;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,.1) transparent;
+  }
+  .term-body::-webkit-scrollbar { width: 4px; }
+  .term-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 2px; }
 
-/* ── CLOSING CTA ── */
-.cta-box{background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(99,102,241,.1));border:1px solid rgba(99,102,241,.3);border-radius:18px;padding:2rem;text-align:center;margin-top:2.5rem}
-.cta-title{font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:.6rem}
-.cta-sub{font-size:.9rem;color:var(--soft);margin-bottom:1.5rem}
-.cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.cta-btn{padding:10px 24px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:default;border:none}
-.cta-btn-primary{background:linear-gradient(135deg,var(--blue),var(--indigo));color:#fff}
-.cta-btn-secondary{background:var(--card2);color:var(--soft);border:1px solid var(--border)}
+  /* TERM FOOTER */
+  .term-footer {
+    background: #0a0d16;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .run-btn {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: .55rem 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: .85rem;
+    font-family: 'Inter', sans-serif;
+    transition: all .2s;
+  }
+  .run-btn:hover { background: #2563eb; transform: translateY(-1px); }
+  .run-btn.done { background: var(--green); }
+  .run-btn.done:hover { background: #059669; }
+  .run-status { font-size: .78rem; color: var(--green); font-family: 'JetBrains Mono', monospace; }
 
-/* ── PRINT ── */
-@media print{
-  .run-btn{display:none}
-  .dc-output{display:block!important}
-  body{background:#fff;color:#111}
-  .page-header,.demo-card,.setup-item,.obj-card,.cta-box{background:#f8f9fa!important;border-color:#ddd!important}
-  .dc-terminal,.dc-cmd{background:#f1f5f9!important;color:#1e3a5f!important}
-  .dc-output{background:#f0fdf4!important;color:#166534!important}
-  .page-title{-webkit-text-fill-color:#111;color:#111}
-}
+  /* Q&A */
+  .qa-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 3rem;
+  }
+  .qa-header {
+    padding: 1.5rem 2rem;
+    background: linear-gradient(90deg, rgba(99,102,241,.08) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .qa-header h2 { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+  .qa-header p { font-size: .85rem; color: var(--muted); margin-top: .25rem; }
+  .qa-list { padding: 1.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .qa-q {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: .5rem;
+    display: flex;
+    gap: .75rem;
+  }
+  .qa-q::before {
+    content: 'Q';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(244,63,94,.15);
+    border: 1px solid rgba(244,63,94,.3);
+    color: var(--red);
+    font-size: .72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .qa-a {
+    font-size: .88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-right: 2rem;
+  }
+  .qa-a strong { color: var(--text); }
+  .qa-a .tag {
+    display: inline-block;
+    background: rgba(16,185,129,.1);
+    border: 1px solid rgba(16,185,129,.2);
+    color: var(--green);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: .75rem;
+    font-weight: 600;
+    margin: 0 2px;
+  }
 
-/* ── RESPONSIVE ── */
-@media(max-width:700px){
-  .setup-grid,.dc-body,.obj-grid{grid-template-columns:1fr}
-  .page-title{font-size:1.7rem}
-  .flow-bar{gap:4px}
-  .flow-arrow{display:none}
-}
+  /* FOOTER */
+  .site-footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--dim);
+    font-size: .8rem;
+  }
 </style>
 </head>
 <body>
-<div class="container">
 
-<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
-<div class="page-header">
-  <div class="page-kicker">סקריפט דמו חי | לא לחלוקה</div>
-  <div class="page-title">AI לאדריכלים — 20 דקות שמשנות הכל</div>
-  <p class="page-sub">תסריט מלא לפגישה חיה. כל שלב עם הוראות הכנה, הפקודה המדויקת, התוצאה הצפויה ומה להגיד בזמן שהמודל רץ.</p>
-  <div class="flow-bar">
-    <div class="flow-item">הכנה<span class="flow-badge">5 דק'</span></div>
-    <div class="flow-arrow">›</div>
-    <div class="flow-item">QC Revit<span class="flow-badge">2.5 דק'</span></div>
-    <div class="flow-arrow">›</div>
-    <div class="flow-item">BOQ<span class="flow-badge">3 דק'</span></div>
-    <div class="flow-arrow">›</div>
-    <div class="flow-item">Render Veras<span class="flow-badge">2 דק'</span></div>
-    <div class="flow-arrow">›</div>
-    <div class="flow-item">תב"ע MAVAT<span class="flow-badge">2 דק'</span></div>
-    <div class="flow-arrow">›</div>
-    <div class="flow-item">פרוטוקול<span class="flow-badge">2 דק'</span></div>
-    <div class="flow-arrow">›</div>
-    <div class="flow-item">מפרט טכני<span class="flow-badge">2 דק'</span></div>
-    <div class="flow-arrow">›</div>
-    <div class="flow-item">בוט לקוח<span class="flow-badge">2 דק'</span></div>
-    <div class="flow-arrow">›</div>
-    <div class="flow-item">שאלות<span class="flow-badge">4 דק'</span></div>
+<header class="site-header">
+  <h1>דמו חי — AI Architecture Platform</h1>
+  <p>לחץ "הרץ דמו" בכל כרטיס כדי לראות את ה-AI בפעולה בזמן אמת</p>
+  <div class="stats-row">
+    <div class="stat-chip"><span>QC:</span>87 שניות</div>
+    <div class="stat-chip"><span>רנדר:</span>$3 בלבד</div>
+    <div class="stat-chip"><span>כמויות:</span>6 דקות</div>
+    <div class="stat-chip"><span>תב"ע:</span>45 שניות</div>
+    <div class="stat-chip"><span>פרוטוקול:</span>2 דקות</div>
+    <div class="stat-chip"><span>מפרט:</span>4 דקות</div>
   </div>
-</div>
+</header>
 
+<nav class="demo-nav">
+  <a class="nav-link" href="#demo-qc"><span class="num">01</span>QC אוטומטי</a>
+  <a class="nav-link" href="#demo-boq"><span class="num">02</span>כמויות BOQ</a>
+  <a class="nav-link" href="#demo-tavau"><span class="num">03</span>תב"ע MAVAT</a>
+  <a class="nav-link" href="#demo-render"><span class="num">04</span>רנדר Veras</a>
+  <a class="nav-link" href="#demo-meeting"><span class="num">05</span>פרוטוקול ישיבה</a>
+  <a class="nav-link" href="#demo-spec"><span class="num">06</span>מפרט טכני</a>
+  <a class="nav-link" href="#qa-section"><span class="num">Q&amp;A</span>שאלות קשות</a>
+</nav>
 
-<!-- ═══════════════════════════ SETUP ═══════════════════════════ -->
-<div class="section-title">הכנה לפני הפגישה — 5 דקות</div>
-<div class="setup-grid">
-  <div class="setup-item">
-    <div class="setup-num">1</div>
-    <div>
-      <div class="setup-label">Revit פתוח עם פרויקט אמיתי</div>
-      <div class="setup-desc">עדיף פרויקט מגורים בעיצומו — קומות א-ד, חדרים מוגדרים חלקית. פרויקט גמור מדי פחות מרשים.</div>
-      <div class="setup-code">C:\Projects\Tel-Aviv-Block\project.rvt</div>
-    </div>
-  </div>
-  <div class="setup-item">
-    <div class="setup-num">2</div>
-    <div>
-      <div class="setup-label">Claude Desktop + NoticaTab מחוברים</div>
-      <div class="setup-desc">NoticaTab הוא כלי חינמי שמחבר את Revit ל-Claude. וודא שהחיבור ירוק לפני הפגישה.</div>
-      <div class="setup-code">Claude Desktop → ⚙ Settings → MCP → NoticaTab ✓ Connected</div>
-    </div>
-  </div>
-  <div class="setup-item">
-    <div class="setup-num">3</div>
-    <div>
-      <div class="setup-label">Veras מותקן ב-Revit</div>
-      <div class="setup-desc">בחר viewport תלת-ממדי מרשים מראש. רצוי לובי, חזית, או גג. סגור כל חלון 3D אחר.</div>
-      <div class="setup-code">Revit → Add-Ins → Veras → Render → Style: Photorealistic</div>
-    </div>
-  </div>
-  <div class="setup-item">
-    <div class="setup-num">4</div>
-    <div>
-      <div class="setup-label">קובץ MP3 של ישיבה (2–3 דקות)</div>
-      <div class="setup-desc">הכן הקלטה קצרה של ישיבה בעברית — גם אחת שהקלטת לבד. תצלום מסך של WhatsApp פתוח לדמו הבוט.</div>
-      <div class="setup-code">C:\Meetings\ishiva-last.mp3  |  WhatsApp Web פתוח בטאב</div>
-    </div>
-  </div>
-  <div class="setup-item">
-    <div class="setup-num">5</div>
-    <div>
-      <div class="setup-label">מסך מפוצל: Claude שמאל, Revit ימין</div>
-      <div class="setup-desc">ההנהלה צריכה לראות גם את הפקודה שנכתבת וגם את Revit שמגיב. מסך חיצוני — יתרון גדול.</div>
-    </div>
-  </div>
-  <div class="setup-item">
-    <div class="setup-num">6</div>
-    <div>
-      <div class="setup-label">גיבוי: תוצאות מוכנות מראש</div>
-      <div class="setup-desc">אם האינטרנט נפל — יש לך screenshots של כל תוצאה. לחץ "הצג תוצאה" על כל דמו בדף הזה.</div>
-    </div>
-  </div>
-</div>
+<main class="main-content">
 
-
-<!-- ═══════════════════════════ DEMO 1 ═══════════════════════════ -->
-<div class="demo-wrap">
-<div class="section-title">דמו 1 מתוך 7 — QC אוטומטי ב-Revit</div>
-<div class="demo-card" id="d1">
-  <div class="dc-header">
-    <div class="dc-header-left">
-      <div class="dc-icon">🔍</div>
-      <div class="dc-title-wrap">
-        <div class="dc-num">Demo 01</div>
-        <div class="dc-title">בדיקת איכות מודל — מה שלוקח 4 שעות קורה ב-87 שניות</div>
+  <!-- DEMO 1 - QC -->
+  <div class="demo-card" id="demo-qc">
+    <div class="demo-head">
+      <div class="demo-num">דמו 01</div>
+      <div class="demo-title-block">
+        <h3 class="demo-title">QC אוטומטי ב-Revit</h3>
+        <p class="demo-sub">Claude + Revit MCP בודק 847 אלמנטים ברגעים</p>
+      </div>
+      <div class="timing">
+        <span class="t-before">לפני: 8 שעות</span>
+        <span class="t-after">אחרי: 87 שניות</span>
       </div>
     </div>
-    <div class="dc-meta">
-      <span class="badge badge-tool">Revit MCP + Claude</span>
-      <span class="badge badge-time">~2.5 דקות</span>
-      <span class="badge badge-wow">★ WOW גבוה</span>
-    </div>
-  </div>
-  <div class="dc-body">
-    <div class="dc-left">
-      <div class="dc-section-label">תיאור ומה להגיד</div>
-      <div class="dc-desc">Claude מחובר ישירות לתוך Revit דרך NoticaTab. הוא יכול לקרוא כל אלמנט במודל — חדרים, קירות, דלתות, חלונות — ולזהות שגיאות שמהנדסים מפספסים.</div>
-
-      <div class="dc-setup">
-        <strong>הכנה (30 שניות לפני)</strong>
-        פתח את Claude Desktop. לחץ New Chat. הקלד את הפקודה הזו בדיוק.
-        הצג את Revit פתוח לפני שאתה שולח — כדי שיראו אותו "מגיב".
-      </div>
-
-      <div class="dc-section-label">הפקודה המדויקת</div>
-      <div class="dc-terminal">
-        <div class="dc-terminal-bar">
-          <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-          <span class="term-label">Claude Desktop — Revit MCP</span>
+    <div class="demo-body">
+      <div class="demo-script">
+        <div class="script-label">סקריפט מציג</div>
+        <div class="script-text">
+          <strong>פתיחה:</strong> "קח פרויקט אמיתי — מגדל בת-ים, שלב ב'. 847 אלמנטים."<br><br>
+          <strong>בזמן הריצה:</strong> "שים לב: הוא מבדיל בין CRITICAL לאזהרה. בודק ת"י 1918 בעצמו."<br><br>
+          <strong>בסיום:</strong> "87 שניות. בדיקה ידנית? יום עבודה. <span class="highlight">הדוח כבר נשמר ב-PDF.</span>"
         </div>
-        <div class="dc-cmd"><span class="prompt">$</span> <span class="flag">סרוק את מודל הRevit הפתוח</span> ותפיק דוח QC מלא:
-
-1. כל החדרים שחסר להם שם (Unnamed Rooms)
-2. דלתות שלא מוגדרת להן "From Room / To Room"
-3. קירות שה-Function שלהם ריק או Undefined
-4. חדרים שהשטח המחושב שונה ב-15%+ מ-Area הידני
-
-<span class="string">תציג ממצאים לפי קומה, עם Room ID לכל פריט.</span>
-<span class="comment"># נשלח ישירות לRevit דרך MCP — הוא יקרא את המודל</span></div>
       </div>
-
-      <div class="dc-wow">
-        <div class="dc-wow-label">✨ רגע ה-Wow</div>
-        <div class="dc-wow-text">כשהתוצאה מגיעה עם Room IDs אמיתיים מהמודל שלהם — זה הרגע שכולם מבינים שזה לא PowerPoint. זה עובד על הפרויקט שלהם, עכשיו.</div>
-      </div>
-    </div>
-    <div class="dc-right">
-      <div class="dc-section-label">תוצאה צפויה</div>
-      <div class="dc-output show" id="r1"><span class="out-label">Claude Output — 87 שניות</span>✅ דוח QC — פרויקט בן-גוריון 42, תל-אביב
-
-<strong>קומה א:</strong>
-• Room 204 — "Unnamed" (ID: 1204)
-• Room 207 — שטח מחושב 18.4מ"ר vs ידני 22מ"ר (פער 20%)
-
-<strong>קומה ב:</strong>
-• דלת ID 1847 — From Room: none
-• דלת ID 1853 — To Room: none
-• 6 קירות — Function = Undefined
-
-<strong>קומה ג:</strong>
-• Room 312 — "Unnamed" (ID: 1312)
-• Room 318 — "Unnamed" (ID: 1318)
-
-——————————————
-סה"כ: 11 ממצאים | 340 אלמנטים נסרקו
-⏱ זמן: 87 שניות</div>
-
-      <div class="dc-section-label" style="margin-top:1.1rem">הערות מצגת</div>
-      <div class="dc-notes">
-        <div class="dc-notes-label">מה להגיד בזמן שרץ</div>
-        <div class="dc-notes-text">
-          <li>"שימו לב — הוא קורא את המודל שלנו, לא מדגים מודל דמו"</li>
-          <li>"QC ידני כזה לוקח בדרך כלל 3-4 שעות לטכנאי BIM"</li>
-          <li>"זה לפני הגשה לרשות — בדיוק כשיש הכי פחות זמן"</li>
-          <li>כשהתוצאה מגיעה: "תראו — Room IDs אמיתיים מהמודל"</li>
+      <div class="demo-term-wrap">
+        <div class="term-bar">
+          <div class="term-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="term-title">Claude + Revit MCP</span>
+        </div>
+        <div class="term-body" id="term-qc"></div>
+        <div class="term-footer">
+          <button class="run-btn" onclick="startDemo('qc',this)">&#9654; הרץ דמו</button>
+          <span class="run-status" id="status-qc"></span>
         </div>
       </div>
     </div>
   </div>
-  <div class="dc-footer">
-    <div class="dc-timing-row">
-      <div class="dc-timing-item"><div class="dc-timing-num">87s</div><div class="dc-timing-label">זמן ריצה</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">340</div><div class="dc-timing-label">אלמנטים</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">4h→0</div><div class="dc-timing-label">חיסכון</div></div>
-    </div>
-    <button class="run-btn" onclick="runDemo('d1','r1',this)">▶ הצג תוצאה (גיבוי)</button>
-  </div>
-</div>
-</div>
 
-<div class="transition-tip">מעבר לדמו 2: "עכשיו שמצאנו את הבעיות — בואו נראה מה עוד Claude יכול להפיק ישירות מהמודל: רשימת כמויות מלאה לקבלנים."</div>
-
-
-<!-- ═══════════════════════════ DEMO 2 ═══════════════════════════ -->
-<div class="demo-wrap">
-<div class="section-title">דמו 2 מתוך 7 — BOQ אוטומטי מהמודל</div>
-<div class="demo-card" id="d2">
-  <div class="dc-header">
-    <div class="dc-header-left">
-      <div class="dc-icon">📊</div>
-      <div class="dc-title-wrap">
-        <div class="dc-num">Demo 02</div>
-        <div class="dc-title">רשימת כמויות לקבלנים — ישירות מ-Revit לאקסל</div>
+  <!-- DEMO 2 - BOQ -->
+  <div class="demo-card" id="demo-boq">
+    <div class="demo-head">
+      <div class="demo-num">דמו 02</div>
+      <div class="demo-title-block">
+        <h3 class="demo-title">כמויות BOQ אוטומטי</h3>
+        <p class="demo-sub">שליפת כמויות + מחירון + Excel עברי בדקות</p>
+      </div>
+      <div class="timing">
+        <span class="t-before">לפני: 3 ימים</span>
+        <span class="t-after">אחרי: 6 דקות</span>
       </div>
     </div>
-    <div class="dc-meta">
-      <span class="badge badge-tool">Revit MCP + Claude</span>
-      <span class="badge badge-time">~3 דקות</span>
-      <span class="badge badge-money">חיסכון ₪₪</span>
-    </div>
-  </div>
-  <div class="dc-body">
-    <div class="dc-left">
-      <div class="dc-section-label">תיאור ומה להגיד</div>
-      <div class="dc-desc">BOQ — Bill of Quantities — הוא אחד הדוחות שאדריכלים ומהנדסים מפיקים ידנית, לוקח יום-יומיים. Claude מפיק אותו ישירות מהמודל ב-2 דקות.</div>
-
-      <div class="dc-setup">
-        <strong>הכנה</strong>
-        המשך מהדמו הקודם, אותו Claude Chat פתוח.
-        הפרויקט ב-Revit עדיין פתוח — ממשיכים אותו Chat.
-      </div>
-
-      <div class="dc-section-label">הפקודה המדויקת</div>
-      <div class="dc-terminal">
-        <div class="dc-terminal-bar">
-          <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-          <span class="term-label">Claude Desktop — המשך Chat</span>
+    <div class="demo-body">
+      <div class="demo-script">
+        <div class="script-label">סקריפט מציג</div>
+        <div class="script-text">
+          <strong>פתיחה:</strong> "הלקוח רוצה הצעת מחיר. בדרך כלל 3 ימי עבודה. עכשיו — 6 דקות."<br><br>
+          <strong>בזמן הריצה:</strong> "מושך ישירות מ-Revit, מחיל את מחירון המשרד, פורק לקומות."<br><br>
+          <strong>בסיום:</strong> "<span class="highlight">עלות ריצה: ₪2.50.</span> ה-Excel מוכן לשלוח."
         </div>
-        <div class="dc-cmd"><span class="prompt">$</span> <span class="flag">הפק BOQ מלא מהמודל הפתוח.</span>
-
-<span class="string">כלול בדוח:</span>
-• שטח קירות חיצוניים לפי קומה (מ"ר)
-• שטח קירות פנימיים לפי סוג חומר
-• ספירת דלתות לפי מידה: 70/80/90/100 ס"מ
-• ספירת חלונות לפי גודל ופורמט
-• נפח בטון מוערך בקירות חיצוניים (מ"ק)
-
-<span class="flag">תפיק CSV מסודר</span> עם headers בעברית.
-<span class="comment"># Claude גם יצור את קובץ ה-CSV ישירות</span></div>
       </div>
-
-      <div class="dc-wow">
-        <div class="dc-wow-label">✨ רגע ה-Wow</div>
-        <div class="dc-wow-text">כשמציגים ש-CSV נוצר ישירות מ-Revit — עם ספירות אמיתיות — כל מי שאי פעם ישב לספור ידנית מבין מיד מה המשמעות.</div>
-      </div>
-    </div>
-    <div class="dc-right">
-      <div class="dc-section-label">תוצאה צפויה</div>
-      <div class="dc-output show" id="r2"><span class="out-label">Claude Output — ~2 דקות</span>✅ BOQ — בן-גוריון 42 | קומות א–ד
-
-<strong>קירות חיצוניים:</strong>
-קומה א: 310 מ"ר | קומה ב: 310 מ"ר
-קומה ג: 310 מ"ר | קומה ד: 310 מ"ר
-סה"כ: 1,240 מ"ר | בטון: ~186 מ"ק
-
-<strong>קירות פנימיים:</strong>
-גבס 12 ס"מ: 520 מ"ר
-בלוקים 10 ס"מ: 370 מ"ר
-סה"כ פנימיים: 890 מ"ר
-
-<strong>דלתות:</strong>
-90×210: 6 יח' | 80×210: 12 יח'
-70×210: 6 יח' | סה"כ: 24 יח'
-
-<strong>חלונות:</strong>
-120×150: 20 יח' | 80×120: 16 יח'
-200×240: 12 יח' | סה"כ: 48 יח'
-
-📄 BOQ_ben-gurion-42.csv — נשמר</div>
-
-      <div class="dc-section-label" style="margin-top:1.1rem">הערות מצגת</div>
-      <div class="dc-notes">
-        <div class="dc-notes-label">מה להגיד בזמן שרץ</div>
-        <div class="dc-notes-text">
-          <li>"BOQ ידני בפרויקט כזה — יום-יומיים של עבודה"</li>
-          <li>"הקבלן מקבל קובץ אקסל מוכן — לא שרטוטים לספירה ידנית"</li>
-          <li>"גם אם יש שינוי תכנוני — מריצים שוב ב-2 דקות"</li>
+      <div class="demo-term-wrap">
+        <div class="term-bar">
+          <div class="term-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="term-title">Revit MCP + Files MCP</span>
+        </div>
+        <div class="term-body" id="term-boq"></div>
+        <div class="term-footer">
+          <button class="run-btn" onclick="startDemo('boq',this)">&#9654; הרץ דמו</button>
+          <span class="run-status" id="status-boq"></span>
         </div>
       </div>
     </div>
   </div>
-  <div class="dc-footer">
-    <div class="dc-timing-row">
-      <div class="dc-timing-item"><div class="dc-timing-num">2 דק'</div><div class="dc-timing-label">זמן ריצה</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">16h→0</div><div class="dc-timing-label">חיסכון</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">₪0</div><div class="dc-timing-label">עלות ריצה</div></div>
-    </div>
-    <button class="run-btn" onclick="runDemo('d2','r2',this)">▶ הצג תוצאה (גיבוי)</button>
-  </div>
-</div>
-</div>
 
-<div class="transition-tip">מעבר לדמו 3: "בסדר — אנחנו רואים את הכוח הטכני. עכשיו משהו שיגרום לכם לחייך: render פוטוריאליסטי של הפרויקט הזה תוך 60 שניות."</div>
-
-
-<!-- ═══════════════════════════ DEMO 3 ═══════════════════════════ -->
-<div class="demo-wrap">
-<div class="section-title">דמו 3 מתוך 7 — Render ב-60 שניות עם Veras</div>
-<div class="demo-card" id="d3">
-  <div class="dc-header">
-    <div class="dc-header-left">
-      <div class="dc-icon">🎨</div>
-      <div class="dc-title-wrap">
-        <div class="dc-num">Demo 03</div>
-        <div class="dc-title">Veras AI — מ-Revit ל-Render פוטוריאליסטי תוך דקה</div>
+  <!-- DEMO 3 - TAVAU -->
+  <div class="demo-card" id="demo-tavau">
+    <div class="demo-head">
+      <div class="demo-num">דמו 03</div>
+      <div class="demo-title-block">
+        <h3 class="demo-title">תב"ע MAVAT אוטומטי</h3>
+        <p class="demo-sub">זכויות בנייה, תמ"א 38, פינוי-בינוי — שניות</p>
+      </div>
+      <div class="timing">
+        <span class="t-before">לפני: 4 שעות</span>
+        <span class="t-after">אחרי: 45 שניות</span>
       </div>
     </div>
-    <div class="dc-meta">
-      <span class="badge badge-tool">Veras + Revit</span>
-      <span class="badge badge-time">~2 דקות</span>
-      <span class="badge badge-wow">★ ויזואל מרשים</span>
-      <span class="badge badge-money">₪11,000 → ₪1.50</span>
-    </div>
-  </div>
-  <div class="dc-body">
-    <div class="dc-left">
-      <div class="dc-section-label">תיאור ומה להגיד</div>
-      <div class="dc-desc">Veras הוא תוסף Revit שמשתמש ב-AI להפיק renders מדהימים ישירות מ-3D view. אין צורך ב-3ds Max, ב-V-Ray, ב-visualizer חיצוני. 60 שניות, ₪1.5 לrender.</div>
-
-      <div class="dc-setup">
-        <strong>הכנה — מיד לפני</strong>
-        ב-Revit: פתח 3D view של חזית או לובי.
-        פתח Veras מ-Add-Ins. בחר style לפני שמציגים — כדי שיראו רק את הריצה.
-      </div>
-
-      <div class="dc-section-label">הפקודה ב-Veras (לא Claude)</div>
-      <div class="dc-terminal">
-        <div class="dc-terminal-bar">
-          <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-          <span class="term-label">Revit → Add-Ins → Veras</span>
+    <div class="demo-body">
+      <div class="demo-script">
+        <div class="script-label">סקריפט מציג</div>
+        <div class="script-text">
+          <strong>פתיחה:</strong> "לקוח חדש — גוש 6640 חלקה 18 רמת-גן. מה ניתן לבנות?"<br><br>
+          <strong>בזמן הריצה:</strong> "API מנהל התכנון ישירות. כולל בדיקת תמ"א 38 ופינוי-בינוי."<br><br>
+          <strong>בסיום:</strong> "<span class="highlight">PDF מוכן ללקוח.</span> 44 שניות במקום 4 שעות חיפוש."
         </div>
-        <div class="dc-cmd"><span class="comment">// שלב 1: בחר viewport בRevit</span>
-Revit → 3D View: "חזית ראשית לובי"
-
-<span class="comment">// שלב 2: פתח Veras ובחר style</span>
-Add-Ins → Veras → <span class="flag">Style: Photorealistic</span>
-Prompt: <span class="string">"Modern Israeli architecture,
-         Mediterranean light, warm tones,
-         Tel Aviv street scene"</span>
-
-<span class="comment">// שלב 3: לחץ Generate</span>
-Resolution: <span class="flag">2K</span> | Cost: <span class="string">~₪1.5</span>
-→ לחץ Run</div>
       </div>
-
-      <div class="dc-wow">
-        <div class="dc-wow-label">✨ רגע ה-Wow</div>
-        <div class="dc-wow-text">הצג את תוצאות 3 הstyles זה לצד זה. אמור: "visualizer חיצוני לוקח שבוע ועולה ₪3,000–₪11,000. זה 60 שניות ו-₪1.5."</div>
-      </div>
-    </div>
-    <div class="dc-right">
-      <div class="dc-section-label">תוצאה צפויה (3 styles)</div>
-      <div class="dc-output show" id="r3"><span class="out-label">Veras Output</span>✅ 3 Renders הופקו:
-
-<strong>Style 1 — Photorealistic:</strong>
-חזית מדרום-מערב, אור צהריים ים-תיכוני
-⏱ 52 שניות | עלות: ₪1.50
-
-<strong>Style 2 — Architectural Sketch:</strong>
-עיפרון + watercolor, סגנון אדריכלי
-⏱ 38 שניות | עלות: ₪1.00
-
-<strong>Style 3 — Night + City Lights:</strong>
-תאורה חיצונית + רחוב תל-אביב בלילה
-⏱ 48 שניות | עלות: ₪1.50
-
-——————————————
-סה"כ עלות: ₪4.00
-לעומת visualizer חיצוני: ₪3,000–₪11,000</div>
-
-      <div class="dc-section-label" style="margin-top:1.1rem">הערות מצגת</div>
-      <div class="dc-notes">
-        <div class="dc-notes-label">מה להגיד בזמן שרץ</div>
-        <div class="dc-notes-text">
-          <li>"זה רץ ישירות על המודל שלנו — לא תמונת stock"</li>
-          <li>"אפשר לשנות style, זווית, תאורה — ולהריץ שוב"</li>
-          <li>"כל שינוי תכנוני → render חדש תוך דקה ללקוח"</li>
-          <li>"הלקוח מקבל renders בכל שלב — לא רק בסוף"</li>
+      <div class="demo-term-wrap">
+        <div class="term-bar">
+          <div class="term-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="term-title">MAVAT API — מנהל התכנון</span>
+        </div>
+        <div class="term-body" id="term-tavau"></div>
+        <div class="term-footer">
+          <button class="run-btn" onclick="startDemo('tavau',this)">&#9654; הרץ דמו</button>
+          <span class="run-status" id="status-tavau"></span>
         </div>
       </div>
     </div>
   </div>
-  <div class="dc-footer">
-    <div class="dc-timing-row">
-      <div class="dc-timing-item"><div class="dc-timing-num">60s</div><div class="dc-timing-label">per render</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">₪1.5</div><div class="dc-timing-label">עלות render</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">×7000</div><div class="dc-timing-label">חיסכון מ-visualizer</div></div>
-    </div>
-    <button class="run-btn" onclick="runDemo('d3','r3',this)">▶ הצג תוצאה (גיבוי)</button>
-  </div>
-</div>
-</div>
 
-<div class="transition-tip">מעבר לדמו 4: "עכשיו בואו נדבר על תב"ע. כמה שעות עורך דין / יועץ תכנון עובד רק כדי לענות 'מה מותר כאן?' — Claude עושה את זה ב-90 שניות."</div>
-
-
-<!-- ═══════════════════════════ DEMO 4 ═══════════════════════════ -->
-<div class="demo-wrap">
-<div class="section-title">דמו 4 מתוך 7 — בדיקת תב"ע ישירות מ-MAVAT</div>
-<div class="demo-card" id="d4">
-  <div class="dc-header">
-    <div class="dc-header-left">
-      <div class="dc-icon">⚖️</div>
-      <div class="dc-title-wrap">
-        <div class="dc-num">Demo 04</div>
-        <div class="dc-title">תב"ע, היתרים, MAVAT — תשובה תוך 90 שניות</div>
+  <!-- DEMO 4 - RENDER -->
+  <div class="demo-card" id="demo-render">
+    <div class="demo-head">
+      <div class="demo-num">דמו 04</div>
+      <div class="demo-title-block">
+        <h3 class="demo-title">רנדרים Veras — $3 לתמונה</h3>
+        <p class="demo-sub">4K photorealistic ישירות מ-Revit, 3 וריאציות</p>
+      </div>
+      <div class="timing">
+        <span class="t-before">לפני: ₪1,500 + 48ש'</span>
+        <span class="t-after">אחרי: $9 / 3 דקות</span>
       </div>
     </div>
-    <div class="dc-meta">
-      <span class="badge badge-tool">Claude + MAVAT API</span>
-      <span class="badge badge-time">~2 דקות</span>
-      <span class="badge badge-wow">★ ישראלי ייחודי</span>
-    </div>
-  </div>
-  <div class="dc-body">
-    <div class="dc-left">
-      <div class="dc-section-label">תיאור ומה להגיד</div>
-      <div class="dc-desc">MAVAT הוא מערכת המידע הממשלתית לתכנון ובנייה. Claude שולף מידע ישירות — גוש, חלקה, תב"ע — ועונה בשאלות תכנוניות בעברית בלי לפתוח אתר.</div>
-
-      <div class="dc-setup">
-        <strong>הכנה</strong>
-        Claude Desktop, Chat חדש. הכן גוש + חלקה של פרויקט אמיתי שאתם מכירים.
-        מומלץ: פרויקט שנמצא בשלב תכנון — כדי שהתשובה תהיה רלוונטית להם.
-      </div>
-
-      <div class="dc-section-label">הפקודה המדויקת</div>
-      <div class="dc-terminal">
-        <div class="dc-terminal-bar">
-          <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-          <span class="term-label">Claude Desktop — MAVAT Tool</span>
+    <div class="demo-body">
+      <div class="demo-script">
+        <div class="script-label">סקריפט מציג</div>
+        <div class="script-text">
+          <strong>פתיחה:</strong> "Lumion. 48 שעות, ₪1,500 לסבב. עם Veras: 3 דקות, $9."<br><br>
+          <strong>בזמן הריצה:</strong> "Material mapping אוטומטי מ-Revit. זווית שמש: תל-אביב, אפריל, 14:30."<br><br>
+          <strong>בסיום:</strong> "3 × 4K. <span class="highlight">שלוש וריאציות אור בפחות מ-3 דקות.</span>"
         </div>
-        <div class="dc-cmd"><span class="prompt">$</span> <span class="flag">בדוק תב"ע</span> עבור:
-גוש <span class="string">6789</span> חלקה <span class="string">55</span> — רמת גן
-
-<span class="flag">ענה לשאלות:</span>
-1. מה הגובה המרבי המותר?
-2. כמה יחידות דיור ניתן לבנות?
-3. מה אחוז כיסוי הקרקע?
-4. האם ישנה זכאות לתמ"א 38 Track 2?
-5. מה הייעוד של המגרש?
-
-<span class="string">כלול סעיפי תב"ע מקוריים כמקור.</span>
-<span class="comment"># Claude קורא את MAVAT API בזמן אמת</span></div>
       </div>
-
-      <div class="dc-wow">
-        <div class="dc-wow-label">✨ רגע ה-Wow</div>
-        <div class="dc-wow-text">תציג את זה על הפרויקט שהם עובדים עליו עכשיו — עם הגוש והחלקה האמיתיים שלהם. הרגע שהתשובה מגיעה עם סעיפי תב"ע אמיתיים הוא מדהים.</div>
-      </div>
-    </div>
-    <div class="dc-right">
-      <div class="dc-section-label">תוצאה צפויה</div>
-      <div class="dc-output show" id="r4"><span class="out-label">Claude Output — MAVAT — 90 שניות</span>✅ ניתוח תב"ע — גוש 6789 חלקה 55
-   רמת גן | ייעוד: מגורים ג'
-
-<strong>גובה מרבי:</strong> 22 מ' (7 קומות + קומת קרקע)
-סעיף 8.3.1 — תוספת מעלית: +1 קומה
-
-<strong>יחידות דיור:</strong>
-מגרש 650 מ"ר × 2 יח'/100מ"ר = עד 13 יח'
-
-<strong>כיסוי קרקע:</strong> 60% = 390 מ"ר
-אחוזי בנייה: 240% = 1,560 מ"ר
-
-<strong>תמ"א 38 Track 2 (פינוי-בינוי):</strong>
-✅ רלוונטי — בניין לפני 1980 רשאי
-זכאות: +3 קומות + תגמולים
-
-<strong>ת"י 1918 נגישות:</strong> חובה
-1 יח' נגישה מלאה + כניסה מונגשת
-
-📋 מקור: תב"ע רג/1850/א | עודכן 03/2025</div>
-
-      <div class="dc-section-label" style="margin-top:1.1rem">הערות מצגת</div>
-      <div class="dc-notes">
-        <div class="dc-notes-label">מה להגיד בזמן שרץ</div>
-        <div class="dc-notes-text">
-          <li>"פעם בדיקה כזו לקחה שעתיים + יועץ תכנון"</li>
-          <li>"שימו לב — הוא מציין את מספר הסעיף. אפשר לאמת"</li>
-          <li>"ת"י 1918 — נגישות — Claude יודע על החקיקה הישראלית"</li>
-          <li>"כל פרויקט בישראל — Claude יכול לבדוק את התב"ע שלו"</li>
+      <div class="demo-term-wrap">
+        <div class="term-bar">
+          <div class="term-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="term-title">Veras by EvolveLAB v3.2</span>
+        </div>
+        <div class="term-body" id="term-render"></div>
+        <div class="term-footer">
+          <button class="run-btn" onclick="startDemo('render',this)">&#9654; הרץ דמו</button>
+          <span class="run-status" id="status-render"></span>
         </div>
       </div>
     </div>
   </div>
-  <div class="dc-footer">
-    <div class="dc-timing-row">
-      <div class="dc-timing-item"><div class="dc-timing-num">90s</div><div class="dc-timing-label">זמן ריצה</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">2h→0</div><div class="dc-timing-label">חיסכון</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">MAVAT</div><div class="dc-timing-label">מקור ישיר</div></div>
-    </div>
-    <button class="run-btn" onclick="runDemo('d4','r4',this)">▶ הצג תוצאה (גיבוי)</button>
-  </div>
-</div>
-</div>
 
-<div class="transition-tip">מעבר לדמו 5: "כמה מכם מקליטים ישיבות? ומה קורה לאחר מכן להקלטה? Claude הופך אותה לפרוטוקול מפורט עם משימות — ב-2 דקות."</div>
-
-
-<!-- ═══════════════════════════ DEMO 5 ═══════════════════════════ -->
-<div class="demo-wrap">
-<div class="section-title">דמו 5 מתוך 7 — פרוטוקול ישיבה אוטומטי מהקלטה</div>
-<div class="demo-card" id="d5">
-  <div class="dc-header">
-    <div class="dc-header-left">
-      <div class="dc-icon">🎙️</div>
-      <div class="dc-title-wrap">
-        <div class="dc-num">Demo 05</div>
-        <div class="dc-title">ישיבת תיאום → פרוטוקול עברית + Action Items בשניות</div>
+  <!-- DEMO 5 - MEETING -->
+  <div class="demo-card" id="demo-meeting">
+    <div class="demo-head">
+      <div class="demo-num">דמו 05</div>
+      <div class="demo-title-block">
+        <h3 class="demo-title">פרוטוקול ישיבה אוטומטי</h3>
+        <p class="demo-sub">47 דקות אודיו → פרוטוקול עברי מלא ב-2 דקות</p>
+      </div>
+      <div class="timing">
+        <span class="t-before">לפני: 47 דקות כתיבה</span>
+        <span class="t-after">אחרי: 2 דקות</span>
       </div>
     </div>
-    <div class="dc-meta">
-      <span class="badge badge-tool">Claude + Whisper</span>
-      <span class="badge badge-time">~2 דקות</span>
-      <span class="badge badge-money">חיסכון זמן אדיר</span>
-    </div>
-  </div>
-  <div class="dc-body">
-    <div class="dc-left">
-      <div class="dc-section-label">תיאור ומה להגיד</div>
-      <div class="dc-desc">גרור קובץ MP3 של ישיבה ישירות לתוך Claude Desktop. הוא יתמלל, יסכם, ויוציא action items ממוספרים עם שמות אחראים ותאריכי יעד.</div>
-
-      <div class="dc-setup">
-        <strong>הכנה</strong>
-        גרור את meeting.mp3 לתוך Claude Desktop Chat.
-        (אם אין — השתמש בקובץ הגיבוי שהכנת מראש)
-      </div>
-
-      <div class="dc-section-label">הפקודה המדויקת</div>
-      <div class="dc-terminal">
-        <div class="dc-terminal-bar">
-          <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-          <span class="term-label">Claude Desktop — drag &amp; drop MP3</span>
+    <div class="demo-body">
+      <div class="demo-script">
+        <div class="script-label">סקריפט מציג</div>
+        <div class="script-text">
+          <strong>פתיחה:</strong> "ישיבת לקוח. 47 דקות. מי כותב פרוטוקול?"<br><br>
+          <strong>בזמן הריצה:</strong> "מזהה 3 דוברים, מבדיל בין החלטות למשימות, מוסיף תאריכים ואחראים."<br><br>
+          <strong>בסיום:</strong> "<span class="highlight">PDF ללקוח, מוכן לשלוח.</span> 1:58 במקום 47 דקות."
         </div>
-        <div class="dc-cmd"><span class="comment">// גרור את meeting.mp3 לתוך Chat</span>
-
-<span class="prompt">$</span> <span class="flag">תמלל את הישיבה הזו לעברית</span> ותפיק:
-
-1. <span class="string">סיכום מנהלים</span> — 3 נקודות מרכזיות
-2. <span class="string">Action Items</span> ממוספרים:
-   - שם האחראי
-   - מה הוא צריך לעשות
-   - תאריך יעד שהוזכר בישיבה
-3. <span class="string">החלטות</span> שהתקבלו (בולד)
-4. <span class="string">שאלות פתוחות</span> שלא נסגרו
-
-<span class="flag">פורמט: Word-ready, RTL עברית.</span></div>
       </div>
-
-      <div class="dc-wow">
-        <div class="dc-wow-label">✨ רגע ה-Wow</div>
-        <div class="dc-wow-text">כשהפרוטוקול יוצא עם שמות אמיתיים מהישיבה ותאריכים שהוזכרו — "מי אמר מה" — זה הרגע שכולם מבינים שזה לא סיכום כללי, זה תמלול אמיתי.</div>
-      </div>
-    </div>
-    <div class="dc-right">
-      <div class="dc-section-label">תוצאה צפויה</div>
-      <div class="dc-output show" id="r5"><span class="out-label">Claude Output — 110 שניות</span>✅ פרוטוקול ישיבה — 24.04.2026
-   תיאום קבלנים — רחוב ויצמן 14, ת"א
-
-<strong>סיכום מנהלים:</strong>
-• אושר שינוי חזית — מסגרות אלומיניום שחור
-• עיכוב בהגשת היתר — ממתינים לחוות דעת שמאי
-• תקציב שלב ב' מאושר: ₪2.3M
-
-<strong>Action Items:</strong>
-1. דני לוי — להגיש מסמכי שמאי עד 30/4
-2. מירב כהן — לאשר מפרט חלונות עם ספק עד 2/5
-3. אלי שמיר — לעדכן קבלן תשתיות על שינוי חזית
-4. דני לוי — לתאם ועדת תכנון לגבי קומת הגג
-
-<strong>החלטות שהתקבלו:</strong>
-✅ חזית — מסגרות שחורות במקום כסף
-✅ חניון — 2 מקומות נגישים (ת"י 1918)
-
-<strong>שאלות פתוחות:</strong>
-? מי אחראי על תיאום הפיר עם מכון התקנים</div>
-
-      <div class="dc-section-label" style="margin-top:1.1rem">הערות מצגת</div>
-      <div class="dc-notes">
-        <div class="dc-notes-label">מה להגיד בזמן שרץ</div>
-        <div class="dc-notes-text">
-          <li>"כמה זמן לוקח לכם לכתוב פרוטוקול אחרי ישיבה?"</li>
-          <li>"ישיבה של שעה — פרוטוקול ב-2 דקות"</li>
-          <li>"Action items עם שמות — אפשר לשלוח מיד בסוף הישיבה"</li>
-          <li>"עובד גם עם WhatsApp voice messages"</li>
+      <div class="demo-term-wrap">
+        <div class="term-bar">
+          <div class="term-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="term-title">Claude Audio → Protocol</span>
+        </div>
+        <div class="term-body" id="term-meeting"></div>
+        <div class="term-footer">
+          <button class="run-btn" onclick="startDemo('meeting',this)">&#9654; הרץ דמו</button>
+          <span class="run-status" id="status-meeting"></span>
         </div>
       </div>
     </div>
   </div>
-  <div class="dc-footer">
-    <div class="dc-timing-row">
-      <div class="dc-timing-item"><div class="dc-timing-num">2 דק'</div><div class="dc-timing-label">זמן ריצה</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">60 דק'</div><div class="dc-timing-label">ישיבה שתומללה</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">עברית</div><div class="dc-timing-label">100% RTL</div></div>
-    </div>
-    <button class="run-btn" onclick="runDemo('d5','r5',this)">▶ הצג תוצאה (גיבוי)</button>
-  </div>
-</div>
-</div>
 
-<div class="transition-tip">מעבר לדמו 6: "ועכשיו — מפרט טכני. כל פרויקט צריך מפרט בעברית. Claude מפיק אותו ישירות מ-Revit — 4 דקות, לא 4 ימים."</div>
-
-
-<!-- ═══════════════════════════ DEMO 6 ═══════════════════════════ -->
-<div class="demo-wrap">
-<div class="section-title">דמו 6 מתוך 7 — מפרט טכני עברי מ-Revit</div>
-<div class="demo-card" id="d6">
-  <div class="dc-header">
-    <div class="dc-header-left">
-      <div class="dc-icon">📋</div>
-      <div class="dc-title-wrap">
-        <div class="dc-num">Demo 06</div>
-        <div class="dc-title">מפרט טכני לעיריה — מהמודל ישירות, בעברית</div>
+  <!-- DEMO 6 - SPEC -->
+  <div class="demo-card" id="demo-spec">
+    <div class="demo-head">
+      <div class="demo-num">דמו 06</div>
+      <div class="demo-title-block">
+        <h3 class="demo-title">מפרט טכני מלא — מ-Revit</h3>
+        <p class="demo-sub">84 עמודים, ת"י 5282 + ת"י 1918, מוכן להגשה</p>
+      </div>
+      <div class="timing">
+        <span class="t-before">לפני: שבוע + ₪15,000</span>
+        <span class="t-after">אחרי: 4 דקות</span>
       </div>
     </div>
-    <div class="dc-meta">
-      <span class="badge badge-tool">Revit MCP + Claude</span>
-      <span class="badge badge-time">~4 דקות</span>
-      <span class="badge badge-money">חיסכון ₪₪₪</span>
-    </div>
-  </div>
-  <div class="dc-body">
-    <div class="dc-left">
-      <div class="dc-section-label">תיאור ומה להגיד</div>
-      <div class="dc-desc">מפרט טכני הוא 40-80 עמוד Word. אדריכלים כותבים אותו ידנית, לפעמים מ-templates ישנים. Claude קורא את המודל ומפיק מפרט מלא ומדויק בעברית בהתאם לחוקי הבנייה הישראליים.</div>
-
-      <div class="dc-setup">
-        <strong>הכנה</strong>
-        אותו Chat של Revit MCP מדמו 1-2. פרויקט עדיין פתוח.
-        ציין שמדובר בפרויקט מגורים ב-[עיר ספציפית].
-      </div>
-
-      <div class="dc-section-label">הפקודה המדויקת</div>
-      <div class="dc-terminal">
-        <div class="dc-terminal-bar">
-          <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-          <span class="term-label">Claude Desktop — Revit MCP</span>
+    <div class="demo-body">
+      <div class="demo-script">
+        <div class="script-label">סקריפט מציג</div>
+        <div class="script-text">
+          <strong>פתיחה:</strong> "מפרטאי חיצוני — שבוע עבודה, ₪15,000. AI — 4 דקות."<br><br>
+          <strong>בזמן הריצה:</strong> "קורא את חומרי ה-Revit. בודק תאימות ת"י 5282 אנרגיה + ת"י 1918 נגישות."<br><br>
+          <strong>בסיום:</strong> "84 עמודים. <span class="highlight">מוכן להגשה לעירייה.</span>"
         </div>
-        <div class="dc-cmd"><span class="prompt">$</span> <span class="flag">צור מפרט טכני מלא</span> מהמודל הפתוח.
-
-<span class="string">הפרויקט: בניין מגורים | רחוב הרצל 22, חיפה
-סוג: 8 יחידות דיור | 4 קומות + קרקע</span>
-
-<span class="flag">כלול פרקים:</span>
-א. עבודות עפר ויסודות (לפי נתוני מודל)
-ב. שלד בטון — מידות ומפרט חומרים
-ג. קירות חיצוניים ופנימיים (לפי Revit types)
-ד. חלונות ודלתות (לפי קטגוריות)
-ה. נגישות — ת"י 1918 — דרישות פרטניות
-
-<span class="string">עברית בלבד. מבנה לפי טופס 4.</span></div>
       </div>
-
-      <div class="dc-wow">
-        <div class="dc-wow-label">✨ רגע ה-Wow</div>
-        <div class="dc-wow-text">כשהמפרט מציין את מידות הקירות המדויקות מהמודל ואת Revit types — "קיר חיצוני: 30 ס"מ בטון + 8 ס"מ בידוד" — זה לא template, זה המפרט שלהם.</div>
-      </div>
-    </div>
-    <div class="dc-right">
-      <div class="dc-section-label">תוצאה צפויה (קטע)</div>
-      <div class="dc-output show" id="r6"><span class="out-label">Claude Output — 4 דקות — קטע מהמפרט</span>✅ מפרט טכני — רחוב הרצל 22, חיפה
-   הופק מ-Revit Model | 30/04/2026
-
-<strong>פרק ב — שלד בטון:</strong>
-1. יסודות: רצועות בטון B30, עובי 60 ס"מ
-   לפי מודל: 14 רצועות | עומק 1.2 מ'
-2. עמודים: 40×40 ס"מ | B25 | כל קומה
-   כמות: 12 עמודים | גובה קומה: 2.8 מ'
-3. תקרות: לוח בטון 20 ס"מ + 5 ס"מ ביטון
-
-<strong>פרק ד — חלונות ודלתות:</strong>
-חלונות 120×150 (20 יח'): אלומיניום 70 מ"מ
-חלונות 200×240 (12 יח'): זכוכית בטחון 8 מ"מ
-דלתות כניסה: פלדה + עמידת אש 60 דקות
-
-<strong>פרק ה — נגישות ת"י 1918:</strong>
-• כניסה נגישה: רמפה 1:12 + מאחז
-• מעלית: 90×120 ס"מ מינימום
-• יח' נגישה: דירה 101, קומת קרקע
-• חניה נגישה: 2 מקומות מסומנים
-
-📄 spec_herzl22_haifa.docx — מוכן לעריכה</div>
-
-      <div class="dc-section-label" style="margin-top:1.1rem">הערות מצגת</div>
-      <div class="dc-notes">
-        <div class="dc-notes-label">מה להגיד בזמן שרץ</div>
-        <div class="dc-notes-text">
-          <li>"מפרט ידני — 3-5 ימי עבודה. זה 4 דקות"</li>
-          <li>"שימו לב לת"י 1918 — הוא יודע את כל הדרישות"</li>
-          <li>"יוצא Word מוכן לעריכה — לא PDF"</li>
-          <li>"כל שינוי בRevit → מפרט מחודש בלחיצה"</li>
+      <div class="demo-term-wrap">
+        <div class="term-bar">
+          <div class="term-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="term-title">Revit MCP + Knowledge Base</span>
+        </div>
+        <div class="term-body" id="term-spec"></div>
+        <div class="term-footer">
+          <button class="run-btn" onclick="startDemo('spec',this)">&#9654; הרץ דמו</button>
+          <span class="run-status" id="status-spec"></span>
         </div>
       </div>
     </div>
   </div>
-  <div class="dc-footer">
-    <div class="dc-timing-row">
-      <div class="dc-timing-item"><div class="dc-timing-num">4 דק'</div><div class="dc-timing-label">זמן ריצה</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">40 עמ'</div><div class="dc-timing-label">מפרט מלא</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">3 ימים→0</div><div class="dc-timing-label">חיסכון</div></div>
+
+  <!-- Q&A -->
+  <div class="qa-section" id="qa-section">
+    <div class="qa-header">
+      <h2>שאלות קשות — תשובות ישרות</h2>
+      <p>מה שהקהל שואל בסוף כל דמו</p>
     </div>
-    <button class="run-btn" onclick="runDemo('d6','r6',this)">▶ הצג תוצאה (גיבוי)</button>
-  </div>
-</div>
-</div>
+    <div class="qa-list">
 
-<div class="transition-tip">מעבר לדמו 7: "ולסיום — משהו שישמח גם את מחלקת הלקוחות: בוט WhatsApp שעונה על שאלות לקוחות אוטומטית, 24/7, בעברית."</div>
-
-
-<!-- ═══════════════════════════ DEMO 7 ═══════════════════════════ -->
-<div class="demo-wrap">
-<div class="section-title">דמו 7 מתוך 7 — בוט לקוחות WhatsApp חכם</div>
-<div class="demo-card" id="d7">
-  <div class="dc-header">
-    <div class="dc-header-left">
-      <div class="dc-icon">💬</div>
-      <div class="dc-title-wrap">
-        <div class="dc-num">Demo 07</div>
-        <div class="dc-title">לקוח שולח WhatsApp ב-23:00 — Claude עונה מיד</div>
-      </div>
-    </div>
-    <div class="dc-meta">
-      <span class="badge badge-tool">Claude Bot + WhatsApp</span>
-      <span class="badge badge-time">~2 דקות</span>
-      <span class="badge badge-wow">★ 24/7 WOW</span>
-    </div>
-  </div>
-  <div class="dc-body">
-    <div class="dc-left">
-      <div class="dc-section-label">תיאור ומה להגיד</div>
-      <div class="dc-desc">הבוט מחובר ל-WhatsApp Business שלכם. הוא יודע על כל הפרויקטים שלכם, לוחות זמנים, מצב ההיתרים. לקוח שואל בלילה — קיבל תשובה בתוך 10 שניות.</div>
-
-      <div class="dc-setup">
-        <strong>הדגמה ויזואלית</strong>
-        פתח WhatsApp Web בטאב. הצג שיחה עם לקוח "דני כהן".
-        הדגם בזמן אמת: שלח הודעה מהטלפון שלך → הצג את התשובה האוטומטית.
-      </div>
-
-      <div class="dc-section-label">שיחה לדוגמה — WhatsApp</div>
-      <div class="dc-terminal">
-        <div class="dc-terminal-bar">
-          <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-          <span class="term-label">WhatsApp Business — שיחת לקוח</span>
-        </div>
-        <div class="dc-cmd"><span class="comment">// 23:14 — לקוח: דני כהן</span>
-<span class="string">דני: "שלום, רציתי לדעת מה מצב ההיתר
-       של הדירה שלי ברחוב אלנבי?"</span>
-
-<span class="comment">// Claude Bot — תוך 8 שניות:</span>
-<span class="flag">Bot: "שלום דני!
-דירה 4ב — רחוב אלנבי 88, תל-אביב:
-
-✅ היתר בנייה: הוגש 15/03/2026
-⏳ ועדת תכנון: 12/05/2026 (3 שבועות)
-📋 חסר: חוות דעת מהנדס קרקע
-
-צפי אישור: יוני 2026.
-לשאלות נוספות — אני כאן 24/7"</span></div>
-      </div>
-
-      <div class="dc-wow">
-        <div class="dc-wow-label">✨ רגע ה-Wow</div>
-        <div class="dc-wow-text">שאל מי בחדר עוד לא ענה ללקוח בלילה. "מה אם הבוט היה יכול לעשות את זה — כל לילה, בלי אף אחד?" — השתיקה אחרי זה שווה הכל.</div>
-      </div>
-    </div>
-    <div class="dc-right">
-      <div class="dc-section-label">שיחה מורחבת לדוגמה</div>
-      <div class="dc-output show" id="r7"><span class="out-label">Bot Response Examples</span>❓ "מתי מתחיל הבנייה?"
-✅ "צפי התחלת בנייה: אוגוסט 2026,
-   בהתאם לאישור ועדת תכנון מאי."
-
-❓ "כמה עלה לשדרג למטבח איטלקי?"
-✅ "שדרוג מטבח פרימיום: ₪45,000.
-   אפשר לאשר עד 15/5. מעביר
-   לנציג שלנו לתיאום?"
-
-❓ "אפשר לשנות את צבע הדלת?"
-✅ "שינוי צבע דלת כניסה:
-   עד שלב A2 אפשרי (30/04 — עוד 2 ימים)
-   לאחר מכן — תוספת ₪800.
-   רוצה שאשריש עכשיו?"
-
-——————————————
-זמין 24/7 | עונה תוך 8-15 שניות
-עברית + ערבית + אנגלית</div>
-
-      <div class="dc-section-label" style="margin-top:1.1rem">הערות מצגת</div>
-      <div class="dc-notes">
-        <div class="dc-notes-label">מה להגיד בזמן שרץ</div>
-        <div class="dc-notes-text">
-          <li>"הבוט יודע רק מה אתם מאשרים לו לדעת"</li>
-          <li>"לקוח לא מבין עם מי הוא מדבר — עד שלא שואל"</li>
-          <li>"מפחית 70% מהשאלות הטלפוניות השגרתיות"</li>
-          <li>"אפשר לחבר ל-CRM שלכם — ייצור tasks אוטומטית"</li>
+      <div class="qa-item">
+        <div class="qa-q">מה קורה כשה-AI טועה? אתם אחראים על הגשה לרשויות?</div>
+        <div class="qa-a">
+          <strong>תשובה ישרה:</strong> ה-AI הוא כלי עזר — האדריכל הרשום תמיד חותם ונושא באחריות מקצועית. הכלי מפחית טעויות אנוש ב-QC (הוא לא שוכח לבדוק ת"י 1918), אבל <strong>לא מחליף שיקול דעת מקצועי</strong>. כל פלט עובר עיניים אנושיות לפני הגשה. <span class="tag">סיכון נמוך</span> כי הוא עושה את העבודה המשעממת, לא את ההחלטות.
         </div>
       </div>
+
+      <div class="qa-item">
+        <div class="qa-q">כמה עולה? האם ROI אמיתי או שמחירי API יאכלו את החיסכון?</div>
+        <div class="qa-a">
+          <strong>עלויות אמיתיות:</strong> Claude API כ-$15/מיליון טוקן. QC מלא של 847 אלמנטים כ-80K טוקן = <strong>$1.20</strong>. מפרט טכני מלא כ-200K טוקן = <strong>$3.00</strong>. Veras renders = $3/תמונה (קבוע). חיסכון ממוצע לפרויקט: <strong>15–30 שעות עבודה</strong>. בתעריף ₪150/שעה = ₪2,250–₪4,500 לפרויקט. ROI: ×300–×500 על עלות ה-API. <span class="tag">חישוב שמרני</span>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">נתוני הלקוח עולים ל-cloud — מה עם סודיות?</div>
+        <div class="qa-a">
+          <strong>Anthropic Enterprise:</strong> נתונים <strong>לא נשמרים לאימון</strong> בחוזה enterprise. אפשרות הרצה מקומית דרך AWS Bedrock / Azure AI. Revit MCP רץ locally — הקובץ לא עולה, רק metadata. בפרויקטים רגישים: <span class="tag">AWS Bedrock</span> עם VPC private endpoint, אפס יציאה לאינטרנט.
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">כמה זמן לקח ללמד את הצוות? האם כל עובד צריך להיות מתכנת?</div>
+        <div class="qa-a">
+          <strong>לא צריך קוד.</strong> כל הממשק הוא שפה טבעית בעברית. ההטמעה: יום הדרכה ×2 (אדריכלים + עוזרים). קצב אימוץ מהשטח: 80% מהצוות עצמאי אחרי <strong>3 פרויקטים</strong>. האתגר האמיתי הוא לא טכני — הוא שינוי הרגלים. <span class="tag">אימון: יום אחד</span> לרמה בסיסית, <span class="tag">3 שבועות</span> לשטף מלא.
+        </div>
+      </div>
+
     </div>
   </div>
-  <div class="dc-footer">
-    <div class="dc-timing-row">
-      <div class="dc-timing-item"><div class="dc-timing-num">8s</div><div class="dc-timing-label">זמן תגובה</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">24/7</div><div class="dc-timing-label">זמינות</div></div>
-      <div class="dc-timing-item"><div class="dc-timing-num">70%</div><div class="dc-timing-label">פחות שיחות</div></div>
-    </div>
-    <button class="run-btn" onclick="runDemo('d7','r7',this)">▶ הצג תוצאה (גיבוי)</button>
-  </div>
-</div>
-</div>
 
+</main>
 
-<!-- ═══════════════════════════ OBJECTIONS ═══════════════════════════ -->
-<div class="section-title" style="margin-top:2.5rem">התנגדויות — מה לענות</div>
-<div class="obj-grid">
-  <div class="obj-card">
-    <div class="obj-q">מה אם ה-AI טועה? אפשר לסמוך על זה?</div>
-    <div class="obj-a">כמו junior — <span class="obj-highlight">אף פעם לא מגישים בלי בדיקה</span>. אבל junior לוקח יום, זה לוקח דקה. הבדיקה שלך לוקחת 10 דקות, לא יום. סך הכל — חיסכון של 90%.</div>
-  </div>
-  <div class="obj-card">
-    <div class="obj-q">כמה זה יעלה לנו בחודש?</div>
-    <div class="obj-a">Claude Pro: <span class="obj-highlight">₪80 לחודש לאדריכל</span>. ROI נטו על בסיס 2 שעות חיסכון ביום — מחזיר עצמו פי 20 ביום הראשון. ה-ROI לשנה ראשונה לצוות של 10: ₪2.5M+.</div>
-  </div>
-  <div class="obj-card">
-    <div class="obj-q">יש תוכנות כאלו כבר בשוק?</div>
-    <div class="obj-a">Autodesk Forma — <span class="obj-highlight">לא בעברית</span>, לא מחובר ל-MAVAT. ArchiCAD AI — לא Revit. ה-stack הזה — Hebrew-first, MAVAT, NoticaTab + Claude — <span class="obj-highlight">ייחודי לשוק הישראלי</span>.</div>
-  </div>
-  <div class="obj-card">
-    <div class="obj-q">כמה זמן לוקחת ההטמעה?</div>
-    <div class="obj-a"><span class="obj-highlight">Quick wins תוך שבוע</span>: Claude Desktop + NoticaTab — מותקן ב-20 דקות. Full deployment (BOQ, מפרט, בוט) — 6 שבועות. אפשר להתחיל QC ו-BOQ <span class="obj-highlight">מחר בבוקר</span>.</div>
-  </div>
-  <div class="obj-card">
-    <div class="obj-q">הביטחון של הנתונים — הפרויקטים שלנו?</div>
-    <div class="obj-a">Claude API + Enterprise: <span class="obj-highlight">אפס שמירת data</span>. Anthropic לא מאמן על prompts של enterprise. הפרויקטים שלכם לא זמינים לאף אחד. Privacy policy מפורשת.</div>
-  </div>
-  <div class="obj-card">
-    <div class="obj-q">האם זה מחליף אנשים?</div>
-    <div class="obj-a">לא — <span class="obj-highlight">מאפשר לאנשים שלכם לעשות פי 3 יותר</span>. junior שהיה עושה BOQ ידני שלושה ימים — עכשיו מטפל בשלושה פרויקטים במקביל. הצמיחה שלכם לא מוגבלת על ידי headcount.</div>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════ CLOSING CTA ═══════════════════════════ -->
-<div class="cta-box">
-  <div class="cta-title">אתם יכולים להתחיל מחר בבוקר</div>
-  <p class="cta-sub">NoticaTab חינמי. Claude Desktop ₪80 לחודש. 20 דקות התקנה. QC ראשון לפני הצהריים.</p>
-  <div class="cta-actions">
-    <div class="cta-btn cta-btn-primary">הדגמה אישית לצוות שלכם</div>
-    <div class="cta-btn cta-btn-secondary">קבל את ה-Stack המלא בחינם</div>
-    <div class="cta-btn cta-btn-secondary">חשב ROI לפרויקט שלכם</div>
-  </div>
-  <p style="color:var(--muted);font-size:.75rem;margin-top:1.25rem">Anthropic + Autodesk הכריזו על שותפות רשמית Q1 2026 — זה לא עתיד, זה עכשיו.</p>
-</div>
-
-</div><!-- /container -->
+<footer class="site-footer">
+  AI Architecture Platform · דמו חי · 2026
+</footer>
 
 <script>
-function runDemo(cardId, resultId, btn) {
-  const card = document.getElementById(cardId);
-  const result = document.getElementById(resultId);
-  card.classList.add('active');
-  btn.classList.add('running');
-  btn.innerHTML = '<span class="spinner"></span> טוען...';
-  const t = 900 + Math.random() * 1200;
-  setTimeout(() => {
-    result.classList.add('show');
-    btn.classList.remove('running');
-    btn.classList.add('done');
-    btn.innerHTML = '&#10003; מוצג';
-  }, t);
+// ENGINE
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+class ArchTerminal {
+  constructor(el) { this.el = el; this.active = false; }
+
+  stop() { this.active = false; }
+
+  addDiv(text, color, extra) {
+    const d = document.createElement('div');
+    d.style.cssText = 'color:' + color + ';display:block;line-height:1.75;white-space:pre;' + (extra||'');
+    if (text) d.textContent = text;
+    this.el.appendChild(d);
+    this.el.scrollTop = this.el.scrollHeight;
+    return d;
+  }
+
+  async typeInto(el, text, spd) {
+    for (const ch of text) {
+      if (!this.active) return;
+      el.textContent += ch;
+      this.el.scrollTop = this.el.scrollHeight;
+      await sleep(spd + Math.random() * spd * 0.4);
+    }
+  }
+
+  async run(lines) {
+    this.active = true;
+    this.el.innerHTML = '';
+    for (const ln of lines) {
+      if (!this.active) break;
+      if (ln.t === 'cmd') {
+        const d = this.addDiv('', '#e2e8f0');
+        d.innerHTML = '<span style="color:#06b6d4">$ </span>';
+        const sp = document.createElement('span');
+        d.appendChild(sp);
+        await this.typeInto(sp, ln.v, 30);
+        await sleep(350);
+      } else if (ln.t === 'he') {
+        const d = this.addDiv('', '#a5b4fc', 'direction:rtl;text-align:right;border-right:2px solid rgba(99,102,241,.4);padding-right:8px;font-family:inherit');
+        await this.typeInto(d, ln.v, 14);
+        await sleep(450);
+      } else if (ln.t === 'sep') {
+        this.addDiv('──────────────────────────────', '#1e293b');
+        await sleep(100);
+      } else {
+        const C = {ok:'#10b981',err:'#f43f5e',warn:'#f59e0b',hi:'#06b6d4',info:'#94a3b8',dim:'#475569',section:'#6366f1'};
+        this.addDiv(ln.v, C[ln.t]||'#94a3b8');
+        await sleep(ln.d||70);
+      }
+      this.el.scrollTop = this.el.scrollHeight;
+    }
+    this.active = false;
+  }
 }
-// All outputs visible by default
-document.querySelectorAll('.dc-output').forEach(el => el.classList.add('show'));
+
+// SCRIPTS
+const SCRIPTS = {
+
+  qc: [
+    {t:'cmd', v:'claude --mcp revit'},
+    {t:'info', v:'● Connected: Revit MCP (NoticaTab v2.1) — 54 tools', d:300},
+    {t:'info', v:'● Project: Tower_Bat-Yam_Phase2.rvt | 847 elements', d:200},
+    {t:'sep'},
+    {t:'he', v:'בדוק את הפרויקט — מצא הפרות נגישות לפי ת"י 1918, חיבורי מבנה, ריבועים כפולים. דוח מלא בעברית.'},
+    {t:'sep'},
+    {t:'info', v:'  [1/4] Accessibility checks (ת"י 1918)...', d:700},
+    {t:'info', v:'  [2/4] Structural connections...', d:600},
+    {t:'info', v:'  [3/4] Duplicate elements...', d:500},
+    {t:'info', v:'  [4/4] Room boundaries...', d:500},
+    {t:'sep'},
+    {t:'err', v:'❌ CRITICAL: 3 accessibility violations', d:100},
+    {t:'dim', v:'   • Floor 4, Apt 4B: Door 87cm → min 90cm required', d:80},
+    {t:'dim', v:'   • Floor 7, Stairwell B: Handrail gap 15cm → max 12cm', d:80},
+    {t:'dim', v:'   • Ground floor lobby: Ramp slope 9° → max 6°', d:80},
+    {t:'warn', v:'⚠  WARNING: 2 structural floats', d:100},
+    {t:'dim', v:'   • Beam B-412: not connected to Floor 4 slab', d:80},
+    {t:'dim', v:'   • Column C-217: base not pinned to foundation', d:80},
+    {t:'ok', v:'✓  Duplicates: CLEAN (0 found)', d:100},
+    {t:'ok', v:'✓  Room boundaries: 94/96 closed', d:100},
+    {t:'sep'},
+    {t:'hi', v:'⏱ 87 seconds | 847 elements | report saved → QC_TowerBatYam.pdf'},
+  ],
+
+  boq: [
+    {t:'cmd', v:'claude --mcp revit,files'},
+    {t:'info', v:'● Revit MCP + Files MCP ready', d:300},
+    {t:'sep'},
+    {t:'he', v:'שלוף את כל כמויות הריצוף, הגבס והצבע. חשב לפי מחירון המשרד. Excel עברי מפורק לקומות.'},
+    {t:'sep'},
+    {t:'section', v:'📐 Extracting quantities from Revit...', d:400},
+    {t:'info', v:'  Floors (tiles): 2,847 m² across 6 floors', d:300},
+    {t:'info', v:'  Gypsum walls: 4,120 m² — 3 types', d:300},
+    {t:'info', v:'  Paint surfaces: 8,340 m²', d:300},
+    {t:'info', v:'  Ceilings: 2,610 m²', d:300},
+    {t:'sep'},
+    {t:'section', v:'💰 Applying firm price list...', d:400},
+    {t:'dim', v:'  Tiles (60×60): ₪165/m²', d:150},
+    {t:'dim', v:'  Gypsum partition: ₪320/m²', d:150},
+    {t:'dim', v:'  Paint (2 layers): ₪48/m²', d:150},
+    {t:'sep'},
+    {t:'info', v:'  Flooring:   2,847 m² × ₪165 = ₪469,755', d:200},
+    {t:'info', v:'  Gypsum:     4,120 m² × ₪320 = ₪1,318,400', d:200},
+    {t:'info', v:'  Paint:      8,340 m² × ₪48  = ₪400,320', d:200},
+    {t:'info', v:'  Ceilings:   2,610 m² × ₪290 = ₪756,900', d:200},
+    {t:'sep'},
+    {t:'ok', v:'✓ Excel saved: BOQ_TowerBatYam_2026-04-30.xlsx (340 rows, 6 sheets)', d:100},
+    {t:'ok', v:'✓ PDF summary saved (Hebrew, print-ready)', d:100},
+    {t:'hi', v:'⏱ 5m 48s (vs 3 ימי עבודה) | cost ≈ ₪2.50'},
+  ],
+
+  tavau: [
+    {t:'cmd', v:'claude --mcp mavat'},
+    {t:'info', v:'● MAVAT API (מנהל התכנון) ready', d:300},
+    {t:'sep'},
+    {t:'he', v:'שלוף זכויות בנייה לגוש 6640 חלקה 18 רמת-גן. כולל תמ"א 38 ופינוי-בינוי. PDF להצגה ללקוח.'},
+    {t:'sep'},
+    {t:'section', v:'🗺️  Querying MAVAT API...', d:500},
+    {t:'info', v:'  Location: Ramat Gan, Block 6640, Parcel 18', d:200},
+    {t:'info', v:'  Zone: RG-4 (Residential, High Density)', d:200},
+    {t:'sep'},
+    {t:'section', v:'📋 Building Rights:', d:300},
+    {t:'info', v:'  Plot area:      480 m²', d:150},
+    {t:'info', v:'  Build ratio:    250% → max 1,200 m²', d:150},
+    {t:'info', v:'  Max floors:     8 + ground', d:150},
+    {t:'info', v:'  Max height:     26.5m above street', d:150},
+    {t:'sep'},
+    {t:'section', v:'🏗️  Special Programs:', d:300},
+    {t:'hi', v:'  תמ"א 38/2: ELIGIBLE ✓ → +2.5 floors, +10m² per unit', d:200},
+    {t:'hi', v:'  פינוי-בינוי: POSSIBLE ✓ → ratio may reach 400%', d:200},
+    {t:'warn', v:'  ⚠ Heritage restriction: check facade guidelines', d:200},
+    {t:'sep'},
+    {t:'ok', v:'✓ Report: Tavau_6640-18_2026-04-30.pdf (Hebrew, client-ready)', d:100},
+    {t:'hi', v:'⏱ 44 seconds (vs 4 שעות חיפוש ידני)'},
+  ],
+
+  render: [
+    {t:'cmd', v:'veras render --view "Living_Room_North" --style photorealistic --quality 4k'},
+    {t:'info', v:'● Veras by EvolveLAB v3.2 — connected to Revit 2024', d:300},
+    {t:'info', v:'● View: Living_Room_North | Source: 1920×1440', d:200},
+    {t:'sep'},
+    {t:'section', v:'🎨 Generating render...', d:400},
+    {t:'dim', v:'  Style: Photorealistic Daylight', d:150},
+    {t:'dim', v:'  Resolution: 3840×2880 (4K)', d:150},
+    {t:'dim', v:'  Materials: Auto-mapped from Revit', d:150},
+    {t:'dim', v:'  Lighting: Sun angle 14:30, Tel Aviv, April', d:150},
+    {t:'info', v:'  [████████████████████] 100%', d:1200},
+    {t:'ok', v:'✓ LivingRoom_Photo_4K.png — saved to client folder', d:200},
+    {t:'sep'},
+    {t:'section', v:'🎨 Generating 2 variations...', d:300},
+    {t:'info', v:'  Evening warm light... done', d:1000},
+    {t:'ok', v:'✓ LivingRoom_Evening_4K.png', d:100},
+    {t:'info', v:'  Overcast soft... done', d:900},
+    {t:'ok', v:'✓ LivingRoom_Overcast_4K.png', d:100},
+    {t:'sep'},
+    {t:'hi', v:'3 × 4K renders | Total cost: $9.00 ($3/render)'},
+    {t:'hi', v:'⏱ 2m 47s (vs 48 שעות + ₪1,500 Lumion)'},
+  ],
+
+  meeting: [
+    {t:'cmd', v:'claude --file ישיבת_לקוח_30.04.m4a'},
+    {t:'info', v:'● Audio file loaded: 47:23 min', d:300},
+    {t:'sep'},
+    {t:'he', v:'תמלל לפרוטוקול ישיבה בעברית — החלטות, משימות עם שמות ותאריכים, סיכום מקצועי ללקוח.'},
+    {t:'sep'},
+    {t:'section', v:'🎤  Transcribing audio...', d:600},
+    {t:'info', v:'  Language: Hebrew 91% + English 9%', d:300},
+    {t:'info', v:'  Speakers identified: 3', d:200},
+    {t:'sep'},
+    {t:'section', v:'📋 Meeting Protocol — 30/04/2026:', d:300},
+    {t:'dim', v:"  נוכחים: אדר' נדב כהן | אדר' שירה לוי | לקוח: יוסי מזרחי", d:150},
+    {t:'dim', v:"  פרויקט: מגדל המגורים בת-ים, שלב ב'", d:150},
+    {t:'sep'},
+    {t:'info', v:'  החלטות:', d:200},
+    {t:'ok', v:'  ✓ חזית צפון תשונה ל-facade בטון — שירה תכין חלופות ל-10.5', d:150},
+    {t:'ok', v:'  ✓ תקציב רנדרים מאושר: ₪15,000 לסבב הבא', d:150},
+    {t:'ok', v:'  ✓ הגשה לעירייה נדחתה ל-15.6 (לקוח אישר)', d:150},
+    {t:'sep'},
+    {t:'info', v:'  משימות:', d:200},
+    {t:'hi', v:'  □ שירה לוי — חלופות חזית | עד 10.5.2026', d:150},
+    {t:'hi', v:'  □ נדב כהן — עדכון הגשה | עד 1.6.2026', d:150},
+    {t:'hi', v:'  □ יוסי מזרחי — אישור תקציב בכתב | עד 5.5.2026', d:150},
+    {t:'sep'},
+    {t:'ok', v:'✓ Protocol PDF saved (Hebrew, client-ready)', d:100},
+    {t:'hi', v:'⏱ 1m 58s (vs 47 דקות כתיבה ידנית)'},
+  ],
+
+  spec: [
+    {t:'cmd', v:'claude --mcp revit,knowledge-base'},
+    {t:'info', v:'● Revit MCP + Knowledge Base (firm standards) ready', d:300},
+    {t:'sep'},
+    {t:'he', v:'כתוב מפרט טכני מלא בעברית מהמודל — ת"י 5282 אנרגיה, ת"י 1918 נגישות, כל החומרים. מוכן להגשה.'},
+    {t:'sep'},
+    {t:'section', v:'📖 Reading Revit model materials...', d:500},
+    {t:'info', v:'  Concrete: B30, B40 — 12 element types', d:200},
+    {t:'info', v:'  Masonry: ytong 20cm, brick 25cm, glasswool', d:200},
+    {t:'info', v:'  Facades: aluminum curtain wall, HPL panels', d:200},
+    {t:'info', v:'  Windows: U-value 1.4, SHGC 0.35', d:200},
+    {t:'sep'},
+    {t:'section', v:'📝 Generating specification...', d:400},
+    {t:'dim', v:'  Section 1: Site Works & Earthworks', d:200},
+    {t:'dim', v:'  Section 2: Concrete Works (ת"י 118)', d:200},
+    {t:'dim', v:'  Section 3: Masonry & Partitions', d:200},
+    {t:'dim', v:'  Section 4: Facade & Cladding', d:200},
+    {t:'dim', v:'  Section 5: Waterproofing', d:200},
+    {t:'dim', v:'  Section 6: Energy (ת"י 5282)', d:200},
+    {t:'hi', v:'  ✓ Thermal calc: Ug=1.4, wall Rsi=2.8 → PASS Class B', d:150},
+    {t:'dim', v:'  Section 7: Accessibility (ת"י 1918)', d:200},
+    {t:'dim', v:'  Section 8: Finishes & Fixtures', d:200},
+    {t:'sep'},
+    {t:'ok', v:'✓ Spec_TowerBatYam_2026-04-30.pdf — 84 pages, Hebrew', d:100},
+    {t:'hi', v:'⏱ 4m 12s (vs שבוע עבודה + ₪15,000 מפרטאי חיצוני)'},
+  ],
+};
+
+// CONTROLLER
+const terminals = {};
+
+function startDemo(key, btn) {
+  if (!terminals[key]) {
+    terminals[key] = new ArchTerminal(document.getElementById('term-' + key));
+  }
+  const t = terminals[key];
+  if (t.active) {
+    t.stop();
+    btn.textContent = '▶ הרץ דמו';
+    btn.classList.remove('done');
+    return;
+  }
+  btn.textContent = '■ עצור';
+  btn.classList.remove('done');
+  const status = document.getElementById('status-' + key);
+  if (status) status.textContent = '';
+  t.run(SCRIPTS[key]).then(() => {
+    if (!t.active) return;
+    btn.textContent = '↺ הרץ שוב';
+    btn.classList.add('done');
+    if (status) status.textContent = '✓ הושלם';
+  });
+}
 </script>
 </body>
 </html>

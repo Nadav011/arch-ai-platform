@@ -1289,6 +1289,12 @@ nav.scrolled {
 .ty { color: var(--gold); }
 .tr { color: var(--pink); }
 
+.tl {
+  display: block;
+  line-height: 1.8;
+  white-space: pre;
+}
+
 .tcur {
   display: inline-block;
   width: 8px;
@@ -3908,14 +3914,16 @@ footer {
       <button class="demo-tab dtab" data-tab="spec" role="tab" onclick="runD(11)">📋 מפרט</button>
     </div>
 
-    <div class="terminal-window">
-      <div class="terminal-bar">
-        <span class="term-dot term-dot--red"></span>
-        <span class="term-dot term-dot--yellow"></span>
-        <span class="term-dot term-dot--green"></span>
+    <div class="term-wrap">
+      <div class="term-bar">
+        <div class="term-dots">
+          <span class="term-dot red"></span>
+          <span class="term-dot yellow"></span>
+          <span class="term-dot green"></span>
+        </div>
         <span class="term-title">Claude AI — Architecture Platform</span>
       </div>
-      <div class="terminal-body" id="term">
+      <div class="term-body" id="term">
         <div class="term-line term-line--prompt">$ claude revit-qc --model Tower_A_v23.rvt --checks all</div>
         <div class="term-line term-line--info">🔍 Connecting to Revit MCP... <span class="term-ok">OK</span></div>
         <div class="term-line term-line--info">📂 Loading model: Tower_A_v23.rvt (1,247 elements)</div>
