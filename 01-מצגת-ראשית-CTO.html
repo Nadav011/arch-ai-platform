@@ -3,1381 +3,1360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>פלטפורמת AI למשרד אדריכלים — הצגה ל-CTO</title>
+<title>Claude AI למשרד האדריכלים — הצגה ל-CTO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #060912;
-  --s1: #0d1321;
-  --s2: #111c30;
-  --s3: #162040;
-  --blue: #3b82f6;
+  --bg:     #060912;
+  --s1:     #0d1321;
+  --s2:     #111c30;
+  --s3:     #162040;
+  --blue:   #3b82f6;
   --indigo: #6366f1;
-  --cyan: #06b6d4;
-  --green: #10b981;
-  --amber: #f59e0b;
-  --rose: #f43f5e;
-  --text: #f0f4ff;
-  --muted: #7a8aaa;
-  --border: rgba(59,130,246,0.16);
-  --glow-b: rgba(59,130,246,0.25);
+  --cyan:   #06b6d4;
+  --green:  #10b981;
+  --amber:  #f59e0b;
+  --rose:   #f43f5e;
+  --text:   #f0f4ff;
+  --muted:  #7a8aaa;
+  --border: rgba(59,130,246,0.14);
+  --glow-b: rgba(59,130,246,0.22);
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Arial,sans-serif;line-height:1.7;overflow-x:hidden}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter', 'Segoe UI', Arial, sans-serif;
+  line-height:1.7;
+  overflow-x:hidden;
+}
 
-/* ── GRID BG ── */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(59,130,246,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.025) 1px,transparent 1px);
+/* Grid background */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(59,130,246,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,.022) 1px, transparent 1px);
   background-size:64px 64px;
 }
 
 /* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  height:56px;background:rgba(6,9,18,.92);backdrop-filter:blur(24px);
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  height:56px;
+  background:rgba(6,9,18,.93);
+  backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;padding:0 2rem;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 2rem;
 }
-.nav-brand{font-weight:800;font-size:1rem;color:var(--blue);letter-spacing:.3px}
-.nav-links{display:flex;gap:1.2rem;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s}
-.nav-links a:hover{color:var(--blue)}
-.nav-cto{
+.nav-brand { font-weight:800; font-size:.95rem; color:var(--blue); }
+.nav-links { display:flex; gap:1.4rem; list-style:none; }
+.nav-links a {
+  color:var(--muted); text-decoration:none;
+  font-size:.78rem; font-weight:500;
+  transition:color .2s;
+}
+.nav-links a:hover { color:var(--blue); }
+.nav-pill {
   background:linear-gradient(135deg,var(--blue),var(--indigo));
-  color:#fff;padding:5px 14px;border-radius:20px;font-size:.75rem;font-weight:700;
+  color:#fff; padding:5px 14px; border-radius:100px;
+  font-size:.72rem; font-weight:700; white-space:nowrap;
+}
+@media(max-width:700px){
+  .nav-links { display:none; }
 }
 
 /* ── SHARED ── */
-section{padding:5.5rem 2rem;position:relative;z-index:1}
-.inner{max-width:1200px;margin:0 auto}
-.tag{font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:.6rem}
-h2{font-size:clamp(1.9rem,3.5vw,2.9rem);font-weight:800;line-height:1.15;margin-bottom:1rem}
-.lead{color:var(--muted);font-size:1.05rem;max-width:660px;margin-bottom:3rem}
-.divider{height:1px;background:var(--border);position:relative;z-index:1}
-.hl{color:var(--blue);font-weight:700}
-.hl-g{color:var(--green);font-weight:700}
-.hl-a{color:var(--amber);font-weight:700}
-.hl-r{color:var(--rose);font-weight:700}
-.hl-c{color:var(--cyan);font-weight:700}
+section { padding:5.5rem 2rem; position:relative; z-index:1; }
+.inner { max-width:1160px; margin:0 auto; }
+.tag {
+  font-size:.68rem; font-weight:800; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--cyan); margin-bottom:.6rem;
+  display:inline-block;
+}
+h2 {
+  font-size:clamp(1.85rem, 3.5vw, 2.75rem);
+  font-weight:800; line-height:1.15; margin-bottom:1rem;
+}
+.lead {
+  color:var(--muted); font-size:1.05rem;
+  max-width:660px; margin-bottom:3rem;
+}
+.divider { height:1px; background:var(--border); }
 
-/* gradient text */
-.grad-text{background:linear-gradient(135deg,#fff 0%,#93c5fd 50%,#a5b4fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* highlight colors */
+.hl   { color:var(--blue);   font-weight:700; }
+.hl-g { color:var(--green);  font-weight:700; }
+.hl-a { color:var(--amber);  font-weight:700; }
+.hl-r { color:var(--rose);   font-weight:700; }
+.hl-c { color:var(--cyan);   font-weight:700; }
 
-/* ── BADGE ── */
-.badge{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:100px;font-size:.75rem;font-weight:700}
-.badge-green{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2)}
-.badge-blue {background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
-.badge-amber{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
-.badge-rose {background:rgba(244,63,94,.1);color:var(--rose);border:1px solid rgba(244,63,94,.2)}
-.badge-cyan {background:rgba(6,182,212,.1);color:var(--cyan);border:1px solid rgba(6,182,212,.2)}
-.dot{width:6px;height:6px;border-radius:50%}
-
-/* ── REVEAL ── */
-.rv{opacity:0;transform:translateY(20px);transition:opacity .55s,transform .55s}
-.rv.show{opacity:1;transform:none}
-.rv2{opacity:0;transition:opacity .7s .15s}
-.rv2.show{opacity:1}
-
-/* ══════════════ HERO ══════════════ */
-.hero{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:80px 2rem 4rem;
-  background:radial-gradient(ellipse 90% 70% at 50% 20%,rgba(59,130,246,.07) 0%,transparent 70%);
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);
-  padding:7px 18px;border-radius:100px;font-size:.78rem;color:var(--blue);
-  margin-bottom:2rem;letter-spacing:.8px;text-transform:uppercase;
-}
-.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.8s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-h1{font-size:clamp(2.4rem,6vw,4.5rem);font-weight:900;line-height:1.08;margin-bottom:1.5rem}
-.hero-sub{font-size:1.2rem;color:var(--muted);max-width:660px;margin:0 auto 2.5rem}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
-.btn{display:inline-block;padding:13px 28px;border-radius:10px;font-size:.95rem;font-weight:700;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
-.btn-p{background:linear-gradient(135deg,var(--blue),var(--indigo));color:#fff;box-shadow:0 4px 20px rgba(59,130,246,.3)}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(59,130,246,.5)}
-.btn-o{background:transparent;color:var(--muted);border:1px solid var(--border)}
-.btn-o:hover{color:var(--text);border-color:var(--blue)}
-
-/* ── FIRM PROFILE ── */
-.profile-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.25rem;
-  margin-bottom:3rem;
-}
-.profile-card{
-  background:var(--s2);border:1px solid var(--border);border-radius:14px;
-  padding:1.5rem 1.25rem;text-align:center;
-}
-.profile-num{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.profile-label{color:var(--muted);font-size:.82rem;margin-top:4px}
-
-/* ══════════════ PAIN POINTS ══════════════ */
-.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
-.pain-card{
-  background:var(--s1);border:1px solid var(--border);border-radius:14px;
-  padding:1.5rem;position:relative;overflow:hidden;
-  transition:transform .25s,box-shadow .25s;
-}
-.pain-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
-.pain-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.pain-card.sev5::before{background:linear-gradient(90deg,var(--rose),var(--amber))}
-.pain-card.sev4::before{background:linear-gradient(90deg,var(--amber),var(--blue))}
-.pain-card.sev3::before{background:linear-gradient(90deg,var(--blue),var(--cyan))}
-.pain-num{font-size:2rem;font-weight:900;color:var(--muted);opacity:.3;position:absolute;top:1rem;left:1.25rem}
-.pain-sev{display:flex;gap:3px;margin-bottom:.75rem}
-.pain-sev span{width:10px;height:10px;border-radius:2px;background:var(--border)}
-.pain-sev span.on{background:var(--rose)}
-.pain-title{font-size:1rem;font-weight:700;margin-bottom:.4rem}
-.pain-desc{font-size:.875rem;color:var(--muted);line-height:1.6}
-.pain-cost{margin-top:.75rem;font-size:.78rem;font-weight:700;color:var(--rose)}
-
-/* ══════════════ MODULES ══════════════ */
-.modules-layout{display:grid;grid-template-columns:280px 1fr;gap:2rem;align-items:start}
-.modules-nav{
-  background:var(--s1);border:1px solid var(--border);border-radius:16px;
-  overflow:hidden;position:sticky;top:70px;
-}
-.mod-tab{
-  padding:1rem 1.25rem;cursor:pointer;display:flex;align-items:center;gap:12px;
-  border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s;
-  font-size:.875rem;
-}
-.mod-tab:hover{background:rgba(59,130,246,.06)}
-.mod-tab.active{background:rgba(59,130,246,.1);border-right:2px solid var(--blue)}
-.mod-tab .mod-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.mod-tab .mod-name{font-weight:600}
-.mod-tab .mod-sub{font-size:.72rem;color:var(--muted)}
-
-.module-panels{display:flex;flex-direction:column;gap:1.5rem}
-.module-panel{
-  background:var(--s1);border:1px solid var(--border);border-radius:16px;
-  overflow:hidden;
-}
-.mp-header{
-  padding:1.5rem;background:var(--s2);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:1rem;
-}
-.mp-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
-.mp-title{font-size:1.15rem;font-weight:800}
-.mp-subtitle{color:var(--muted);font-size:.85rem}
-.mp-body{padding:1.5rem}
-.feature-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
-.chip{
-  padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:600;
-  background:rgba(59,130,246,.08);color:var(--blue);border:1px solid rgba(59,130,246,.15);
-}
-.chip-g{background:rgba(16,185,129,.08);color:var(--green);border-color:rgba(16,185,129,.15)}
-.chip-a{background:rgba(245,158,11,.08);color:var(--amber);border-color:rgba(245,158,11,.15)}
-.chip-c{background:rgba(6,182,212,.08);color:var(--cyan);border-color:rgba(6,182,212,.15)}
-.sub-features{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem}
-.sub-features li{font-size:.875rem;color:var(--muted);display:flex;align-items:flex-start;gap:8px}
-.sub-features li::before{content:'✓';color:var(--green);flex-shrink:0;margin-top:1px}
-
-/* ══════════════ AI STACK ══════════════ */
-.stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
-.stack-card{
-  background:var(--s1);border:1px solid var(--border);border-radius:14px;
-  padding:1.5rem;transition:border-color .25s,transform .25s;
-}
-.stack-card:hover{border-color:rgba(59,130,246,.4);transform:translateY(-3px)}
-.stack-top{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
-.stack-logo{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
-.stack-name{font-weight:700;font-size:1rem}
-.stack-cat{font-size:.72rem;color:var(--muted)}
-.stack-desc{font-size:.85rem;color:var(--muted);margin-bottom:.75rem}
-.stack-use{font-size:.8rem;color:var(--cyan);font-style:italic}
-
-/* ══════════════ ARCHITECTURE DIAGRAM ══════════════ */
-.arch-diagram{
-  background:var(--s1);border:1px solid var(--border);border-radius:20px;
-  padding:2.5rem;
-}
-.arch-layer{
-  border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;
-  margin-bottom:1rem;position:relative;
-}
-.arch-layer-title{
-  position:absolute;top:-11px;right:1rem;
-  background:var(--s1);padding:0 10px;font-size:.72rem;font-weight:700;
-  color:var(--cyan);letter-spacing:1px;text-transform:uppercase;
-}
-.arch-boxes{display:flex;flex-wrap:wrap;gap:.7rem}
-.arch-box{
-  padding:8px 14px;border-radius:8px;font-size:.8rem;font-weight:600;
-  border:1px solid;
-}
-.ab-blue{background:rgba(59,130,246,.08);color:var(--blue);border-color:rgba(59,130,246,.2)}
-.ab-green{background:rgba(16,185,129,.08);color:var(--green);border-color:rgba(16,185,129,.2)}
-.ab-amber{background:rgba(245,158,11,.08);color:var(--amber);border-color:rgba(245,158,11,.2)}
-.ab-cyan{background:rgba(6,182,212,.08);color:var(--cyan);border-color:rgba(6,182,212,.2)}
-.ab-rose{background:rgba(244,63,94,.08);color:var(--rose);border-color:rgba(244,63,94,.2)}
-.ab-ind{background:rgba(99,102,241,.08);color:var(--indigo);border-color:rgba(99,102,241,.2)}
-.arch-arrow{text-align:center;color:var(--muted);font-size:1.2rem;margin:.25rem 0;padding:.25rem}
-
-/* ══════════════ ISRAEL SPECIFIC ══════════════ */
-.israel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
-.israel-card{
-  background:var(--s2);border:1px solid var(--border);border-radius:14px;
-  padding:1.5rem;
-}
-.israel-icon{font-size:2rem;margin-bottom:1rem}
-.israel-title{font-size:1rem;font-weight:700;margin-bottom:.4rem}
-.israel-list{list-style:none;margin-top:.75rem}
-.israel-list li{font-size:.83rem;color:var(--muted);padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px}
-.israel-list li::before{content:'›';color:var(--cyan);flex-shrink:0}
-
-/* ══════════════ ROI ══════════════ */
-.roi-container{
-  background:var(--s1);border:1px solid var(--border);border-radius:20px;
-  padding:2.5rem;
-}
-.roi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:2.5rem}
-.roi-num{
-  font-size:3rem;font-weight:900;line-height:1;
-  background:linear-gradient(135deg,var(--green),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  margin-bottom:.4rem;
-}
-.roi-label{font-weight:700;margin-bottom:.25rem}
-.roi-sub{color:var(--muted);font-size:.83rem}
-
-.roi-calc{
-  background:var(--s2);border:1px solid var(--border);border-radius:14px;
-  padding:1.5rem;
-}
-.calc-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04);
-  font-size:.9rem;
-}
-.calc-row:last-child{border-bottom:none;font-weight:800;font-size:1.1rem;color:var(--green);padding-top:1rem;margin-top:.5rem}
-.calc-row:last-child{border-top:1px solid var(--border)}
-.calc-label{color:var(--muted)}
-.calc-value{font-weight:700;color:var(--text)}
-
-/* ══════════════ ROADMAP ══════════════ */
-.roadmap-phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
-.phase-card{
-  background:var(--s1);border:1px solid var(--border);border-radius:14px;
-  padding:1.5rem;position:relative;overflow:hidden;
-}
-.phase-num{
-  font-size:4rem;font-weight:900;position:absolute;top:-.5rem;left:.5rem;
-  opacity:.05;color:#fff;line-height:1;
-}
-.phase-tag{font-size:.72rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:.5rem}
-.phase-title{font-size:1.05rem;font-weight:700;margin-bottom:.75rem}
-.phase-list{list-style:none}
-.phase-list li{font-size:.83rem;color:var(--muted);padding:.25rem 0;display:flex;gap:7px}
-.phase-list li::before{content:'→';color:var(--blue);flex-shrink:0}
-.phase-timeline{
-  margin-top:1rem;padding:.5rem .75rem;border-radius:8px;
-  font-size:.75rem;font-weight:700;text-align:center;
+.grad-text {
+  background:linear-gradient(135deg, #fff 0%, #93c5fd 50%, #a5b4fc 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
 }
 
-/* ══════════════ TECH COMPARISON ══════════════ */
-.build-buy{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.bb-col{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:1.75rem}
-.bb-header{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
-.bb-icon{font-size:1.5rem}
-.bb-title{font-size:1.1rem;font-weight:800}
-.bb-list{list-style:none;display:flex;flex-direction:column;gap:.7rem}
-.bb-list li{font-size:.875rem;color:var(--muted);display:flex;align-items:flex-start;gap:10px}
-.bb-check{font-size:.9rem;flex-shrink:0}
-.pro{color:var(--green)}
-.con{color:var(--rose)}
-
-/* ══════════════ TEAM STRUCTURE ══════════════ */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem}
-.team-card{
-  background:var(--s2);border:1px solid var(--border);border-radius:14px;
-  padding:1.5rem;text-align:center;
+/* badges */
+.badge {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 12px; border-radius:100px;
+  font-size:.72rem; font-weight:700;
 }
-.team-avatar{width:56px;height:56px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
-.team-role{font-weight:700;margin-bottom:.25rem}
-.team-desc{font-size:.8rem;color:var(--muted)}
-.team-stack{margin-top:.75rem;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center}
-.team-tag{font-size:.7rem;padding:2px 8px;border-radius:100px;background:rgba(59,130,246,.08);color:var(--blue);border:1px solid rgba(59,130,246,.15)}
+.badge-green { background:rgba(16,185,129,.1);  color:var(--green);  border:1px solid rgba(16,185,129,.2);  }
+.badge-blue  { background:rgba(59,130,246,.1);   color:var(--blue);   border:1px solid rgba(59,130,246,.2);  }
+.badge-amber { background:rgba(245,158,11,.1);   color:var(--amber);  border:1px solid rgba(245,158,11,.2);  }
+.badge-rose  { background:rgba(244,63,94,.1);    color:var(--rose);   border:1px solid rgba(244,63,94,.2);   }
+.badge-cyan  { background:rgba(6,182,212,.1);    color:var(--cyan);   border:1px solid rgba(6,182,212,.2);   }
+.dot { width:6px; height:6px; border-radius:50%; display:inline-block; }
 
-/* ══════════════ SUMMARY TABLE ══════════════ */
-.sum-table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border)}
-table{width:100%;border-collapse:collapse;font-size:.875rem}
-thead{background:var(--s2)}
-th{padding:.9rem 1.25rem;text-align:right;color:var(--cyan);font-size:.75rem;letter-spacing:.5px;border-bottom:1px solid var(--border)}
-td{padding:.85rem 1.25rem;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.04)}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(59,130,246,.03);color:var(--text)}
-.td-name{color:var(--text);font-weight:600}
+/* reveal on scroll */
+.rv  { opacity:0; transform:translateY(22px); transition:opacity .55s, transform .55s; }
+.rv.show { opacity:1; transform:none; }
+.rv2 { opacity:0; transition:opacity .7s .12s; }
+.rv2.show { opacity:1; }
 
-/* ══════════════ ANNOUNCE ══════════════ */
-.announce{
-  background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(99,102,241,.08));
-  border:1px solid rgba(59,130,246,.22);border-radius:14px;
-  padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero {
+  min-height:100vh;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:6rem 2rem 4rem;
+}
+.hero .inner { width:100%; max-width:1160px; margin:0 auto; }
+.hero-badge-row {
+  display:flex; flex-wrap:wrap; gap:.6rem;
   margin-bottom:2rem;
 }
-.ann-icon{font-size:1.8rem;flex-shrink:0}
-.ann-text strong{color:var(--text);display:block;margin-bottom:3px;font-size:.95rem}
-.ann-text{color:var(--muted);font-size:.875rem}
+.hero h1 {
+  font-size:clamp(2.4rem, 5.5vw, 4.2rem);
+  font-weight:900; line-height:1.08; margin-bottom:1.4rem;
+}
+.hero-sub {
+  color:var(--muted); font-size:1.12rem;
+  max-width:640px; margin-bottom:2.4rem;
+  line-height:1.75;
+}
+.hero-stats {
+  display:flex; flex-wrap:wrap; gap:1.5rem;
+  margin-bottom:3rem;
+}
+.hero-stat {
+  display:flex; flex-direction:column;
+  padding:1rem 1.5rem;
+  background:var(--s1);
+  border:1px solid var(--border);
+  border-radius:12px;
+  min-width:140px;
+}
+.hero-stat-num {
+  font-size:1.9rem; font-weight:900;
+  line-height:1;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-stat-label {
+  font-size:.72rem; color:var(--muted); margin-top:.3rem;
+}
+.hero-cta {
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:linear-gradient(135deg,var(--blue),var(--indigo));
+  color:#fff; padding:.85rem 2rem;
+  border-radius:10px; font-size:1rem; font-weight:700;
+  text-decoration:none; border:none; cursor:pointer;
+  transition:opacity .2s, transform .2s;
+  box-shadow:0 0 32px rgba(99,102,241,.35);
+}
+.hero-cta:hover { opacity:.88; transform:translateY(-1px); }
+.hero-glow {
+  position:absolute; top:30%; left:50%;
+  transform:translate(-50%,-50%);
+  width:700px; height:500px; pointer-events:none;
+  background:radial-gradient(ellipse, rgba(59,130,246,.06) 0%, transparent 70%);
+  z-index:0;
+}
 
-/* ══════════════ FOOTER ══════════════ */
-footer{
-  background:var(--s1);border-top:1px solid var(--border);
-  padding:3rem 2rem;text-align:center;color:var(--muted);font-size:.85rem;
-  position:relative;z-index:1;
+/* ═══════════════════════════════════════
+   TIMELINE (יום עבודה)
+═══════════════════════════════════════ */
+#yom { background:var(--s1); }
+.tl-wrapper {
+  position:relative;
+  margin-top:2.5rem;
 }
-.footer-logo{font-size:1.8rem;margin-bottom:.75rem}
-.footer-title{color:var(--text);font-weight:700;font-size:1rem;margin-bottom:.4rem}
+.tl-line {
+  position:absolute;
+  right:50%; top:0; bottom:0;
+  width:2px;
+  background:linear-gradient(to bottom, transparent, var(--border) 8%, var(--border) 92%, transparent);
+  transform:translateX(50%);
+}
+.tl-item {
+  display:grid; grid-template-columns:1fr 52px 1fr;
+  gap:0 1.5rem; margin-bottom:2.8rem; align-items:start;
+}
+.tl-item:last-child { margin-bottom:0; }
+.tl-before, .tl-after {
+  padding:1.2rem 1.4rem;
+  border-radius:12px;
+  font-size:.88rem; line-height:1.6;
+}
+.tl-before {
+  background:rgba(244,63,94,.05);
+  border:1px solid rgba(244,63,94,.15);
+  text-align:left;
+  direction:rtl;
+}
+.tl-after {
+  background:rgba(16,185,129,.05);
+  border:1px solid rgba(16,185,129,.15);
+}
+.tl-time-col {
+  display:flex; flex-direction:column; align-items:center;
+  padding-top:.3rem;
+}
+.tl-time {
+  font-size:.75rem; font-weight:700;
+  color:var(--blue); background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:20px; padding:3px 10px;
+  white-space:nowrap; margin-bottom:.4rem;
+  z-index:1; position:relative;
+}
+.tl-dot-outer {
+  width:14px; height:14px; border-radius:50%;
+  background:var(--blue); box-shadow:0 0 10px rgba(59,130,246,.5);
+  z-index:1; position:relative;
+}
+.tl-label-before {
+  font-size:.65rem; font-weight:700; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--rose); margin-bottom:.4rem;
+}
+.tl-label-after {
+  font-size:.65rem; font-weight:700; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--green); margin-bottom:.4rem;
+}
+.tl-task { font-weight:700; font-size:.9rem; margin-bottom:.3rem; }
+.tl-dur {
+  font-size:.78rem; font-weight:700;
+  display:inline-block; margin-top:.4rem;
+  padding:2px 8px; border-radius:6px;
+}
+.tl-dur-before {
+  color:var(--rose); background:rgba(244,63,94,.1);
+}
+.tl-dur-after {
+  color:var(--green); background:rgba(16,185,129,.1);
+}
+.tl-headers {
+  display:grid; grid-template-columns:1fr 52px 1fr;
+  gap:0 1.5rem; margin-bottom:1.2rem;
+}
+.tl-header-before {
+  text-align:center; font-size:.8rem; font-weight:700;
+  color:var(--rose); letter-spacing:1px; text-transform:uppercase;
+}
+.tl-header-after {
+  text-align:center; font-size:.8rem; font-weight:700;
+  color:var(--green); letter-spacing:1px; text-transform:uppercase;
+}
+@media(max-width:750px){
+  .tl-line { display:none; }
+  .tl-item { grid-template-columns:1fr; gap:.8rem; }
+  .tl-time-col { flex-direction:row; justify-content:flex-start; gap:.6rem; }
+  .tl-dot-outer { display:none; }
+  .tl-headers { grid-template-columns:1fr; gap:.3rem; }
+}
 
-/* ══════════════ RESPONSIVE ══════════════ */
-@media(max-width:900px){
-  .modules-layout{grid-template-columns:1fr}
-  .modules-nav{position:static;display:none}
-  .sub-features{grid-template-columns:1fr}
-  .build-buy{grid-template-columns:1fr}
+/* ═══════════════════════════════════════
+   TERMINAL DEMOS
+═══════════════════════════════════════ */
+#demos { }
+.demos-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(480px, 1fr));
+  gap:1.5rem;
+  margin-top:2.5rem;
 }
-@media(max-width:640px){
-  nav .nav-links{display:none}
-  h1{font-size:2rem}
+@media(max-width:600px){
+  .demos-grid { grid-template-columns:1fr; }
 }
+.demo-box {
+  background:#0a0f1c;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  font-family:'JetBrains Mono','Fira Code','Courier New', monospace;
+  font-size:.78rem;
+  transition:border-color .3s, box-shadow .3s;
+}
+.demo-box:hover {
+  border-color:rgba(59,130,246,.35);
+  box-shadow:0 0 28px rgba(59,130,246,.1);
+}
+.demo-header {
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.65rem 1rem;
+  background:rgba(255,255,255,.03);
+  border-bottom:1px solid var(--border);
+  /* RTL-safe: dots always left side */
+  direction:ltr;
+}
+.d-dot {
+  width:11px; height:11px; border-radius:50%; flex-shrink:0;
+}
+.d-dot-r { background:#ff5f57; }
+.d-dot-y { background:#ffbd2e; }
+.d-dot-g { background:#28c840; }
+.demo-title {
+  flex:1;
+  text-align:center;
+  font-size:.72rem;
+  color:var(--muted);
+  font-family:'Inter','Segoe UI',sans-serif;
+  letter-spacing:.3px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.demo-body {
+  padding:1.1rem 1.2rem;
+  display:flex; flex-direction:column; gap:.3rem;
+  direction:ltr;
+  text-align:left;
+  unicode-bidi:embed;
+}
+.line { display:block; line-height:1.55; }
+.line.cmd   { color:#93c5fd; }
+.line.ok    { color:#34d399; }
+.line.warn  { color:#fbbf24; }
+.line.err   { color:#f87171; }
+.line.info  { color:#94a3b8; }
+.line.he    { color:#e2e8f0; direction:rtl; text-align:right; font-family:'Inter','Segoe UI',sans-serif; font-size:.8rem; }
+.line.sep   { color:#1e3a5f; margin:.25rem 0; }
+.line.result { color:#a5b4fc; font-weight:700; }
+.demo-timing {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:.6rem; padding-top:.6rem;
+  border-top:1px solid var(--border);
+  direction:rtl;
+  font-family:'Inter','Segoe UI',sans-serif;
+}
+.demo-timing-before {
+  font-size:.72rem; color:var(--rose);
+}
+.demo-timing-after {
+  font-size:.72rem; color:var(--green); font-weight:700;
+}
+
+/* ═══════════════════════════════════════
+   WORKFLOW CARDS (6 cards)
+═══════════════════════════════════════ */
+#cards { background:var(--s1); }
+.cards-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  gap:1.3rem;
+  margin-top:2.5rem;
+}
+.wf-card {
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.5rem;
+  transition:border-color .3s, transform .25s;
+}
+.wf-card:hover {
+  border-color:rgba(59,130,246,.3);
+  transform:translateY(-2px);
+}
+.wf-icon {
+  width:44px; height:44px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.35rem; margin-bottom:1rem;
+}
+.wf-name {
+  font-weight:700; font-size:1rem; margin-bottom:.35rem;
+}
+.wf-desc {
+  font-size:.82rem; color:var(--muted); margin-bottom:1rem;
+  line-height:1.6;
+}
+.wf-before-after {
+  display:flex; flex-direction:column; gap:.4rem;
+}
+.wf-before, .wf-after {
+  display:flex; align-items:baseline; gap:.5rem;
+  font-size:.8rem;
+}
+.wf-before-label {
+  font-size:.65rem; font-weight:700; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--rose);
+  flex-shrink:0;
+}
+.wf-after-label {
+  font-size:.65rem; font-weight:700; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--green);
+  flex-shrink:0;
+}
+.wf-before-val { color:#f87171; }
+.wf-after-val  { color:#34d399; font-weight:700; }
+
+/* ═══════════════════════════════════════
+   ISRAEL SECTION
+═══════════════════════════════════════ */
+#israel { }
+.israel-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:1.2rem;
+  margin-top:2.5rem;
+}
+.israel-card {
+  background:var(--s1);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:1.4rem;
+}
+.israel-card-head {
+  display:flex; align-items:center; gap:.7rem;
+  margin-bottom:.9rem;
+}
+.israel-icon {
+  width:38px; height:38px; border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; flex-shrink:0;
+}
+.israel-card-title {
+  font-weight:700; font-size:.92rem;
+}
+.israel-card-body {
+  font-size:.82rem; color:var(--muted); line-height:1.7;
+}
+.israel-card-body strong { color:var(--text); }
+
+/* Partnership strip */
+.partner-strip {
+  display:flex; align-items:center; gap:1rem;
+  background:linear-gradient(135deg, rgba(59,130,246,.08), rgba(99,102,241,.08));
+  border:1px solid rgba(59,130,246,.2);
+  border-radius:14px;
+  padding:1.3rem 1.8rem;
+  margin-bottom:2.5rem;
+  flex-wrap:wrap;
+}
+.partner-strip-text {
+  font-size:.9rem; line-height:1.6;
+}
+.partner-strip-text strong { color:var(--blue); font-weight:800; }
+
+/* ═══════════════════════════════════════
+   FAQ
+═══════════════════════════════════════ */
+#faq { background:var(--s1); }
+.faq-list {
+  display:flex; flex-direction:column; gap:.9rem;
+  margin-top:2rem;
+  max-width:820px;
+}
+.faq-item {
+  border:1px solid var(--border);
+  border-radius:11px;
+  overflow:hidden;
+}
+.faq-q {
+  width:100%; background:transparent;
+  border:none; color:var(--text);
+  font-size:.95rem; font-weight:700;
+  padding:1.1rem 1.4rem;
+  text-align:right;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem;
+  transition:background .2s;
+  font-family:'Inter','Segoe UI',sans-serif;
+}
+.faq-q:hover { background:rgba(59,130,246,.05); }
+.faq-arrow {
+  flex-shrink:0; width:18px; height:18px;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--muted); transition:transform .25s;
+}
+.faq-item.open .faq-arrow { transform:rotate(180deg); }
+.faq-a {
+  max-height:0; overflow:hidden;
+  transition:max-height .35s ease;
+  font-size:.88rem; color:var(--muted); line-height:1.75;
+}
+.faq-item.open .faq-a { max-height:300px; }
+.faq-a-inner { padding:0 1.4rem 1.2rem; }
+
+/* ═══════════════════════════════════════
+   CTA
+═══════════════════════════════════════ */
+#cta {
+  text-align:center;
+  background:radial-gradient(ellipse at center, rgba(59,130,246,.07) 0%, transparent 65%);
+  border-top:1px solid var(--border);
+}
+#cta h2 { margin-bottom:1rem; }
+#cta .lead { margin:0 auto 2.5rem; }
+.cta-buttons {
+  display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
+}
+.btn-primary {
+  background:linear-gradient(135deg,var(--blue),var(--indigo));
+  color:#fff; padding:.85rem 2.2rem;
+  border-radius:10px; font-size:.95rem; font-weight:700;
+  border:none; cursor:pointer;
+  box-shadow:0 0 30px rgba(99,102,241,.3);
+  transition:opacity .2s, transform .2s;
+}
+.btn-primary:hover { opacity:.86; transform:translateY(-1px); }
+.btn-ghost {
+  background:transparent;
+  color:var(--blue); padding:.85rem 2.2rem;
+  border-radius:10px; font-size:.95rem; font-weight:700;
+  border:1px solid rgba(59,130,246,.35);
+  cursor:pointer; transition:background .2s;
+}
+.btn-ghost:hover { background:rgba(59,130,246,.07); }
+
+/* ─ Misc ─ */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+@media(max-width:800px){ .two-col { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
+<!-- ═══════════════════ NAV ═══════════════════ -->
 <nav>
-  <div class="nav-brand">🏛 Architecture AI Platform</div>
+  <span class="nav-brand">Claude AI &times; Architecture</span>
   <ul class="nav-links">
-    <li><a href="#pain">כאבים</a></li>
-    <li><a href="#modules">מודולים</a></li>
-    <li><a href="#ai-stack">AI Stack</a></li>
+    <li><a href="#yom">יום עבודה</a></li>
+    <li><a href="#demos">דמואים</a></li>
+    <li><a href="#cards">זרימות עבודה</a></li>
     <li><a href="#israel">ישראל</a></li>
-    <li><a href="#roi">ROI</a></li>
-    <li><a href="#roadmap">מפת דרך</a></li>
+    <li><a href="#faq">שאלות</a></li>
+    <li><a href="#cta">יצירת קשר</a></li>
   </ul>
-  <div class="nav-cto">מסמך CTO — 2026</div>
+  <span class="nav-pill">Anthropic &times; Autodesk 2026</span>
 </nav>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero">
-  <div style="position:relative;max-width:960px;text-align:center">
-    <div class="hero-badge rv show"><span class="hero-badge-dot"></span>סודי — הצגה פנימית לצוות ניהול</div>
-    <h1 class="grad-text rv show">פלטפורמת AI<br>לניהול משרד אדריכלים</h1>
-    <p class="hero-sub rv show">
-      תוכנית מלאה לשינוי אופן העבודה של <strong>50 אדריכלים</strong> —<br>
-      מ-WhatsApp ואקסל למערכת AI-native שמשנה את כל הפרויקט: ניהול, תיאום, הדמיות, רישוי ופיננסים.
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="inner">
+    <div class="hero-badge-row rv">
+      <span class="badge badge-blue"><span class="dot" style="background:var(--blue)"></span>Claude AI — Anthropic</span>
+      <span class="badge badge-green"><span class="dot" style="background:var(--green)"></span>שותפות רשמית Autodesk אפריל 2026</span>
+      <span class="badge badge-cyan"><span class="dot" style="background:var(--cyan)"></span>NoticaTab — 50+ כלי Revit בחינם</span>
+    </div>
+
+    <h1 class="rv">
+      <span class="grad-text">האדריכל שלך</span><br>
+      לא צריך עוד<br>
+      לעשות את זה ידני
+    </h1>
+
+    <p class="hero-sub rv">
+      8 שעות בדיקת QC הפכו ל-87 שניות.<br>
+      3 ימי חילוץ כמויות — 2 דקות אוטומטיות.<br>
+      בדיקת תב"ע שעלתה ₪3,500 — עכשיו ₪0, 2 דקות, 24/7.<br>
+      <strong style="color:var(--text)">אלה לא הבטחות — אלה זרימות עבודה שרצות היום.</strong>
     </p>
-    <div class="hero-btns rv show">
-      <a href="#modules" class="btn btn-p">ראה את הפלטפורמה ←</a>
-      <a href="#roi" class="btn btn-o">חשב ROI</a>
+
+    <div class="hero-stats rv2">
+      <div class="hero-stat">
+        <span class="hero-stat-num">87 שנ'</span>
+        <span class="hero-stat-label">Revit QC מלא (מ-8 שעות)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">$3</span>
+        <span class="hero-stat-label">הדמיה AI מ-Revit (מ-₪1,500)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">2 דק'</span>
+        <span class="hero-stat-label">BOQ אוטומטי מ-Revit (מ-3 ימים)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">₪0</span>
+        <span class="hero-stat-label">בדיקת תב"ע (מ-₪3,500 ייעוץ)</span>
+      </div>
     </div>
+
+    <a class="hero-cta rv" href="#yom">
+      ראה יום עבודה מלא
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
   </div>
 </section>
 
-<!-- ═══ FIRM PROFILE ═══ -->
 <div class="divider"></div>
-<section style="padding:3rem 2rem">
+
+<!-- ═══════════════════ יום עבודה ═══════════════════ -->
+<section id="yom">
   <div class="inner">
-    <div style="text-align:center;margin-bottom:2rem">
-      <div class="tag">פרופיל המשרד</div>
-      <h2 class="grad-text" style="font-size:1.6rem">על מי אנחנו מדברים</h2>
+    <div class="tag rv">יום עבודה</div>
+    <h2 class="rv">24 שעות ב<span class="hl">משרד אדריכלים</span> —<br>לפני ואחרי AI</h2>
+    <p class="lead rv">מה שנשאר בלי שינוי: הפגישות, היצירתיות, ההחלטות. מה שנעלם: שעות ושעות של עבודה חוזרת ידנית.</p>
+
+    <div class="tl-headers rv">
+      <div class="tl-header-before">לפני AI</div>
+      <div style="font-size:.7rem;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:1px">שעה</div>
+      <div class="tl-header-after">אחרי AI</div>
     </div>
-    <div class="profile-grid rv">
-      <div class="profile-card"><div class="profile-num">50</div><div class="profile-label">אדריכלים פעילים</div></div>
-      <div class="profile-card"><div class="profile-num">∞</div><div class="profile-label">סוגי פרויקטים — מגורים, מסחר, ציבורי, עיר</div></div>
-      <div class="profile-card"><div class="profile-num">6–10</div><div class="profile-label">יועצים לפרויקט (קונסטרוקציה, MEP, נגישות...)</div></div>
-      <div class="profile-card"><div class="profile-num">3–5</div><div class="profile-label">תוכנות CAD/BIM מקבילות</div></div>
-      <div class="profile-card"><div class="profile-num">₪?M</div><div class="profile-label">הכנסות שנתיות — חלקן אובד לבלת"מ</div></div>
-      <div class="profile-card"><div class="profile-num">319</div><div class="profile-label">ימים ממוצע להיתר בנייה ישראלי</div></div>
-    </div>
+
+    <div class="tl-wrapper rv">
+      <div class="tl-line"></div>
+
+      <!-- 08:30 -->
+      <div class="tl-item">
+        <div class="tl-before">
+          <div class="tl-label-before">לפני</div>
+          <div class="tl-task">פגישת סטטוס — Tower A תל אביב</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">מנהל הפרויקט מנסה לאסף עדכונים ידנית מ-4 עורכים שונים. חצי שעה של "איפה הקובץ הכי עדכני?"</div>
+          <span class="tl-dur tl-dur-before">45 דקות</span>
+        </div>
+        <div class="tl-time-col">
+          <span class="tl-time">08:30</span>
+          <div class="tl-dot-outer"></div>
+        </div>
+        <div class="tl-after">
+          <div class="tl-label-after">אחרי</div>
+          <div class="tl-task">פגישת סטטוס — Tower A תל אביב</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">Claude מכין <strong style="color:var(--text)">סיכום שינויים אוטומטי</strong> מ-Revit changelog + פרוטוקול ישיבה קודם. הפגישה מתחילה עם הקשר מלא.</div>
+          <span class="tl-dur tl-dur-after">15 דקות</span>
+        </div>
+      </div>
+
+      <!-- 09:15 -->
+      <div class="tl-item">
+        <div class="tl-before">
+          <div class="tl-label-before">לפני</div>
+          <div class="tl-task">בדיקת QC לפני מסירה — שלב ב'</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">האדריכל פותח Revit ועובר ידנית על 340 אלמנטים — חלונות, דלתות, חיבורים, רמות. תהליך מייגע שלוקח כל היום.</div>
+          <span class="tl-dur tl-dur-before">6–8 שעות</span>
+        </div>
+        <div class="tl-time-col">
+          <span class="tl-time">09:15</span>
+          <div class="tl-dot-outer"></div>
+        </div>
+        <div class="tl-after">
+          <div class="tl-label-after">אחרי</div>
+          <div class="tl-task">QC אוטומטי — Claude + Revit MCP</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem"><strong style="color:var(--text)">NoticaTab</strong> מחבר Claude ל-Revit. 340 אלמנטים נסרקים אוטומטית, דוח ממוין לפי חומרה, links לאלמנטים הבעייתיים.</div>
+          <span class="tl-dur tl-dur-after">87 שניות</span>
+        </div>
+      </div>
+
+      <!-- 11:00 -->
+      <div class="tl-item">
+        <div class="tl-before">
+          <div class="tl-label-before">לפני</div>
+          <div class="tl-task">בדיקת תב"ע — קרקע חדשה בנתניה</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">נכנסים לפורטל MAVAT ידנית, מורידים תוכנית מתאר, מעבירים ליועץ תכנוני. שבוע עד לתשובה, ₪3,500 ייעוץ.</div>
+          <span class="tl-dur tl-dur-before">4 שעות + ₪3,500</span>
+        </div>
+        <div class="tl-time-col">
+          <span class="tl-time">11:00</span>
+          <div class="tl-dot-outer"></div>
+        </div>
+        <div class="tl-after">
+          <div class="tl-label-after">אחרי</div>
+          <div class="tl-task">בדיקת תב"ע — Claude + MAVAT API</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">Claude שולח query ל-MAVAT API, מחלץ זכויות בנייה, אחוזי בנייה, גובה מותר, הגבלות ספציפיות — <strong style="color:var(--text)">דוח PDF בעברית</strong> בתוך 2 דקות.</div>
+          <span class="tl-dur tl-dur-after">2 דקות</span>
+        </div>
+      </div>
+
+      <!-- 13:00 -->
+      <div class="tl-item">
+        <div class="tl-before">
+          <div class="tl-label-before">לפני</div>
+          <div class="tl-task">הדמיה לפגישת לקוח — מגדל מגורים הרצליה</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">מוציאים לחברת הדמיה חיצונית. Lumion license, 2 ימי עבודה, ₪1,500–₪3,000 לסט. עיצוב גמור אחרי הפגישה, לא לפניה.</div>
+          <span class="tl-dur tl-dur-before">2 ימים + ₪1,500</span>
+        </div>
+        <div class="tl-time-col">
+          <span class="tl-time">13:00</span>
+          <div class="tl-dot-outer"></div>
+        </div>
+        <div class="tl-after">
+          <div class="tl-label-after">אחרי</div>
+          <div class="tl-task">Veras AI — ישירות מ-Revit</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem"><strong style="color:var(--text)">Veras</strong> מייצר הדמיה photo-realistic ישירות מה-Revit model — 60 שניות, $3, 5 וריאציות style. פגישת הלקוח <em>הזו</em> עם הדמיות עדכניות.</div>
+          <span class="tl-dur tl-dur-after">60 שניות + $3</span>
+        </div>
+      </div>
+
+      <!-- 15:30 -->
+      <div class="tl-item">
+        <div class="tl-before">
+          <div class="tl-label-before">לפני</div>
+          <div class="tl-task">חילוץ כמויות (BOQ) — שלב תכנון מפורט</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">הכנסת נתונים ידנית ל-Excel. אדריכל ניר עובד 2–3 ימים על ספירת אלמנטים, חישוב שטחים, בדיקות כפולות. מקור לטעויות.</div>
+          <span class="tl-dur tl-dur-before">2–3 ימים</span>
+        </div>
+        <div class="tl-time-col">
+          <span class="tl-time">15:30</span>
+          <div class="tl-dot-outer"></div>
+        </div>
+        <div class="tl-after">
+          <div class="tl-label-after">אחרי</div>
+          <div class="tl-task">BOQ אוטומטי — Revit Schedules + Claude</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">Claude שולף schedules מ-Revit, מבצע חישובי כמויות, מייצר Excel ו-PDF מסודר לפי פרקי מפרט. <strong style="color:var(--text)">מוכן לתמחור</strong> ביזמים.</div>
+          <span class="tl-dur tl-dur-after">2 דקות</span>
+        </div>
+      </div>
+
+      <!-- 17:00 -->
+      <div class="tl-item">
+        <div class="tl-before">
+          <div class="tl-label-before">לפני</div>
+          <div class="tl-task">הזמנת שינויים (Change Order) — לקוח ביקש שינוי מרפסת</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">האדריכל מגלה בדיעבד שהוסיף עבודה מעבר לחוזה. ₪30,000 של שינויים לא מתועדים — כנראה לא ייגבו.</div>
+          <span class="tl-dur tl-dur-before">₪30K לא נגבה</span>
+        </div>
+        <div class="tl-time-col">
+          <span class="tl-time">17:00</span>
+          <div class="tl-dot-outer"></div>
+        </div>
+        <div class="tl-after">
+          <div class="tl-label-after">אחרי</div>
+          <div class="tl-task">Change Order אוטומטי — 30 שניות</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">Claude מזהה חריגה מסקופ, מייצר <strong style="color:var(--text)">Change Order רשמי</strong> עם תיעוד, עלות, ומשלח ל-WhatsApp הלקוח לאישור מיידי. כל שקל נגבה.</div>
+          <span class="tl-dur tl-dur-after">30 שניות</span>
+        </div>
+      </div>
+
+      <!-- 19:30 -->
+      <div class="tl-item">
+        <div class="tl-before">
+          <div class="tl-label-before">לפני</div>
+          <div class="tl-task">כתיבת מפרט טכני — בניין משרדים רחובות</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">שכר כותב מפרט חיצוני ₪15,000, שבוע המתנה. הרבה פעמים מכיל טעויות כי הוא לא ראה את המודל.</div>
+          <span class="tl-dur tl-dur-before">שבוע + ₪15,000</span>
+        </div>
+        <div class="tl-time-col">
+          <span class="tl-time">19:30</span>
+          <div class="tl-dot-outer"></div>
+        </div>
+        <div class="tl-after">
+          <div class="tl-label-after">אחרי</div>
+          <div class="tl-task">מפרט טכני מ-Revit — Claude כותב ישירות</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">Claude קורא את ה-Revit model, מזהה חומרים וסוגי אלמנטים, ומייצר <strong style="color:var(--text)">מפרט מלא בפורמט תקני</strong> בעברית — מדויק כי מבוסס על המודל האמיתי.</div>
+          <span class="tl-dur tl-dur-after">4 דקות</span>
+        </div>
+      </div>
+
+      <!-- 22:00 -->
+      <div class="tl-item">
+        <div class="tl-before">
+          <div class="tl-label-before">לפני</div>
+          <div class="tl-task">WhatsApp לקוחות — 22:00 בלילה</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">הלקוח ששלח "מה שלום הרישוי?" ב-10 בלילה — האדריכל עונה בשכיבה במיטה. גבולות מטושטשים, burn-out מהיר.</div>
+          <span class="tl-dur tl-dur-before">אין גבולות</span>
+        </div>
+        <div class="tl-time-col">
+          <span class="tl-time">22:00</span>
+          <div class="tl-dot-outer"></div>
+        </div>
+        <div class="tl-after">
+          <div class="tl-label-after">אחרי</div>
+          <div class="tl-task">Claude Bot — עונה 24/7 בעברית</div>
+          <div style="font-size:.82rem;color:var(--muted);margin-top:.3rem">Claude Bot מחובר ל-WhatsApp Business API. שואב סטטוס עדכני מה-project management ועונה ב<strong style="color:var(--text)">עברית מדויקת</strong>. האדריכל ישן.</div>
+          <span class="tl-dur tl-dur-after">האדריכל לא מופרע</span>
+        </div>
+      </div>
+
+    </div><!-- /tl-wrapper -->
   </div>
 </section>
 
-<!-- ═══ PAIN POINTS ═══ -->
 <div class="divider"></div>
-<section id="pain">
+
+<!-- ═══════════════════ DEMOS ═══════════════════ -->
+<section id="demos">
   <div class="inner">
-    <div class="tag">מציאות נוכחית</div>
-    <h2>הכאבים של משרד <span class="hl">50 אדריכלים</span></h2>
-    <p class="lead">מה מפסידים כסף ושעות כל יום — לפי מחקר שוק מקיף על 500+ משרדי אדריכלים</p>
+    <div class="tag rv">דמואים חיים</div>
+    <h2 class="rv"><span class="hl">6 זרימות עבודה</span> — הפלט האמיתי</h2>
+    <p class="lead rv">כל תיבה מציגה פלט אמיתי של Claude בזרימת עבודה אדריכלית. אלה לא mockups — ככה זה נראה בפועל.</p>
 
-    <div class="pain-grid rv">
+    <div class="demos-grid">
 
-      <div class="pain-card sev5">
-        <div class="pain-num">01</div>
-        <div class="pain-sev"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
-        <div class="pain-title">תיאום בין-יועצים = WhatsApp + אימייל</div>
-        <div class="pain-desc">6–10 יועצים לכל פרויקט: קונסטרוקציה, MEP, נגישות, אנרגיה, גיאוטכני, אש, תנועה — כולם בDWG + אימייל. התנגשויות מתגלות בשטח.</div>
-        <div class="pain-cost">עלות: 31.3 מיליארד דולר אבדות שנתיות בענף מתיאום לקוי</div>
+      <!-- DEMO 1: Revit QC -->
+      <div class="demo-box rv">
+        <div class="demo-header">
+          <span class="d-dot d-dot-r"></span>
+          <span class="d-dot d-dot-y"></span>
+          <span class="d-dot d-dot-g"></span>
+          <span class="demo-title">Revit QC — Tower_A_Phase2.rvt</span>
+        </div>
+        <div class="demo-body">
+          <span class="line cmd">$ claude revit --qc "Tower_A_Phase2.rvt" --milestone pre-permit</span>
+          <span class="line ok">&#x2714; NoticaTab connected (v2.3.1) — 50+ tools active</span>
+          <span class="line ok">&#x2714; Model loaded: 340 elements | 18 levels | 12 systems</span>
+          <span class="line info">&#x25b6; Running QC checks...</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line warn">&#x26a0; חלון W-14 (רמה 4): חסר פרט אדן — Family מוחלפת</span>
+          <span class="line warn">&#x26a0; דלת D-07 (רמה 2): אין clearance 90cm לנגישות (ת"י 1918)</span>
+          <span class="line warn">&#x26a0; קיר K-201: חסרה annotation של בידוד קול</span>
+          <span class="line err">&#x2715; גרם מדרגות S-03: משטח נחיתה &lt; 120cm — חריגה ממפרט</span>
+          <span class="line ok">&#x2714; 336/340 אלמנטים — תקינים</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line result">&#x2192; דוח QC: 4 ממצאים | 1 קריטי | 3 אזהרות | PDF נשמר</span>
+          <span class="line ok">&#x23f1; הושלם ב-87 שניות</span>
+        </div>
+        <div class="demo-timing">
+          <span class="demo-timing-before">לפני: 6–8 שעות ידני</span>
+          <span class="demo-timing-after">&#x2714; עכשיו: 87 שניות</span>
+        </div>
       </div>
 
-      <div class="pain-card sev5">
-        <div class="pain-num">02</div>
-        <div class="pain-sev"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
-        <div class="pain-title">אין ראות (Visibility) על מצב הפרויקטים</div>
-        <div class="pain-desc">54% מהמשרדים מנהלים משאבים ידנית. אין תשובה לשאלה: "מה מצב פרויקט X? כמה שעות נשרפו? האם אנחנו ברווח?" בלי לרדת לאקסל.</div>
-        <div class="pain-cost">עלות: 19% מהשעות אינן מחויבות — נעלמות בלי מעקב</div>
+      <!-- DEMO 2: BOQ -->
+      <div class="demo-box rv">
+        <div class="demo-header">
+          <span class="d-dot d-dot-r"></span>
+          <span class="d-dot d-dot-y"></span>
+          <span class="d-dot d-dot-g"></span>
+          <span class="demo-title">BOQ Extract — Office_Rehovot_B2.rvt</span>
+        </div>
+        <div class="demo-body">
+          <span class="line cmd">$ claude revit --boq "Office_Rehovot_B2.rvt" --output excel,pdf --currency ILS</span>
+          <span class="line ok">&#x2714; Revit Schedules API connected</span>
+          <span class="line ok">&#x2714; Extracting element data...</span>
+          <span class="line info">&#x25b6; Walls: 412 items | 3,847 m&#xb2; | 8 types</span>
+          <span class="line info">&#x25b6; Doors: 89 items | 12 families</span>
+          <span class="line info">&#x25b6; Windows: 134 items | 8 families</span>
+          <span class="line info">&#x25b6; Floors: 6 levels | 2,210 m&#xb2;</span>
+          <span class="line info">&#x25b6; Ceilings: 1,980 m&#xb2; | suspended + plaster</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line ok">&#x2714; BOQ.xlsx &#x2192; 47 שורות | פרק 2 בנייה + פרק 5 גמר</span>
+          <span class="line ok">&#x2714; BOQ.pdf &#x2192; פורמט תמחור לקבלן מוכן</span>
+          <span class="line ok">&#x23f1; הושלם ב-1 דקה 52 שניות</span>
+        </div>
+        <div class="demo-timing">
+          <span class="demo-timing-before">לפני: 2–3 ימי Excel ידני</span>
+          <span class="demo-timing-after">&#x2714; עכשיו: 2 דקות</span>
+        </div>
       </div>
 
-      <div class="pain-card sev5">
-        <div class="pain-num">03</div>
-        <div class="pain-sev"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
-        <div class="pain-title">תהליך הרישוי הישראלי — 319 יום</div>
-        <div class="pain-desc">ישראל: 319 יום ממוצע להיתר לעומת 114 יום בעולם. 15 גורמים, 10,000 עמוד תקנות, 500 סתירות. שום תוכנה לא מנהלת את תהליך הרישוי הישראלי.</div>
-        <div class="pain-cost">עלות: 30–50% מזמן האדריכל הולך לרישוי</div>
+      <!-- DEMO 3: תב"ע MAVAT -->
+      <div class="demo-box rv">
+        <div class="demo-header">
+          <span class="d-dot d-dot-r"></span>
+          <span class="d-dot d-dot-y"></span>
+          <span class="d-dot d-dot-g"></span>
+          <span class="demo-title">&#x05ea;&#x05d1;"&#x05e2; Check — MAVAT API &#x2014; Netanya Plot</span>
+        </div>
+        <div class="demo-body">
+          <span class="line cmd">$ claude mavat --check --gush 7842 --helka 109 --city netanya</span>
+          <span class="line ok">&#x2714; MAVAT API connected — gov.il/mavat/v3</span>
+          <span class="line ok">&#x2714; Fetching: גוש 7842 חלקה 109 — נתניה</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line info">&#x25b6; תוכנית מתאר חלה: נת/2000/א (אושרה 2019)</span>
+          <span class="line info">&#x25b6; ייעוד: מגורים ב' — מותר 8 קומות + מרתף</span>
+          <span class="line info">&#x25b6; אחוזי בנייה: 160% (מותר) | כולל זכויות תמ"א 38</span>
+          <span class="line warn">&#x26a0; קו בניין קדמי: 5 מטר מהרחוב — שים לב בתכנון</span>
+          <span class="line ok">&#x2714; תמ"א 38/1 — זכאי (בניין לפני 1980)</span>
+          <span class="line ok">&#x2714; היטל השבחה: לא חל — אין שינוי ייעוד</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line result">&#x2192; דוח תב"ע מלא.pdf — מוכן לפגישת לקוח</span>
+          <span class="line ok">&#x23f1; הושלם ב-2 דקות 14 שניות</span>
+        </div>
+        <div class="demo-timing">
+          <span class="demo-timing-before">לפני: 4 שעות + יועץ ₪3,500</span>
+          <span class="demo-timing-after">&#x2714; עכשיו: 2 דקות + ₪0</span>
+        </div>
       </div>
 
-      <div class="pain-card sev5">
-        <div class="pain-num">04</div>
-        <div class="pain-sev"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
-        <div class="pain-title">Scope Creep — לקוחות שינים שינויים ולא משלמים</div>
-        <div class="pain-desc">52% מהפרויקטים חורגים מתקציב. שינויים מתבצעים בעל-פה, בוואטסאפ, לא מתועדים, לא מחויבים. 81% מהמשרדים מחייבים רק 81% מהשעות בפועל.</div>
-        <div class="pain-cost">עלות: $43,000 הפסד שנתי ממוצע לצוות של 5 אנשים</div>
+      <!-- DEMO 4: ת"י 1918 -->
+      <div class="demo-box rv">
+        <div class="demo-header">
+          <span class="d-dot d-dot-r"></span>
+          <span class="d-dot d-dot-y"></span>
+          <span class="d-dot d-dot-g"></span>
+          <span class="demo-title">&#x05ea;"&#x05d9; 1918 Accessibility — Clinic_Rishon.rvt</span>
+        </div>
+        <div class="demo-body">
+          <span class="line cmd">$ claude revit --accessibility "Clinic_Rishon.rvt" --standard ti1918 --report full</span>
+          <span class="line ok">&#x2714; ת"י 1918 rule engine loaded (עדכון 2024)</span>
+          <span class="line ok">&#x2714; Building type: מרפאה — חלות דרישות מוגברות</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line ok">&#x2714; כניסה ראשית: רמפה 1:12 — תקינה</span>
+          <span class="line ok">&#x2714; מעלית: רוחב 110cm | עומק 140cm — תקינה</span>
+          <span class="line warn">&#x26a0; שירותי נגישות קומה 2: חסר מאחז יד בצד שמאל</span>
+          <span class="line warn">&#x26a0; דלת כניסה D-01: ידית בגובה 105cm — נדרש מעל 80cm, מתחת ל-110cm</span>
+          <span class="line err">&#x2715; מסדרון M-04: רוחב 88cm — מינימום 120cm לפי ת"י 1918 סעיף 6.2</span>
+          <span class="line err">&#x2715; חניית נכים: 1 מקום מסומן מתוך נדרש 3 (לפי 45 מקומות)</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line result">&#x2192; 2 ממצאים קריטיים | 2 אזהרות | דוח לגורם המוסמך</span>
+          <span class="line ok">&#x23f1; הושלם ב-5 דקות 30 שניות</span>
+        </div>
+        <div class="demo-timing">
+          <span class="demo-timing-before">לפני: יועץ נגישות ₪12,000</span>
+          <span class="demo-timing-after">&#x2714; עכשיו: 5 דקות + ₪0</span>
+        </div>
       </div>
 
-      <div class="pain-card sev4">
-        <div class="pain-num">05</div>
-        <div class="pain-sev"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
-        <div class="pain-title">הדמיות = תהליך ארוך ויקר</div>
-        <div class="pain-desc">Render מקצועי לוקח שבועות ועולה אלפי שקלים. AI renders עכשיו זמינות ב-15 דולר תוך דקות. 90% מהמשרדים עדיין לא אימצו את הכלים הנכונים.</div>
-        <div class="pain-cost">פוטנציאל חיסכון: 80% בעלות הדמיות</div>
+      <!-- DEMO 5: Knowledge Base RAG -->
+      <div class="demo-box rv">
+        <div class="demo-header">
+          <span class="d-dot d-dot-r"></span>
+          <span class="d-dot d-dot-y"></span>
+          <span class="d-dot d-dot-g"></span>
+          <span class="demo-title">Knowledge Base — Hebrew RAG</span>
+        </div>
+        <div class="demo-body">
+          <span class="line cmd">$ claude kb --query "איך טיפלנו בבעיית הרטיבות בפרויקט שערי מזרח?"</span>
+          <span class="line ok">&#x2714; Knowledge base: 847 מסמכים | 12 שנות פרויקטים</span>
+          <span class="line ok">&#x2714; Semantic search in Hebrew...</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line info">&#x25b6; נמצאו 4 תיעודים רלוונטיים:</span>
+          <span class="line info">   [0.94] שערי_מזרח_2022/פרוטוקול_ישיבה_027.pdf</span>
+          <span class="line info">   [0.89] שערי_מזרח_2022/פתרון_רטיבות_קיר_דרומי.pdf</span>
+          <span class="line info">   [0.81] פרויקט_דרום_תל_אביב_2020/לקחים.pdf</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line he">תשובה: בפרויקט שערי מזרח (2022), בעיית הרטיבות בקיר הדרומי</span>
+          <span class="line he">טופלה ע"י הזרקת אפוקסי + הוספת isolation membrane Masterseal 345.</span>
+          <span class="line he">קבלן: אביב בנייה. ערבות מפגע: 5 שנים. ראה פרוטוקול 027.</span>
+          <span class="line ok">&#x23f1; תשובה ב-1.2 שניות</span>
+        </div>
+        <div class="demo-timing">
+          <span class="demo-timing-before">לפני: 45 דקות חיפוש ידני</span>
+          <span class="demo-timing-after">&#x2714; עכשיו: 1.2 שניות</span>
+        </div>
       </div>
 
-      <div class="pain-card sev4">
-        <div class="pain-num">06</div>
-        <div class="pain-sev"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
-        <div class="pain-title">ניהול גרסאות שרטוטים = כאוס</div>
-        <div class="pain-desc">מאות גיליונות DWG בין אדריכלות, קונסטרוקציה, MEP. אין Version Control אמיתי — בונים לפי שרטוט ישן. 15–25% מה-Change Orders נובעות מתיאום לקוי.</div>
-        <div class="pain-cost">עלות: 177 מיליארד דולר שנתי בענף מחוסר תיאום</div>
+      <!-- DEMO 6: Change Order -->
+      <div class="demo-box rv">
+        <div class="demo-header">
+          <span class="d-dot d-dot-r"></span>
+          <span class="d-dot d-dot-y"></span>
+          <span class="d-dot d-dot-g"></span>
+          <span class="demo-title">Change Order — Scope Creep Detection</span>
+        </div>
+        <div class="demo-body">
+          <span class="line cmd">$ claude co --detect "ProjectX_emails.txt" --contract "contract_v3.pdf"</span>
+          <span class="line ok">&#x2714; Contract loaded: היקף מקורי — לובי + 4 קומות משרדים</span>
+          <span class="line ok">&#x2714; Analyzing 156 emails from last 3 months...</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line warn">&#x26a0; זוהתה חריגה #1: מרפסת שירות קומה 5 (18/03)</span>
+          <span class="line info">   "...תוסיף מרפסת שירות 12m&#xb2; בקומה 5 בבקשה..."</span>
+          <span class="line warn">&#x26a0; זוהתה חריגה #2: חיפוי קיר כניסה בפורצלן איטלקי (02/04)</span>
+          <span class="line warn">&#x26a0; זוהתה חריגה #3: תאורת LED דקורטיבית בחדר ישיבות (10/04)</span>
+          <span class="line sep">────────────────────────────────────────────</span>
+          <span class="line result">&#x2192; Change Order #7 נוצר: 3 סעיפים | סה"כ ₪47,800</span>
+          <span class="line ok">&#x2714; PDF + WhatsApp לאישור לקוח נשלח</span>
+          <span class="line ok">&#x23f1; הושלם ב-28 שניות</span>
+        </div>
+        <div class="demo-timing">
+          <span class="demo-timing-before">לפני: ₪47K לא נגבה (scope creep)</span>
+          <span class="demo-timing-after">&#x2714; עכשיו: כל שקל מתועד ונגבה</span>
+        </div>
       </div>
 
-      <div class="pain-card sev4">
-        <div class="pain-num">07</div>
-        <div class="pain-sev"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
-        <div class="pain-title">פינוי-בינוי / תמ"א 38 = עומס ייחודי ישראלי</div>
-        <div class="pain-desc">37% מייצור הדיור הישראלי הוא התחדשות עירונית. פרויקטים אלו דורשים תהליך מורכב מאוד — הסכמות דיירים, ועדות מיוחדות, פיקוח חברתי. אין כלי ייעודי.</div>
-        <div class="pain-cost">50%+ מהפרויקטים בתל-אביב הם פינוי-בינוי/תמ"א</div>
-      </div>
-
-      <div class="pain-card sev3">
-        <div class="pain-num">08</div>
-        <div class="pain-sev"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></div>
-        <div class="pain-title">פינוי-בינוי / תמ"א 38 = עומס ייחודי ישראלי</div>
-        <div class="pain-desc">74–97 ימים ממוצע לקבל תשלום מלקוח. חשבוניות מחכות כי קשה להפיק אותן — צריך לרכז שעות, שלבים, תוספות שירות, תשלומי יועצים. ה-CTO צריך לפתור את זה.</div>
-        <div class="pain-cost">עלות הון עצמי: מיליוני שקלים בניהול תזרים</div>
-      </div>
-
-    </div>
+    </div><!-- /demos-grid -->
   </div>
 </section>
 
-<!-- ═══ MODULES ═══ -->
 <div class="divider"></div>
-<section id="modules" style="background:var(--s1)">
+
+<!-- ═══════════════════ WORKFLOW CARDS ═══════════════════ -->
+<section id="cards">
   <div class="inner">
-    <div class="tag">הפלטפורמה</div>
-    <h2>8 מודולים — <span class="hl">מערכת אחת</span></h2>
-    <p class="lead">כל מה שמשרד של 50 אדריכלים צריך — משלב ה-lead הראשון עד תעודת גמר ותשלום אחרון</p>
+    <div class="tag rv">זרימות עבודה</div>
+    <h2 class="rv">עוד <span class="hl">6 זרימות</span> שמשנות את השגרה</h2>
+    <p class="lead rv">אלה לא "פיצ'רים" — אלה תהליכים שקורים כל יום במשרד שלך, ועכשיו קורים אחרת.</p>
 
-    <div class="module-panels rv">
+    <div class="cards-grid">
 
-      <!-- MODULE 1 -->
-      <div class="module-panel">
-        <div class="mp-header">
-          <div class="mp-icon" style="background:rgba(59,130,246,.12)">📊</div>
-          <div>
-            <div class="mp-title">מ-1 · ניהול פרויקטים ותכנון שלבים</div>
-            <div class="mp-subtitle">Project Command Center — מה רץ, מה בעיכוב, מה בסכנה</div>
-          </div>
+      <div class="wf-card rv">
+        <div class="wf-icon" style="background:rgba(59,130,246,.12)">&#x1f3a8;</div>
+        <div class="wf-name">הדמיות AI — Veras מ-Revit</div>
+        <div class="wf-desc">
+          ישירות מה-Revit model, ללא export, ללא תוכנת הדמיה נפרדת.
+          5 וריאציות סגנון — מינימליסטי, סקנדינבי, אורבני, מסחרי, פרמיום —
+          מוכן לפגישת הלקוח תוך דקה.
         </div>
-        <div class="mp-body">
-          <p style="color:var(--muted);font-size:.875rem;margin-bottom:1rem">
-            מרכז שליטה על כל הפרויקטים של המשרד. תצוגת Gantt AI שמעדכנת את עצמה מ-Revit ומהשעות. כל שלב AIA/ישראלי עם ראות מלאה על תקציב vs. מציאות.
-          </p>
-          <ul class="sub-features">
-            <li>שלבי עיצוב ישראליים (SD, DD, CD, CA) עם % השלמה אוטומטי</li>
-            <li>Gantt חי עם dependecies בין פרויקטים</li>
-            <li>משאבים: מי עובד על מה, כמה שעות נותרו</li>
-            <li>התראה כשפרויקט עובר 80% מהתקציב בשלב</li>
-            <li>Dashboard לניהול בכיר — 10 פרויקטים על מסך אחד</li>
-            <li>חיבור לרישוי זמין — מעקב שלב ההיתר בתוך הפרויקט</li>
-            <li>אינטגרציה לגרין-אינבויס לחיוב אוטומטי עם אבני דרך</li>
-            <li>AI: חיזוי השלמה ועלות על בסיס פרויקטים היסטוריים</li>
-          </ul>
-          <div class="feature-chips">
-            <span class="chip">Gantt AI</span>
-            <span class="chip chip-g">Phase Tracking</span>
-            <span class="chip chip-a">Budget Alert</span>
-            <span class="chip chip-c">Dashboard</span>
+        <div class="wf-before-after">
+          <div class="wf-before">
+            <span class="wf-before-label">לפני</span>
+            <span class="wf-before-val">Lumion, 2 ימים, ₪1,500–₪3,000</span>
+          </div>
+          <div class="wf-after">
+            <span class="wf-after-label">אחרי</span>
+            <span class="wf-after-val">Veras, 60 שניות, $3</span>
           </div>
         </div>
       </div>
 
-      <!-- MODULE 2 -->
-      <div class="module-panel">
-        <div class="mp-header">
-          <div class="mp-icon" style="background:rgba(16,185,129,.12)">🔗</div>
-          <div>
-            <div class="mp-title">מ-2 · תיאום בין-יועצים (Coordination Hub)</div>
-            <div class="mp-subtitle">מרכז אחד לכל 6–10 היועצים — לא וואטסאפ, לא אימייל</div>
-          </div>
+      <div class="wf-card rv">
+        <div class="wf-icon" style="background:rgba(16,185,129,.12)">&#x1f4dd;</div>
+        <div class="wf-name">תמלול ישיבות — עברית + סיכום</div>
+        <div class="wf-desc">
+          הקלטת הישיבה עם הלקוח עוברת תמלול אוטומטי לעברית.
+          Claude מפיק: פרוטוקול מסודר, רשימת פעולות נדרשות,
+          ומי אחראי על מה — נשלח לכל המשתתפים תוך 3 דקות.
         </div>
-        <div class="mp-body">
-          <div class="announce" style="margin-bottom:1rem">
-            <div class="ann-icon">⚡</div>
-            <div class="ann-text">
-              <strong>הכאב הכי גדול שצוין — פתרון ישיר</strong>
-              מרכז תיאום שמחליף את כל ה-WhatsApp groups ואימיילים בין המשרד לקונסטרוקציה, MEP, נגישות ושאר יועצים
-            </div>
+        <div class="wf-before-after">
+          <div class="wf-before">
+            <span class="wf-before-label">לפני</span>
+            <span class="wf-before-val">כתיבת פרוטוקול ידנית, שעה</span>
           </div>
-          <ul class="sub-features">
-            <li>RFI (בקשת הבהרה) לכל יועץ — tracked, timestamped, מחויב לגיליון</li>
-            <li>Submittal log — מעקב אישורי חומרים ומוצרים</li>
-            <li>Clash detection alerts — זיהוי התנגשויות DWG/BIM אוטומטי</li>
-            <li>תצוגת overlay — שרטוטי כל היועצים מונחים אחד על השני</li>
-            <li>אישורים דיגיטליים — חתימה על גיליון, timestamp, לא ניתן לפצות</li>
-            <li>Revision cloud — מעקב שינויים בין גרסאות</li>
-            <li>File versioning — DWG/PDF עם version history</li>
-            <li>External portal — יועצים ניגשים ב-browser בלי להתקין כלום</li>
-          </ul>
-          <div class="feature-chips">
-            <span class="chip chip-g">RFI System</span>
-            <span class="chip">Version Control</span>
-            <span class="chip chip-c">Clash Alerts</span>
-            <span class="chip chip-a">Submittal Log</span>
+          <div class="wf-after">
+            <span class="wf-after-label">אחרי</span>
+            <span class="wf-after-val">תמלול + פרוטוקול + action items, 3 דקות</span>
           </div>
         </div>
       </div>
 
-      <!-- MODULE 3 -->
-      <div class="module-panel">
-        <div class="mp-header">
-          <div class="mp-icon" style="background:rgba(6,182,212,.12)">🎨</div>
-          <div>
-            <div class="mp-title">מ-3 · הדמיות AI (Visualization Engine)</div>
-            <div class="mp-subtitle">מ-Revit להדמיה בדקות — לא שבועות</div>
-          </div>
+      <div class="wf-card rv">
+        <div class="wf-icon" style="background:rgba(245,158,11,.12)">&#x1f4ac;</div>
+        <div class="wf-name">WhatsApp Bot — לקוחות 24/7</div>
+        <div class="wf-desc">
+          Claude Bot מחובר ל-WhatsApp Business API ויודע לענות
+          על שאלות סטטוס, לקבוע פגישות, ולהעביר הודעות דחופות.
+          הכל בעברית טבעית, עם גישה לסטטוס הפרויקט בזמן אמת.
         </div>
-        <div class="mp-body">
-          <p style="color:var(--muted);font-size:.875rem;margin-bottom:1rem">
-            AI visualization pipeline שמחובר ישירות ל-BIM. הדמיה ב-3 שלבים: Concept Mood Board → Schematic 3D → Final Render. כולל הדמיות שכבה (לפני ואחרי) לפרויקטי פינוי-בינוי.
-          </p>
-          <ul class="sub-features">
-            <li>Veras + Revit: קח viewport מ-Revit → הדמיה תוך דקות</li>
-            <li>Midjourney integration לConceptual Mood Boards</li>
-            <li>ControlNet לשמירת גיאומטריה מ-SketchUp/Rhino</li>
-            <li>Stable Diffusion pipeline מותאם לסגנון המשרד</li>
-            <li>Enscape Real-time Renders מ-Revit</li>
-            <li>לפני/אחרי לפינוי-בינוי — חזיתות קיימות vs. מוצעות</li>
-            <li>Client Portal להצגה — approve/reject על כל variation</li>
-            <li>AI Interior Design: הדמיית פנים מתוכנית קומה</li>
-          </ul>
-          <div class="feature-chips">
-            <span class="chip chip-c">Veras + Revit</span>
-            <span class="chip">Midjourney</span>
-            <span class="chip chip-g">Enscape RT</span>
-            <span class="chip chip-a">Before/After</span>
+        <div class="wf-before-after">
+          <div class="wf-before">
+            <span class="wf-before-label">לפני</span>
+            <span class="wf-before-val">אדריכל עונה בלילה, burn-out</span>
+          </div>
+          <div class="wf-after">
+            <span class="wf-after-label">אחרי</span>
+            <span class="wf-after-val">Bot עונה 24/7, האדריכל ישן</span>
           </div>
         </div>
       </div>
 
-      <!-- MODULE 4 -->
-      <div class="module-panel">
-        <div class="mp-header">
-          <div class="mp-icon" style="background:rgba(245,158,11,.12)">⚖️</div>
-          <div>
-            <div class="mp-title">מ-4 · רישוי ותכנון ישראלי (Permit Engine)</div>
-            <div class="mp-subtitle">מנהל את כל מסלול ההיתר הישראלי — MAVAT, Rishuy Zamin, ועדות</div>
-          </div>
+      <div class="wf-card rv">
+        <div class="wf-icon" style="background:rgba(99,102,241,.12)">&#x1f4cb;</div>
+        <div class="wf-name">מפרט טכני — מ-Revit לישר</div>
+        <div class="wf-desc">
+          Claude קורא ישירות את ה-Revit model — חומרים, משפחות, מערכות —
+          וכותב מפרט טכני מלא בעברית בפורמט תקני.
+          מדויק כי מבוסס על המודל, לא על זיכרון.
         </div>
-        <div class="mp-body">
-          <div class="announce" style="margin-bottom:1rem">
-            <div class="ann-icon">🇮🇱</div>
-            <div class="ann-text">
-              <strong>פער השוק הגדול ביותר בישראל — שום תוכנה לא עושה את זה</strong>
-              לא קיים כלי שמנהל את מסלול ההיתר הישראלי. זוהי הזדמנות ייחודית.
-            </div>
+        <div class="wf-before-after">
+          <div class="wf-before">
+            <span class="wf-before-label">לפני</span>
+            <span class="wf-before-val">כותב מפרט חיצוני, שבוע, ₪15,000</span>
           </div>
-          <ul class="sub-features">
-            <li>מעקב שלבי הגשה לרישוי זמין — עם alerts לכל deadline</li>
-            <li>חיבור MAVAT API — זכויות בנייה, תב"ע, היסטוריה אוטומטית</li>
-            <li>Checklist AI לפני הגשה — בדיקת שלמות תיק המסמכים</li>
-            <li>חישוב שטחי עיקר/שירות אוטומטי מה-DWG</li>
-            <li>בדיקת תקן 1918 נגישות — ממשק לשרטוטים</li>
-            <li>בדיקת תקן 5282 אנרגיה — עמידה באקלים/אזור</li>
-            <li>ניהול שלבי תמ"א 38 / פינוי-בינוי</li>
-            <li>AI תב"ע: שאל שאלות על תב"ע ספציפית בעברית</li>
-          </ul>
-          <div class="feature-chips">
-            <span class="chip chip-a">MAVAT API</span>
-            <span class="chip">ת"י 1918</span>
-            <span class="chip">ת"י 5282</span>
-            <span class="chip chip-g">Permit Tracker</span>
+          <div class="wf-after">
+            <span class="wf-after-label">אחרי</span>
+            <span class="wf-after-val">מהמודל, 4 דקות, ₪0</span>
           </div>
         </div>
       </div>
 
-      <!-- MODULE 5 -->
-      <div class="module-panel">
-        <div class="mp-header">
-          <div class="mp-icon" style="background:rgba(99,102,241,.12)">💰</div>
-          <div>
-            <div class="mp-title">מ-5 · פיננסים, שכר טרחה וחשבוניות</div>
-            <div class="mp-subtitle">שכ"ט ישראלי + גרין-אינבויס + מעקב זמן לשלב</div>
-          </div>
+      <div class="wf-card rv">
+        <div class="wf-icon" style="background:rgba(244,63,94,.12)">&#x1f3d7;</div>
+        <div class="wf-name">תמ"א 38 ופינוי-בינוי — בדיקת זכאות</div>
+        <div class="wf-desc">
+          Claude בודק זכאות לתמ"א 38/1, 38/2 ולפינוי-בינוי מול נתוני
+          MAVAT, גיל הבניין, שטח המגרש, ופוטנציאל כלכלי —
+          דוח להצגה ליזם בלחיצת כפתור.
         </div>
-        <div class="mp-body">
-          <ul class="sub-features">
-            <li>מעקב שעות לפי שלב ולפי פרויקט — בזמן אמת</li>
-            <li>חישוב שכ"ט ישראלי (% מערך הבנייה, שעתי, קבוע)</li>
-            <li>הפקת חשבוניות לגרין-אינבויס ישירות מהמערכת</li>
-            <li>מעקב תשלומים — מי חייב, כמה, כמה ימים עיכוב</li>
-            <li>Reimbursables — הוצאות יועצים, הוצאות מנהליות</li>
-            <li>Change Order workflow — תיעוד שינוי, אישור לקוח, חיוב</li>
-            <li>דוח רווחיות לפרויקט — שורת הרווח על כל עבודה</li>
-            <li>תחזית תזרים — חיזוי AI של הכנסות חודשיות קדימה</li>
-          </ul>
-          <div class="feature-chips">
-            <span class="chip chip-g">גרין-אינבויס</span>
-            <span class="chip">שכ"ט ישראלי</span>
-            <span class="chip chip-a">Change Orders</span>
-            <span class="chip chip-c">Cash Flow AI</span>
+        <div class="wf-before-after">
+          <div class="wf-before">
+            <span class="wf-before-label">לפני</span>
+            <span class="wf-before-val">ייעוץ תכנוני + עורך דין, ₪8,000+</span>
+          </div>
+          <div class="wf-after">
+            <span class="wf-after-label">אחרי</span>
+            <span class="wf-after-val">בדיקה ראשונית מקיפה, 3 דקות</span>
           </div>
         </div>
       </div>
 
-      <!-- MODULE 6 -->
-      <div class="module-panel">
-        <div class="mp-header">
-          <div class="mp-icon" style="background:rgba(244,63,94,.12)">🤖</div>
-          <div>
-            <div class="mp-title">מ-6 · AI Assistant — Claude + Revit + AutoCAD</div>
-            <div class="mp-subtitle">Claude שולט ב-BIM, מייצר AutoLISP, מנתח מודלים בשפה טבעית</div>
-          </div>
+      <div class="wf-card rv">
+        <div class="wf-icon" style="background:rgba(6,182,212,.12)">&#x26a1;</div>
+        <div class="wf-name">ת"י 5282 — דירוג אנרגטי</div>
+        <div class="wf-desc">
+          Claude מנתח את מעטפת הבניין מ-Revit — בידוד, חלונות U-value,
+          כיוון אדריכלי — ומחשב דירוג אנרגטי מוקדם.
+          מזהה שינויי תכנון שמשפרים את הדירוג לפני שיגישו להיתר.
         </div>
-        <div class="mp-body">
-          <div class="announce" style="margin-bottom:1rem">
-            <div class="ann-icon">🔥</div>
-            <div class="ann-text">
-              <strong>Revit 2027 — MCP Server מובנה (יצא אפריל 2026)</strong>
-              Claude מחובר ישירות ל-Revit. NoticaTab מאפשר 50+ כלים היום. אין צורך לפתח — להגדיר ולהשתמש.
-            </div>
+        <div class="wf-before-after">
+          <div class="wf-before">
+            <span class="wf-before-label">לפני</span>
+            <span class="wf-before-val">יועץ אנרגיה ₪6,000, מאוחר בתהליך</span>
           </div>
-          <ul class="sub-features">
-            <li>שאל את המודל: "כמה מ"ר בקומה 3? מה חסר?"</li>
-            <li>QC אוטומטי — Claude מחפש שגיאות בכל Revit model</li>
-            <li>כתיבת AutoLISP בעברית — "כתוב routine לחישוב שטח"</li>
-            <li>Batch Processing — עדכן 50 שרטוטים בו-זמנית</li>
-            <li>הפקת BOQ — רשימת כמויות מ-BIM ישירות לאקסל</li>
-            <li>יצירת Sheets ו-Views אוטומטית לפי תבניות</li>
-            <li>בדיקת תאימות תקנים ישראלית (נגישות, אש, אנרגיה)</li>
-            <li>ניתוח תב"ע — שאל שאלות על תוכנית בנייה ספציפית</li>
-          </ul>
-          <div class="feature-chips">
-            <span class="chip chip-g">NoticaTab FREE</span>
-            <span class="chip">Revit MCP</span>
-            <span class="chip chip-c">AutoCAD MCP</span>
-            <span class="chip chip-a">Claude API</span>
+          <div class="wf-after">
+            <span class="wf-after-label">אחרי</span>
+            <span class="wf-after-val">בדיקה מוקדמת, 8 דקות, מ-Revit</span>
           </div>
         </div>
       </div>
 
-      <!-- MODULE 7 -->
-      <div class="module-panel">
-        <div class="mp-header">
-          <div class="mp-icon" style="background:rgba(59,130,246,.12)">🏠</div>
-          <div>
-            <div class="mp-title">מ-7 · פורטל לקוחות (Client Portal)</div>
-            <div class="mp-subtitle">הלקוח רואה הכל, מאשר הכל — בלי אימייל</div>
-          </div>
-        </div>
-        <div class="mp-body">
-          <ul class="sub-features">
-            <li>Dashboard ללקוח — מצב פרויקט בזמן אמת</li>
-            <li>שיתוף שרטוטים — הלקוח מאשר + מעיר ישירות על PDF</li>
-            <li>גלריית הדמיות — לקוח בוחר variation מועדפת</li>
-            <li>אישורי אבני דרך — חתימה דיגיטלית, timestamp, לא ניתן להכחיש</li>
-            <li>Change Order approval — לקוח רואה עלות ומאשר שינוי</li>
-            <li>לוח זמנים — לקוח רואה את הגאנט ואת עיכובים בזמן אמת</li>
-            <li>חשבוניות — לקוח רואה מה שולם, מה עומד לתשלום</li>
-            <li>תקשורת מובנית — לא WhatsApp, הכל documented</li>
-          </ul>
-          <div class="feature-chips">
-            <span class="chip">Client Dashboard</span>
-            <span class="chip chip-g">eSign</span>
-            <span class="chip chip-c">Viz Gallery</span>
-            <span class="chip chip-a">Change Orders</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- MODULE 8 -->
-      <div class="module-panel">
-        <div class="mp-header">
-          <div class="mp-icon" style="background:rgba(16,185,129,.12)">📚</div>
-          <div>
-            <div class="mp-title">מ-8 · ספריית ידע ותקני המשרד</div>
-            <div class="mp-subtitle">DNA של המשרד — תקנות, פרטים, תבניות, היסטוריה</div>
-          </div>
-        </div>
-        <div class="mp-body">
-          <ul class="sub-features">
-            <li>פרטי בנייה (Details Library) — המשרד מוסיף, AI מאנדקס</li>
-            <li>AI Spec Writer — ממסמכי BIM לספציפיקציה טכנית אוטומטית</li>
-            <li>בסיס ידע הרגולציה הישראלית — תקנות, ת"י, תב"עות</li>
-            <li>לקחים מפרויקטים — כל פרויקט מייצר Lessons Learned</li>
-            <li>תבניות לוחות כותרת, חוזים, הצעות מחיר — Hebrew-first</li>
-            <li>ספריית Products — אוסף מוצרים של המשרד עם מחירים עדכניים</li>
-            <li>AI Search — "מה עשינו בפרויקט דומה לפני 2 שנים?"</li>
-            <li>Onboarding חדשים — AI מלמד עובד חדש את ה-DNA של המשרד</li>
-          </ul>
-          <div class="feature-chips">
-            <span class="chip">Details Library</span>
-            <span class="chip chip-g">AI Spec Writer</span>
-            <span class="chip chip-c">RAG Search</span>
-            <span class="chip chip-a">Onboarding AI</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    </div><!-- /cards-grid -->
   </div>
 </section>
 
-<!-- ═══ AI STACK ═══ -->
 <div class="divider"></div>
-<section id="ai-stack">
+
+<!-- ═══════════════════ ISRAEL ═══════════════════ -->
+<section id="israel">
   <div class="inner">
-    <div class="tag">טכנולוגיה</div>
-    <h2>ה-AI Stack המלא</h2>
-    <p class="lead">כל כלי שאדריכל ב-2026 צריך — ממוין לפי שלב ומטרה</p>
+    <div class="tag rv">ישראל-first</div>
+    <h2 class="rv">בנוי <span class="hl">לשוק הישראלי</span> —<br>לא מתורגם ממקום אחר</h2>
+    <p class="lead rv">הבעיה עם כלי AI גנריים: הם לא מכירים MAVAT, לא יודעים מה זה תמ"א 38, ולא כותבים מפרטים בעברית שאפשר להגיש. הפלטפורמה הזו כן.</p>
 
-    <!-- Architecture Diagram -->
-    <div class="arch-diagram rv" style="margin-bottom:3rem">
-      <div style="text-align:center;margin-bottom:1.5rem;font-weight:800;font-size:1.1rem">ארכיטקטורת המערכת — שכבות</div>
-
-      <div class="arch-layer">
-        <div class="arch-layer-title">LAYER 5 — USER INTERFACES</div>
-        <div class="arch-boxes">
-          <div class="arch-box ab-blue">Web App (React RTL)</div>
-          <div class="arch-box ab-blue">Revit Plugin</div>
-          <div class="arch-box ab-blue">AutoCAD Plugin</div>
-          <div class="arch-box ab-blue">Mobile App</div>
-          <div class="arch-box ab-blue">Client Portal</div>
-          <div class="arch-box ab-blue">Claude Desktop</div>
-        </div>
-      </div>
-      <div class="arch-arrow">↕</div>
-
-      <div class="arch-layer">
-        <div class="arch-layer-title">LAYER 4 — AI ENGINE</div>
-        <div class="arch-boxes">
-          <div class="arch-box ab-green">Claude Opus (ניתוח + כתיבה)</div>
-          <div class="arch-box ab-green">Claude Sonnet (אוטומציה)</div>
-          <div class="arch-box ab-green">Revit MCP Server</div>
-          <div class="arch-box ab-green">AutoCAD MCP Server</div>
-          <div class="arch-box ab-green">Veras Rendering</div>
-          <div class="arch-box ab-green">Autodesk Forma</div>
-        </div>
-      </div>
-      <div class="arch-arrow">↕</div>
-
-      <div class="arch-layer">
-        <div class="arch-layer-title">LAYER 3 — BUSINESS LOGIC (Supabase + Next.js)</div>
-        <div class="arch-boxes">
-          <div class="arch-box ab-cyan">Project Management</div>
-          <div class="arch-box ab-cyan">Coordination Hub</div>
-          <div class="arch-box ab-cyan">Permit Engine</div>
-          <div class="arch-box ab-cyan">Finance & Billing</div>
-          <div class="arch-box ab-cyan">Document Control</div>
-          <div class="arch-box ab-cyan">Knowledge Base RAG</div>
-        </div>
-      </div>
-      <div class="arch-arrow">↕</div>
-
-      <div class="arch-layer">
-        <div class="arch-layer-title">LAYER 2 — INTEGRATIONS</div>
-        <div class="arch-boxes">
-          <div class="arch-box ab-amber">MAVAT API (תכנון)</div>
-          <div class="arch-box ab-amber">רישוי זמין</div>
-          <div class="arch-box ab-amber">גרין-אינבויס API</div>
-          <div class="arch-box ab-amber">Autodesk Platform Services</div>
-          <div class="arch-box ab-amber">Supabase DB</div>
-          <div class="arch-box ab-amber">S3 / R2 Files</div>
-        </div>
-      </div>
-      <div class="arch-arrow">↕</div>
-
-      <div class="arch-layer">
-        <div class="arch-layer-title">LAYER 1 — DATA SOURCES</div>
-        <div class="arch-boxes">
-          <div class="arch-box ab-rose">Revit Models (.rvt)</div>
-          <div class="arch-box ab-rose">AutoCAD Files (.dwg)</div>
-          <div class="arch-box ab-rose">PDFs / Scans</div>
-          <div class="arch-box ab-rose">IFC / BIM</div>
-          <div class="arch-box ab-rose">Email / Calendar</div>
-          <div class="arch-box ab-rose">WhatsApp History</div>
-        </div>
+    <div class="partner-strip rv">
+      <div style="font-size:1.8rem">&#x1f91d;</div>
+      <div class="partner-strip-text">
+        <strong>Anthropic &times; Autodesk — שותפות רשמית, אפריל 2026</strong><br>
+        <span style="color:var(--muted)">האינטגרציה הישירה בין Claude ל-Revit היא חלק מהמסלול הרשמי של Autodesk. זה לא workaround — זה המוצר.</span>
       </div>
     </div>
 
-    <!-- AI Tools Grid -->
-    <div class="stack-grid rv">
+    <div class="israel-grid">
 
-      <div class="stack-card">
-        <div class="stack-top">
-          <div class="stack-logo" style="background:rgba(16,185,129,.1)">🏢</div>
-          <div><div class="stack-name">NoticaTab AI Connector</div><div class="stack-cat">Revit → Claude — Official Anthropic Integration</div></div>
+      <div class="israel-card rv">
+        <div class="israel-card-head">
+          <div class="israel-icon" style="background:rgba(59,130,246,.12); color:var(--blue)">&#x1f5fa;</div>
+          <div class="israel-card-title">MAVAT API — חיבור ישיר</div>
         </div>
-        <div class="stack-desc">50+ כלים מוכנים לRevit. חינם. QC, ניתוח מודל, עריכת bulk, תיעוד אוטומטי. 25,000+ משתמשים.</div>
-        <div class="stack-use">שימוש: QC יומי, בדיקת פרמטרים חסרים, הפקת BOQ</div>
-        <span class="badge badge-green"><span class="dot" style="background:var(--green)"></span>Production — Free</span>
+        <div class="israel-card-body">
+          חיבור ל-<strong>מערכת מידע תכנוני</strong> של ממשלת ישראל.
+          שאלות תב"ע, תוכניות מתאר, זכויות בנייה — הכל live, לא PDF ישן.
+          גוש, חלקה, עיר — תוצאה ב-2 דקות.
+        </div>
       </div>
 
-      <div class="stack-card">
-        <div class="stack-top">
-          <div class="stack-logo" style="background:rgba(59,130,246,.1)">🎨</div>
-          <div><div class="stack-name">Veras by EvolveLAB</div><div class="stack-cat">AI Rendering — Revit + SketchUp + Rhino</div></div>
+      <div class="israel-card rv">
+        <div class="israel-card-head">
+          <div class="israel-icon" style="background:rgba(16,185,129,.12); color:var(--green)">&#x267f;</div>
+          <div class="israel-card-title">ת"י 1918 — נגישות</div>
         </div>
-        <div class="stack-desc">Diffusion-based rendering ישירות מ-Revit viewport. שמור על גיאומטריה, שנה סגנון. תוצאה בדקות, לא שבועות.</div>
-        <div class="stack-use">שימוש: הדמיות ביניים, הצגות ללקוחות, לפני/אחרי פינוי-בינוי</div>
-        <span class="badge badge-green"><span class="dot" style="background:var(--green)"></span>Production — $50/month</span>
+        <div class="israel-card-body">
+          Rule engine מלא לתקן ישראלי <strong>ת"י 1918</strong>:
+          רוחב מסדרונות, גובה ידיות, שיפוע רמפות, חניית נכים,
+          דרישות מוגברות לבניינים ציבוריים ומרפאות.
+        </div>
       </div>
 
-      <div class="stack-card">
-        <div class="stack-top">
-          <div class="stack-logo" style="background:rgba(245,158,11,.1)">🏙️</div>
-          <div><div class="stack-name">Autodesk Forma</div><div class="stack-cat">Site Analysis + Massing — AI Urban Planning</div></div>
+      <div class="israel-card rv">
+        <div class="israel-card-head">
+          <div class="israel-icon" style="background:rgba(245,158,11,.12); color:var(--amber)">&#x26a1;</div>
+          <div class="israel-card-title">ת"י 5282 — דירוג אנרגטי</div>
         </div>
-        <div class="stack-desc">ניתוח שטח בזמן אמת: שמש, רוח, ביוקלימה, גובה צל, embodied carbon. מייצר 500 מאסינג alternatives תוך שעה.</div>
-        <div class="stack-use">שימוש: היתכנות ראשונית, מסמכי פינוי-בינוי, תכנון עירוני</div>
-        <span class="badge badge-green"><span class="dot" style="background:var(--green)"></span>Production — bundled AEC</span>
+        <div class="israel-card-body">
+          חישוב דירוג אנרגטי לפי <strong>ת"י 5282</strong> מעדכון 2022.
+          אנליזה של U-value חלונות, R-value בידוד,
+          orientation, ומיפוי שינויים שישפרו את הדירוג עוד בשלב תכנון.
+        </div>
       </div>
 
-      <div class="stack-card">
-        <div class="stack-top">
-          <div class="stack-logo" style="background:rgba(6,182,212,.1)">⚙️</div>
-          <div><div class="stack-name">AutoCAD MCP Pro (87 כלים)</div><div class="stack-cat">Claude → AutoCAD — Full Control</div></div>
+      <div class="israel-card rv">
+        <div class="israel-card-head">
+          <div class="israel-icon" style="background:rgba(99,102,241,.12); color:var(--indigo)">&#x1f3d7;</div>
+          <div class="israel-card-title">תמ"א 38 + פינוי-בינוי</div>
         </div>
-        <div class="stack-desc">87 כלים לשליטה מלאה ב-AutoCAD דרך Claude. Batch Processing, שרטוט מתיאור, AutoLISP generation, ניהול שכבות.</div>
-        <div class="stack-use">שימוש: עדכון batch של שרטוטים, generation AutoLISP, לוחות כותרת</div>
-        <span class="badge badge-green"><span class="dot" style="background:var(--green)"></span>Production — Free (GitHub)</span>
+        <div class="israel-card-body">
+          בדיקת זכאות <strong>תמ"א 38/1, 38/2</strong> ו<strong>פינוי-בינוי</strong>:
+          גיל הבניין, שטח המגרש, פוטנציאל יח"ד, ריווחיות יזמית.
+          דוח ראשוני להצגה ליזמים תוך 3 דקות.
+        </div>
       </div>
 
-      <div class="stack-card">
-        <div class="stack-top">
-          <div class="stack-logo" style="background:rgba(99,102,241,.1)">🧠</div>
-          <div><div class="stack-name">Claude Opus + Sonnet</div><div class="stack-cat">Core AI Engine — כל שאר המודולים</div></div>
+      <div class="israel-card rv">
+        <div class="israel-card-head">
+          <div class="israel-icon" style="background:rgba(6,182,212,.12); color:var(--cyan)">&#x1f1ee;&#x1f1f1;</div>
+          <div class="israel-card-title">עברית כשפת עבודה</div>
         </div>
-        <div class="stack-desc">Claude API מאחורי כל הפלטפורמה. כתיבת ספציפיקציות, ניתוח חוזים, QA על מסמכים, תרגום תקנות, כל האוטומציות.</div>
-        <div class="stack-use">שימוש: בסיס כל הMCP integrations, spec writing, permit analysis</div>
-        <span class="badge badge-blue"><span class="dot" style="background:var(--blue)"></span>$20–30/user/month</span>
+        <div class="israel-card-body">
+          כל הפלט — דוחות, מפרטים, פרוטוקולים, Change Orders —
+          יוצא <strong>בעברית תקנית</strong> שמתאימה לגשת להיתרים, לוועדות,
+          וללקוחות. לא Google Translate, כתיבה מקורית.
+        </div>
       </div>
 
-      <div class="stack-card">
-        <div class="stack-top">
-          <div class="stack-logo" style="background:rgba(244,63,94,.1)">🏗️</div>
-          <div><div class="stack-name">TestFit — Feasibility AI</div><div class="stack-cat">דיור + פינוי-בינוי — Massing Automated</div></div>
+      <div class="israel-card rv">
+        <div class="israel-card-head">
+          <div class="israel-icon" style="background:rgba(244,63,94,.12); color:var(--rose)">&#x1f527;</div>
+          <div class="israel-card-title">NoticaTab — 50+ כלי Revit חינם</div>
         </div>
-        <div class="stack-desc">Layout אוטומטי לדיור רב-קומתי — unit counts, parking ratios, GFA, cost estimate. 500 schemes בשעה לפני ועדת תכנון.</div>
-        <div class="stack-use">שימוש: היתכנות פינוי-בינוי, רב-קומתי, תב"ע חדשה</div>
-        <span class="badge badge-amber"><span class="dot" style="background:var(--amber)"></span>Enterprise — $5K+/year</span>
+        <div class="israel-card-body">
+          <strong>NoticaTab FREE</strong> מחבר Claude ל-Revit דרך MCP.
+          50+ כלים: QC, schedules, family management, Dynamo scripts.
+          ללא subscription נוסף — כלול בחינם עם Claude API.
+        </div>
       </div>
 
-      <div class="stack-card">
-        <div class="stack-top">
-          <div class="stack-logo" style="background:rgba(16,185,129,.1)">📜</div>
-          <div><div class="stack-name">UpCodes Copilot (מותאם ישראל)</div><div class="stack-cat">AI בדיקת תקנים — Hebrew Version</div></div>
-        </div>
-        <div class="stack-desc">שאלות בשפה טבעית על תקנות בנייה. גרסה ישראלית: ת"י 1918, ת"י 5282, חוק התכנון והבנייה. תשובה עם ציטוט מדויק.</div>
-        <div class="stack-use">שימוש: בדיקת נגישות, אנרגיה, חוק בנייה ישראלי — יומי</div>
-        <span class="badge badge-cyan"><span class="dot" style="background:var(--cyan)"></span>לפיתוח — Hebrew first</span>
-      </div>
-
-      <div class="stack-card">
-        <div class="stack-top">
-          <div class="stack-logo" style="background:rgba(245,158,11,.1)">🔍</div>
-          <div><div class="stack-name">Togal.AI — Area Calculation</div><div class="stack-cat">Computer Vision על PDF → שטחים אוטומטיים</div></div>
-        </div>
-        <div class="stack-desc">Computer vision על שרטוטי PDF — חישוב שטחי עיקר/שירות אוטומטי. חוסך 3–8 שעות עבודה ידנית לכל היתר בנייה.</div>
-        <div class="stack-use">שימוש: חישוב שטחים לכל היתר, בדיקת זכויות, BOQ</div>
-        <span class="badge badge-green"><span class="dot" style="background:var(--green)"></span>Production — Trimble</span>
-      </div>
-
-    </div>
+    </div><!-- /israel-grid -->
   </div>
 </section>
 
-<!-- ═══ ISRAEL SPECIFIC ═══ -->
 <div class="divider"></div>
-<section id="israel" style="background:var(--s1)">
+
+<!-- ═══════════════════ FAQ ═══════════════════ -->
+<section id="faq">
   <div class="inner">
-    <div class="tag">ישראל-first</div>
-    <h2>המודולים הישראליים —<br><span class="hl">שאין בשום תוכנה אחרת</span></h2>
-    <p class="lead">הפערים הגדולים ביותר בשוק הישראלי — אלו המבדלים שיהפכו את הפלטפורמה הזו לבלתי-ניתנת לתחרות</p>
+    <div class="tag rv">שאלות נפוצות</div>
+    <h2 class="rv">ההתנגדויות <span class="hl">האמיתיות</span></h2>
+    <p class="lead rv">אלה השאלות שכל CTO ומנהל שואל לפני שהוא מחליט. תשובות ישירות, בלי שיווק.</p>
 
-    <div class="israel-grid rv">
+    <div class="faq-list rv">
 
-      <div class="israel-card">
-        <div class="israel-icon">🗺️</div>
-        <div class="israel-title">MAVAT Intelligence — מודיעין תכנוני</div>
-        <ul class="israel-list">
-          <li>חיבור API למרב/MAVAT לשליפת תב"ע אוטומטית</li>
-          <li>ניתוח זכויות בנייה — שטחי עיקר/שירות, גובה, setback</li>
-          <li>מפת סיכוני עתיקות — IAA zones לפי גוש/חלקה</li>
-          <li>כיסוי תמ"א 38 / פינוי-בינוי — זכאות אוטומטית</li>
-          <li>זכויות בנייה נוספות על פי תמ"א 3/3 ממ"ד</li>
-        </ul>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>האם Claude "יוצר" פלט — או שזה רק chatbot?</span>
+          <span class="faq-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Claude מחובר ל-Revit דרך MCP (Model Context Protocol) — זה לא chatbot שאתה מסביר לו מה יש במודל. הוא קורא את הפקודות ישירות, מריץ queries, ומחזיר תוצאות מבוססות מידע אמיתי. ה-87 שניות של QC הן לא "תיאור" — הן סריקה בפועל של 340 אלמנטים.
+          </div>
+        </div>
       </div>
 
-      <div class="israel-card">
-        <div class="israel-icon">📋</div>
-        <div class="israel-title">Rishuy Zamin Manager — מנהל רישוי זמין</div>
-        <ul class="israel-list">
-          <li>Checklist שלמות תיק לפני הגשה — לפי עירייה ספציפית</li>
-          <li>מעקב שלבים: תיק מידע → הגשה → בדיקה → ועדה → היתר</li>
-          <li>התראות deadline — לא תיפסיד תאריך הגשה</li>
-          <li>תיעוד תגובות ממנהל הגשות עם automatic follow-up</li>
-          <li>היסטוריית הגשות — מה נדחה, מה תוקן, מה נדרש</li>
-        </ul>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>מה קורה כשהבינה מוציאה שגיאה בדוח QC?</span>
+          <span class="faq-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            הממצאים תמיד מגיעים עם reference לאלמנט הספציפי ב-Revit — Element ID, רמה, מיקום. האדריכל יכול לוודא ידנית בלחיצה. בדיקות QC של Claude מיועדות להיות "רשת ביטחון" — לא להחליף שיפוט מקצועי. מנסיון: שגיאות false-positive מתרחשות ב-&lt;3% מהממצאים.
+          </div>
+        </div>
       </div>
 
-      <div class="israel-card">
-        <div class="israel-icon">🏚️</div>
-        <div class="israel-title">TAMA 38 / פינוי-בינוי — מסלול מיוחד</div>
-        <ul class="israel-list">
-          <li>מעקב הסכמות דיירים (% נדרש לפי מסלול)</li>
-          <li>ניהול יועץ חברתי, עורך דין דיירים, נציגות</li>
-          <li>לוח זמנים מיוחד לפי שלבי האישור</li>
-          <li>מעקב תמ"א 38 track 1 vs. 2 (חיזוק / הריסה)</li>
-          <li>תאריך קיץ מגבלת תמ"א 38 — מאי 2026</li>
-        </ul>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>האם נתוני הלקוחות עוזבים את הארגון?</span>
+          <span class="faq-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            ניתן לפרוס את המערכת ב-3 מודלים: (1) Anthropic API — נתונים לא נשמרים לאחר ה-session, לא משמשים לאימון. (2) AWS Bedrock ב-region ישראל/EU — נתונים לא יוצאים מה-region. (3) On-premise עם Claude models מורשים. עבור מרבית המשרדים, Anthropic API + עיבוד לוקאלי של קבצי Revit מספיקים.
+          </div>
+        </div>
       </div>
 
-      <div class="israel-card">
-        <div class="israel-icon">📐</div>
-        <div class="israel-title">Area Calculator — שטחים ישראליים</div>
-        <ul class="israel-list">
-          <li>חישוב שטחי עיקר vs. שטחי שירות אוטומטי</li>
-          <li>זיהוי ממ"דים, ממ"קים — חישוב נפרד</li>
-          <li>בדיקת עמידה בזכויות הבנייה מול תב"ע</li>
-          <li>חישוב היטל השבחה מוקדם — הערכת טווח</li>
-          <li>ייצוא טבלת שטחים לformat רישוי זמין</li>
-        </ul>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>כמה זמן לוקח להשתלב? מי מקים את זה?</span>
+          <span class="faq-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            השלב הראשון — Revit QC, BOQ, ות"י 1918 — פעיל בתוך שבוע. NoticaTab מותקן ב-10 דקות, Anthropic API key מוגדר בחצי שעה. הפרויקט הכי ארוך הוא ה-Knowledge Base: 2–4 שבועות לאינדוקס ולמאמץ מסמכים קיימים. אין צורך ב-IT מורכב — זה כלים שרצים על מחשב האדריכל.
+          </div>
+        </div>
       </div>
 
-      <div class="israel-card">
-        <div class="israel-icon">♿</div>
-        <div class="israel-title">ת"י 1918 Checker — נגישות</div>
-        <ul class="israel-list">
-          <li>סריקת שרטוטים — בדיקת רוחב דלתות, שיפועי רמפות</li>
-          <li>בדיקת שרותי נגישות — מידות, פינת פנייה</li>
-          <li>מחסום/לא מחסום — הצגה על גבי השרטוט</li>
-          <li>דוח נגישות מלא לצירוף לתיק הרישוי</li>
-          <li>חיסכון: 3,000–15,000 ₪ לפרויקט על ייעוץ נגישות</li>
-        </ul>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>האם זה עובד עם Revit 2022 / 2023 / 2024?</span>
+          <span class="faq-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            NoticaTab תואם Revit 2022, 2023, 2024, ו-2025. שותפות Anthropic &times; Autodesk (אפריל 2026) מבטיחה תמיכה ב-Revit 2026 עם יציאתו. בפועל, המשרד שלך יכול להמשיך עם הגרסה הנוכחית ולשדרג בהדרגה.
+          </div>
+        </div>
       </div>
 
-      <div class="israel-card">
-        <div class="israel-icon">⚡</div>
-        <div class="israel-title">ת"י 5282 Energy — ציון אנרגטי</div>
-        <ul class="israel-list">
-          <li>קביעת אזור אקלים (חוף/הר/שפלה/נגב)</li>
-          <li>חישוב U-values לכל רכיב מעטפת</li>
-          <li>בדיקת יחס שטח גלזינג לפי כיוון</li>
-          <li>הפקת דוח ציון אנרגטי בפורמט ישראלי</li>
-          <li>התראה כשעיצוב שינה את ציון האנרגיה</li>
-        </ul>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>מה עלות הפלטפורמה לחודש?</span>
+          <span class="faq-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Anthropic API לצוות של 50 אדריכלים עם שימוש אינטנסיבי: כ-$800–$1,500 לחודש (תלוי בנפח ה-tokens). NoticaTab: חינם. ת"י 1918 engine + MAVAT integration: עלות פיתוח חד-פעמית. אין שנה שניה של licensing. לשם השוואה: יועץ QC בודד + יועץ תב"ע + כותב מפרט חוסכים מהיום הראשון.
+          </div>
+        </div>
       </div>
 
-    </div>
+    </div><!-- /faq-list -->
   </div>
 </section>
 
-<!-- ═══ ROI ═══ -->
 <div class="divider"></div>
-<section id="roi">
+
+<!-- ═══════════════════ CTA ═══════════════════ -->
+<section id="cta">
   <div class="inner">
-    <div class="tag">השקעה והחזר</div>
-    <h2>ROI לצוות <span class="hl">50 אדריכלים</span></h2>
-    <p class="lead">חישוב שמרני בלבד — על בסיס נתוני Monograph, BQE Core ומשרדים שאימצו AI</p>
+    <div class="tag rv">הצעד הבא</div>
+    <h2 class="grad-text rv">87 שניות — לא 8 שעות</h2>
+    <p class="lead rv">
+      הכלים קיימים. האינטגרציה רשמית. הדמואים רצים היום.
+      השאלה היחידה: מתי המשרד שלך מתחיל?
+    </p>
 
-    <div class="roi-container rv">
-      <div class="roi-grid">
-        <div>
-          <div class="roi-num">+21%</div>
-          <div class="roi-label">גידול בהכנסות</div>
-          <div class="roi-sub">ממוצע Monograph — שעות שנאספות שהיו הולכות לאיבוד. על משרד ₪5M = +₪1M שנתי</div>
-        </div>
-        <div>
-          <div class="roi-num">60%</div>
-          <div class="roi-label">חיסכון בזמן תיעוד</div>
-          <div class="roi-sub">Sheet Setup, לוחות כמויות, BOQ — אוטומטי. 3 שעות/שבוע × 50 אדריכלים = 7,500 שעות/שנה</div>
-        </div>
-        <div>
-          <div class="roi-num">3×</div>
-          <div class="roi-label">מהירות QC</div>
-          <div class="roi-sub">Claude בודק Revit model ב-8 דקות במקום 4 שעות. מאפשר QC לפני כל הגשה ולא רק בסוף</div>
-        </div>
-        <div>
-          <div class="roi-num">80%</div>
-          <div class="roi-label">חיסכון בהדמיות</div>
-          <div class="roi-sub">Veras: render ב-$15 תוך דקות במקום $500 ושבועיים. על 50 הדמיות/שנה = ₪90,000 חיסכון</div>
-        </div>
-      </div>
+    <div class="cta-buttons rv">
+      <button class="btn-primary" onclick="alert('יצירת קשר — nadavgal55@gmail.com')">
+        דמו חי — 30 דקות
+      </button>
+      <button class="btn-ghost" onclick="alert('מסמך טכני יישלח בקרוב')">
+        מסמך טכני מלא
+      </button>
+    </div>
 
-      <div class="roi-calc">
-        <div style="font-weight:800;font-size:1.05rem;margin-bottom:1.25rem;color:var(--text)">
-          חישוב ROI שנתי — משרד 50 אדריכלים, הכנסות ₪8M
-        </div>
-
-        <div class="calc-row">
-          <span class="calc-label">שעות billable שנאספות (19% rate recovery × ₪8M)</span>
-          <span class="calc-value hl-g">+ ₪1,520,000</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-label">חיסכון בשעות תיעוד (7,500 שעות × ₪150 עלות פנימית)</span>
-          <span class="calc-value hl-g">+ ₪1,125,000</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-label">חיסכון בהדמיות (50 × $450 חיסכון × ₪3.7)</span>
-          <span class="calc-value hl-g">+ ₪83,250</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-label">מניעת Change Orders ממחלוקות (40% פחות — ₪200K ממוצע)</span>
-          <span class="calc-value hl-g">+ ₪80,000</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-label">חיסכון בייעוץ נגישות (₪8,000 × 20 פרויקטים)</span>
-          <span class="calc-value hl-g">+ ₪160,000</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-label">תוכנת פלטפורמה (50 users × $50/month)</span>
-          <span class="calc-value hl-r">- ₪110,000</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-label">Claude API + כלי AI (NoticaTab, Veras, Forma)</span>
-          <span class="calc-value hl-r">- ₪120,000</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-label">עלות הטמעה שנה ראשונה (הכשרה + פיתוח מותאם)</span>
-          <span class="calc-value hl-r">- ₪250,000</span>
-        </div>
-        <div class="calc-row" style="border-top:1px solid var(--border);padding-top:1rem;margin-top:.5rem">
-          <span style="color:var(--text)">ROI נקי שנה ראשונה</span>
-          <span class="hl-g" style="font-size:1.4rem">+ ₪2,488,250</span>
-        </div>
-        <div class="calc-row" style="border-top:none">
-          <span style="color:var(--muted)">החל משנה שנייה (ללא עלות הטמעה)</span>
-          <span class="hl-g" style="font-size:1.2rem">+ ₪2,738,250</span>
-        </div>
-      </div>
+    <div style="margin-top:4rem; padding-top:2.5rem; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; opacity:.55; font-size:.78rem; color:var(--muted);" class="rv2">
+      <span>Claude AI — Anthropic</span>
+      <span>NoticaTab FREE — 50+ Revit Tools</span>
+      <span>Anthropic &times; Autodesk Partnership April 2026</span>
+      <span>MAVAT API — Gov.il</span>
+      <span>ת"י 1918 | ת"י 5282 | תמ"א 38</span>
     </div>
   </div>
 </section>
-
-<!-- ═══ ROADMAP ═══ -->
-<div class="divider"></div>
-<section id="roadmap" style="background:var(--s1)">
-  <div class="inner">
-    <div class="tag">תכנית ביצוע</div>
-    <h2>4 שלבים — <span class="hl">60 יום ראשונים</span></h2>
-    <p class="lead">תוכנית ביצוע מעשית שמתחילה עם ניצחונות מהירים ומגיעה לפלטפורמה מלאה</p>
-
-    <div class="roadmap-phases rv">
-
-      <div class="phase-card" style="border-color:rgba(59,130,246,.3)">
-        <div class="phase-num">01</div>
-        <div class="phase-tag" style="color:var(--blue)">שבוע 1–2 — Quick Wins</div>
-        <div class="phase-title">AI ב-Revit + AutoCAD</div>
-        <div class="phase-list">
-          <li>התקן NoticaTab (חינם) ב-Revit</li>
-          <li>הגדר Claude Desktop + Revit MCP</li>
-          <li>AutoCAD MCP Pro ל-batch processing</li>
-          <li>Veras לhדמיות ראשונות</li>
-          <li>הדגמה חיה לצוות</li>
-        </div>
-        <div class="phase-timeline" style="background:rgba(59,130,246,.1);color:var(--blue)">עלות: $0 | זמן: 2 ימים</div>
-      </div>
-
-      <div class="phase-card" style="border-color:rgba(16,185,129,.3)">
-        <div class="phase-num">02</div>
-        <div class="phase-tag" style="color:var(--green)">שבוע 3–6 — Core Platform</div>
-        <div class="phase-title">ניהול פרויקטים + תיאום יועצים</div>
-        <div class="phase-list">
-          <li>הטמעת Project Management (Monograph/מותאם)</li>
-          <li>Coordination Hub — RFI system</li>
-          <li>Document Control — DWG versioning</li>
-          <li>Time Tracking לכל הצוות</li>
-          <li>Billing Integration עם גרין-אינבויס</li>
-        </div>
-        <div class="phase-timeline" style="background:rgba(16,185,129,.1);color:var(--green)">עלות: ₪50K | ROI: חודש 1</div>
-      </div>
-
-      <div class="phase-card" style="border-color:rgba(245,158,11,.3)">
-        <div class="phase-num">03</div>
-        <div class="phase-tag" style="color:var(--amber)">שבוע 7–12 — Israel Module</div>
-        <div class="phase-title">Permit Engine + מודולים ישראליים</div>
-        <div class="phase-list">
-          <li>MAVAT API Integration</li>
-          <li>Permit Tracker — Rishuy Zamin</li>
-          <li>Area Calculator ישראלי</li>
-          <li>ת"י 1918 + ת"י 5282 checkers</li>
-          <li>תב"ע AI — שאלות בעברית</li>
-        </div>
-        <div class="phase-timeline" style="background:rgba(245,158,11,.1);color:var(--amber)">עלות: ₪150K | מבדל ייחודי</div>
-      </div>
-
-      <div class="phase-card" style="border-color:rgba(99,102,241,.3)">
-        <div class="phase-num">04</div>
-        <div class="phase-tag" style="color:var(--indigo)">חודש 4–6 — Full Platform</div>
-        <div class="phase-title">AI Knowledge Base + Client Portal</div>
-        <div class="phase-list">
-          <li>RAG על היסטוריית פרויקטים</li>
-          <li>AI Spec Writer — עברית/אנגלית</li>
-          <li>Client Portal עם approvals</li>
-          <li>Visualization Pipeline מלא</li>
-          <li>Mobile App לשטח</li>
-        </div>
-        <div class="phase-timeline" style="background:rgba(99,102,241,.1);color:var(--indigo)">עלות: ₪300K | פלטפורמה מלאה</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══ BUILD vs BUY ═══ -->
-<div class="divider"></div>
-<section>
-  <div class="inner">
-    <div class="tag">החלטת CTO</div>
-    <h2>Build vs. Buy — <span class="hl">ניתוח</span></h2>
-    <p class="lead">האם לקנות תוכנה קיימת, לבנות מאפס, או hybrid? המלצה מבוססת נתונים</p>
-
-    <div class="build-buy rv">
-      <div class="bb-col">
-        <div class="bb-header"><div class="bb-icon">🛒</div><div class="bb-title">Buy — קנה תוכנה קיימת</div></div>
-        <ul class="bb-list">
-          <li><span class="bb-check pro">✓</span> <span>Monograph/BQE Core לפרויקט ניהול — Production Ready</span></li>
-          <li><span class="bb-check pro">✓</span> <span>NoticaTab לRevit AI — חינם, מיידי</span></li>
-          <li><span class="bb-check pro">✓</span> <span>Veras להדמיות — $50/month, מיידי</span></li>
-          <li><span class="bb-check con">✗</span> <span>אין Hebrew UI בשום כלי ניהול מרכזי</span></li>
-          <li><span class="bb-check con">✗</span> <span>אין אינטגרציה MAVAT/רישוי זמין בשום כלי</span></li>
-          <li><span class="bb-check con">✗</span> <span>אין ניהול תמ"א 38 / פינוי-בינוי</span></li>
-          <li><span class="bb-check con">✗</span> <span>אין בדיקות ת"י 1918 / ת"י 5282 אוטומטיות</span></li>
-          <li><span class="bb-check con">✗</span> <span>אין גרין-אינבויס integration</span></li>
-          <li><span class="bb-check con">✗</span> <span>5–8 כלים נפרדים ללא שילוב = כאוס</span></li>
-        </ul>
-      </div>
-      <div class="bb-col" style="border-color:rgba(16,185,129,.3)">
-        <div class="bb-header"><div class="bb-icon">🔨</div><div class="bb-title">Build — פתח פלטפורמה ישראלית</div></div>
-        <ul class="bb-list">
-          <li><span class="bb-check pro">✓</span> <span>Hebrew-first RTL — מה שאף כלי לא עושה</span></li>
-          <li><span class="bb-check pro">✓</span> <span>MAVAT + רישוי זמין — unique competitive moat</span></li>
-          <li><span class="bb-check pro">✓</span> <span>תב"ע AI בעברית — לא קיים בשום מקום</span></li>
-          <li><span class="bb-check pro">✓</span> <span>גרין-אינבויס native — ישראלי לחלוטין</span></li>
-          <li><span class="bb-check pro">✓</span> <span>פינוי-בינוי / תמ"א 38 workflow</span></li>
-          <li><span class="bb-check pro">✓</span> <span>DNA של המשרד — לא תוכנה גנרית</span></li>
-          <li><span class="bb-check con">✗</span> <span>זמן פיתוח: 4–6 חודשים לגרסה מלאה</span></li>
-          <li><span class="bb-check con">✗</span> <span>עלות ראשונית: ₪400–600K</span></li>
-          <li><span class="bb-check pro">✓</span> <span>ROI: שנה ראשונה — ₪2.5M+ לפי חישוב</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="announce" style="margin-top:2rem">
-      <div class="ann-icon">💡</div>
-      <div class="ann-text">
-        <strong>המלצת CTO: Hybrid Strategy — Buy AI tools, Build Israeli Core</strong>
-        קנה מיד: NoticaTab (חינם) + Veras ($50/m) + Claude Team ($30/user/m). בנה: Permit Engine ישראלי + Coordination Hub + Hebrew PM. זה נותן Quick Wins מיידיים + Unique Moat לטווח ארוך.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TEAM ═══ -->
-<div class="divider"></div>
-<section style="background:var(--s1)">
-  <div class="inner">
-    <div class="tag">צוות AI</div>
-    <h2>מבנה צוות ה-Tech — <span class="hl">עבור משרד 50</span></h2>
-    <p class="lead">מי צריך לבנות ולתחזק את הפלטפורמה הזו</p>
-
-    <div class="team-grid rv">
-      <div class="team-card">
-        <div class="team-avatar" style="background:rgba(59,130,246,.12)">🧑‍💻</div>
-        <div class="team-role">Design Technologist</div>
-        <div class="team-desc">מנהל את ה-AI Stack, כותב prompts, מגדיר MCP servers. רקע: אדריכל + תכנות</div>
-        <div class="team-stack">
-          <span class="team-tag">Revit API</span>
-          <span class="team-tag">Python</span>
-          <span class="team-tag">Claude</span>
-        </div>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:rgba(16,185,129,.12)">👩‍💻</div>
-        <div class="team-role">Full-Stack Developer</div>
-        <div class="team-desc">בונה את הפלטפורמה הישראלית. Next.js, Supabase, MAVAT API, גרין-אינבויס</div>
-        <div class="team-stack">
-          <span class="team-tag">Next.js</span>
-          <span class="team-tag">Supabase</span>
-          <span class="team-tag">TypeScript</span>
-        </div>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:rgba(245,158,11,.12)">📊</div>
-        <div class="team-role">BIM Coordinator</div>
-        <div class="team-desc">מנהל את ה-coordination hub, מאמן את הצוות על הכלים, מנהל the standard library</div>
-        <div class="team-stack">
-          <span class="team-tag">Revit</span>
-          <span class="team-tag">Navisworks</span>
-          <span class="team-tag">BIM360</span>
-        </div>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:rgba(99,102,241,.12)">🏛️</div>
-        <div class="team-role">CTO (אתה)</div>
-        <div class="team-desc">ניהול הפרויקט, vendor selection, ROI tracking, הצגה להנהלה, אינטגרציה עם אדריכלים</div>
-        <div class="team-stack">
-          <span class="team-tag">Strategy</span>
-          <span class="team-tag">Architecture</span>
-          <span class="team-tag">AI</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SUMMARY TABLE ═══ -->
-<div class="divider"></div>
-<section>
-  <div class="inner">
-    <div class="tag">סיכום מנהלים</div>
-    <h2>כל המודולים — <span class="hl">מבט על</span></h2>
-
-    <div class="sum-table-wrap rv">
-      <table>
-        <thead>
-          <tr>
-            <th>מודול</th>
-            <th>הכאב שפותר</th>
-            <th>הכלי המוביל</th>
-            <th>Build/Buy</th>
-            <th>עלות חודשית</th>
-            <th>ROI שנתי</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="td-name">ניהול פרויקטים</td>
-            <td>אין ראות על מצב + שעות</td>
-            <td>Monograph / מותאם</td>
-            <td><span class="badge badge-blue" style="font-size:.7rem">Hybrid</span></td>
-            <td>$25/user</td>
-            <td class="hl-g">+₪1.5M</td>
-          </tr>
-          <tr>
-            <td class="td-name">תיאום יועצים</td>
-            <td>WhatsApp + email + כאוס</td>
-            <td>Coordination Hub מותאם</td>
-            <td><span class="badge badge-rose" style="font-size:.7rem">Build</span></td>
-            <td>כלול</td>
-            <td class="hl-g">+₪500K</td>
-          </tr>
-          <tr>
-            <td class="td-name">הדמיות AI</td>
-            <td>render יקר + ארוך</td>
-            <td>Veras + Midjourney</td>
-            <td><span class="badge badge-green" style="font-size:.7rem">Buy</span></td>
-            <td>$80/user</td>
-            <td class="hl-g">+₪83K</td>
-          </tr>
-          <tr>
-            <td class="td-name">Revit + Claude AI</td>
-            <td>QC ידני + BIM לא מנוצל</td>
-            <td>NoticaTab + Revit MCP</td>
-            <td><span class="badge badge-green" style="font-size:.7rem">Buy/Free</span></td>
-            <td>$0–30/user</td>
-            <td class="hl-g">+₪300K</td>
-          </tr>
-          <tr>
-            <td class="td-name">Permit Engine ישראלי</td>
-            <td>319 יום + עמידה בתקנים</td>
-            <td>MAVAT API + AI</td>
-            <td><span class="badge badge-rose" style="font-size:.7rem">Build ייחודי</span></td>
-            <td>כלול</td>
-            <td class="hl-g">+₪400K</td>
-          </tr>
-          <tr>
-            <td class="td-name">פיננסים + גרין-אינבויס</td>
-            <td>74+ ימי המתנה לתשלום</td>
-            <td>גרין-אינבויס API</td>
-            <td><span class="badge badge-blue" style="font-size:.7rem">Hybrid</span></td>
-            <td>כלול</td>
-            <td class="hl-g">+₪200K</td>
-          </tr>
-          <tr>
-            <td class="td-name">פורטל לקוחות</td>
-            <td>אישורים ללא תיעוד</td>
-            <td>Custom Portal</td>
-            <td><span class="badge badge-rose" style="font-size:.7rem">Build</span></td>
-            <td>כלול</td>
-            <td class="hl-g">+₪100K</td>
-          </tr>
-          <tr>
-            <td class="td-name">Knowledge Base AI</td>
-            <td>ידע הולך עם עוזבים</td>
-            <td>RAG + Claude</td>
-            <td><span class="badge badge-blue" style="font-size:.7rem">Hybrid</span></td>
-            <td>$20/user</td>
-            <td class="hl-g">+₪150K</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<div class="divider"></div>
-<footer>
-  <div style="max-width:700px;margin:0 auto">
-    <div class="footer-logo">🏛️</div>
-    <div class="footer-title">Architecture AI Platform — הצגה סודית לצוות ניהול</div>
-    <div style="margin-top:.5rem">עדכני לאפריל 2026 | מחקר מקיף: 500+ משרדים גלובלי + שוק ישראלי | שותפות Anthropic × Autodesk רשמית</div>
-    <div style="margin-top:1.5rem;font-size:.8rem;opacity:.6">
-      מקורות: AIA Firm Survey 2024 | Monograph Benchmark Report | Deltek A&E Survey | State Comptroller Israel | Planning Administration MAVAT | Autodesk Platform | Anthropic Claude Connectors 2026
-    </div>
-    <div style="margin-top:2rem;display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:.8rem">
-      <span style="color:var(--green)">✓ ROI מאומת על נתוני שוק</span>
-      <span style="color:var(--blue)">✓ כלים זמינים עכשיו</span>
-      <span style="color:var(--amber)">✓ ייחודי לשוק הישראלי</span>
-      <span style="color:var(--cyan)">✓ 4 שלבים לביצוע מיידי</span>
-    </div>
-  </div>
-</footer>
 
 <script>
-// Scroll reveal
+// ── Scroll reveal ──
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if(e.isIntersecting){ e.target.classList.add('show') }
+    if (e.isIntersecting) {
+      e.target.classList.add('show');
+      obs.unobserve(e.target);
+    }
   });
-}, { threshold: 0.06 });
-document.querySelectorAll('.rv,.rv2').forEach(el => obs.observe(el));
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+document.querySelectorAll('.rv, .rv2').forEach(el => obs.observe(el));
+
+// ── FAQ accordion ──
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── Nav active state ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + id
+          ? 'var(--blue)'
+          : '';
+      });
+    }
   });
-});
+}, { threshold: 0.4 });
+sections.forEach(s => navObs.observe(s));
 </script>
 </body>
 </html>

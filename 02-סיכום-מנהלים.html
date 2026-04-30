@@ -4,263 +4,407 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>סיכום מנהלים — AI לאדריכלים</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 @media print {
-  body { background: #fff !important; color: #000 !important; }
+  body { background: #fff !important; color: #111 !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   .no-print { display: none !important; }
-  section { page-break-inside: avoid; }
+  .page { padding: 2rem 2.5rem !important; }
+  .card { border: 1px solid #ccc !important; background: #f8f9fc !important; }
+  h1 { color: #1e3a6e !important; }
+  .card-title { color: #1a6090 !important; }
+  .big-num { color: #1a7a50 !important; }
+  .before-col { color: #b02030 !important; }
+  .after-col { color: #1a7a50 !important; }
+  .saving-col { color: #805000 !important; }
+  .wf-table td, .wf-table th { color: #222 !important; border-bottom-color: #ddd !important; }
+  .tag { background: #e8f0fe !important; color: #1a4a9e !important; border-color: #aac !important; }
+  .tl-badge { background: #d4f4e8 !important; color: #1a7a50 !important; }
+  .roi-label { color: #333 !important; }
+  .doc-footer { color: #555 !important; border-top-color: #ccc !important; }
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #0a0e1a; color: #f0f4ff;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: #060912; color: #f0f4ff;
   line-height: 1.65; font-size: 14px;
 }
-.page {
-  max-width: 1000px; margin: 0 auto; padding: 3rem 2.5rem;
-}
-.header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  border-bottom: 2px solid #3b82f6; padding-bottom: 1.5rem; margin-bottom: 2rem;
-}
-.header-left h1 { font-size: 1.8rem; font-weight: 900; color: #93c5fd; line-height: 1.2; }
-.header-left p { color: #7a8aaa; font-size: .9rem; margin-top: .4rem; }
-.header-right { text-align: left; }
-.header-right .firm { font-size: 1rem; font-weight: 700; color: #10b981; }
-.header-right .date { font-size: .8rem; color: #7a8aaa; margin-top: .25rem; }
-.header-right .conf { font-size: .7rem; background: rgba(244,63,94,.15); color: #f43f5e; padding: 3px 10px; border-radius: 4px; margin-top: .4rem; display: inline-block; }
 
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
-.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem; }
-.four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+nav {
+  background: rgba(6,9,18,.95); border-bottom: 1px solid rgba(59,130,246,.15);
+  padding: .65rem 2rem; display: flex; align-items:center; justify-content:space-between;
+  position: sticky; top:0; z-index:100;
+}
+.nav-logo { font-size:.9rem; font-weight:800; color:#3b82f6; }
+.nav-print { padding:.4rem 1rem; background:#3b82f6; color:#fff; border:none; border-radius:6px;
+  font-size:.78rem; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; }
+.nav-print:hover { background:#2563eb; }
+
+.page { max-width: 1040px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+.doc-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  border-bottom: 2px solid #3b82f6; padding-bottom: 1.5rem; margin-bottom: 1.75rem; gap: 1rem;
+}
+.doc-header h1 { font-size: 1.6rem; font-weight: 900; color: #93c5fd; line-height: 1.2; }
+.doc-header p { color: #7a8aaa; font-size: .85rem; margin-top: .35rem; }
+.doc-meta { text-align: left; flex-shrink: 0; }
+.doc-meta .firm { font-size: .95rem; font-weight: 800; color: #10b981; }
+.doc-meta .date-line { font-size: .78rem; color: #7a8aaa; margin-top: .25rem; }
+.conf-tag { font-size: .65rem; background: rgba(244,63,94,.15); color: #f43f5e;
+  padding: 3px 10px; border-radius: 4px; margin-top: .4rem; display: inline-block;
+  font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.partnership-tag { font-size: .65rem; background: rgba(59,130,246,.12); color: #93c5fd;
+  padding: 3px 10px; border-radius: 4px; margin-top: .3rem; display: inline-block; font-weight: 600; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.1rem; margin-bottom: 1.25rem; }
+.four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
 
 .card {
-  background: #111827; border: 1px solid rgba(59,130,246,.2); border-radius: 10px; padding: 1.25rem;
+  background: #111827; border: 1px solid rgba(59,130,246,.18); border-radius: 10px;
+  padding: 1.1rem 1.25rem;
 }
-.card-title { font-size: .75rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #06b6d4; margin-bottom: .75rem; }
-.card-h2 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
-.big-num { font-size: 2.5rem; font-weight: 900; color: #10b981; line-height: 1; }
-.big-label { font-size: .8rem; color: #7a8aaa; margin-top: .25rem; }
+.card-title {
+  font-size: .65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: #06b6d4; margin-bottom: .7rem;
+}
 
-ul.check-list { list-style: none; }
-ul.check-list li { font-size: .83rem; color: #94a3b8; padding: .25rem 0; display: flex; gap: 8px; }
-ul.check-list li::before { content: '✓'; color: #10b981; flex-shrink: 0; }
-ul.red-list li::before { color: #f43f5e !important; content: '✗' !important; }
+.big-num { font-size: 2.2rem; font-weight: 900; line-height: 1; color: #10b981; }
+.big-num.blue { color: #3b82f6; }
+.big-num.amber { color: #f59e0b; }
+.big-num.cyan { color: #06b6d4; }
+.big-label { font-size: .75rem; color: #7a8aaa; margin-top: .2rem; }
+.big-sub { font-size: .72rem; color: #94a3b8; margin-top: .15rem; }
 
-.roi-row { display: flex; justify-content: space-between; padding: .4rem 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: .85rem; }
-.roi-row:last-child { border-bottom: none; border-top: 1px solid #3b82f6; padding-top: .6rem; margin-top: .4rem; font-weight: 800; font-size: 1rem; }
+.section-label {
+  font-size: .65rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: #7a8aaa; margin: 1.5rem 0 .75rem; display: flex; align-items: center; gap: .5rem;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.06); }
+
+/* WORKFLOW TABLE */
+.wf-table { width: 100%; border-collapse: collapse; }
+.wf-table th {
+  font-size: .63rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #7a8aaa; padding: .5rem .85rem; border-bottom: 1px solid rgba(255,255,255,.08); text-align: right;
+}
+.wf-table td {
+  font-size: .83rem; padding: .55rem .85rem; border-bottom: 1px solid rgba(255,255,255,.04);
+  vertical-align: middle;
+}
+.wf-table tr:last-child td { border-bottom: none; }
+.wf-name { font-weight: 700; color: #f0f4ff; }
+.wf-sub { font-size: .72rem; color: #7a8aaa; }
+.before-col { color: #f43f5e; font-weight: 600; }
+.after-col { color: #10b981; font-weight: 600; }
+.saving-col { color: #f59e0b; font-weight: 700; }
+.cost-col { font-size: .78rem; color: #94a3b8; }
+
+/* ROI */
+.roi-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .42rem 0; border-bottom: 1px solid rgba(255,255,255,.05); font-size: .83rem;
+}
+.roi-row:last-child {
+  border-bottom: none; border-top: 1px solid rgba(59,130,246,.3);
+  padding-top: .6rem; margin-top: .3rem; font-weight: 800; font-size: .95rem;
+}
+.roi-label { color: #c8d4e8; }
 .roi-plus { color: #10b981; font-weight: 700; }
 .roi-minus { color: #f43f5e; font-weight: 700; }
-.roi-total { color: #10b981; font-size: 1.2rem; }
+.roi-total { color: #10b981; font-size: 1.1rem; }
 
-.badge { display: inline-block; padding: 2px 10px; border-radius: 100px; font-size: .7rem; font-weight: 700; }
-.bg { background: rgba(16,185,129,.1); color: #10b981; border: 1px solid rgba(16,185,129,.2); }
-.bb { background: rgba(59,130,246,.1); color: #3b82f6; border: 1px solid rgba(59,130,246,.2); }
-.ba { background: rgba(245,158,11,.1); color: #f59e0b; border: 1px solid rgba(245,158,11,.2); }
-.br { background: rgba(244,63,94,.1); color: #f43f5e; border: 1px solid rgba(244,63,94,.2); }
+/* TIMELINE */
+.timeline { list-style: none; position: relative; padding-right: 1.25rem; }
+.timeline::before { content:''; position:absolute; right:6px; top:0; bottom:0;
+  width:2px; background:rgba(59,130,246,.2); }
+.tl-item { position: relative; padding: .5rem 1.4rem .5rem 0; }
+.tl-item::before { content:''; position:absolute; right:-1px; top:.7rem;
+  width:10px; height:10px; border-radius:50%; background:#3b82f6; border:2px solid #060912; }
+.tl-q { font-size: .68rem; font-weight: 800; color: #3b82f6; letter-spacing: 1px; text-transform: uppercase; }
+.tl-text { font-size: .82rem; color: #c8d4e8; margin-top: .15rem; }
+.tl-badge { font-size: .68rem; color: #10b981; background: rgba(16,185,129,.1);
+  padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: .2rem; }
 
-.timeline { position: relative; padding-right: 1.5rem; }
-.timeline::before { content: ''; position: absolute; right: 4px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #3b82f6, #6366f1, transparent); }
-.tl-item { position: relative; margin-bottom: 1rem; padding-right: 1.5rem; }
-.tl-dot { position: absolute; right: -1.1rem; top: 3px; width: 10px; height: 10px; border-radius: 50%; background: #111827; border: 2px solid #3b82f6; }
-.tl-phase { font-size: .65rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #3b82f6; }
-.tl-title { font-size: .9rem; font-weight: 700; }
-.tl-desc { font-size: .78rem; color: #7a8aaa; }
+/* TAGS */
+.tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .6rem; }
+.tag { font-size: .68rem; font-weight: 700; padding: 2px 9px; border-radius: 100px;
+  background: rgba(59,130,246,.1); color: #93c5fd; border: 1px solid rgba(59,130,246,.2); }
+.tag.green { background: rgba(16,185,129,.1); color: #6ee7b7; border-color: rgba(16,185,129,.2); }
+.tag.amber { background: rgba(245,158,11,.1); color: #fcd34d; border-color: rgba(245,158,11,.2); }
 
-.footer { border-top: 1px solid rgba(59,130,246,.2); margin-top: 2rem; padding-top: 1rem; display: flex; justify-content: space-between; font-size: .72rem; color: #7a8aaa; }
+/* CHECK LISTS */
+ul.check { list-style: none; }
+ul.check li { font-size: .82rem; color: #c8d4e8; padding: .28rem 0; display: flex; gap: .5rem; }
+ul.check li::before { content: '✓'; color: #10b981; flex-shrink: 0; }
+ul.cross li::before { content: '✗'; color: #f43f5e !important; }
 
-.print-btn {
-  position: fixed; bottom: 2rem; left: 2rem;
-  background: #3b82f6; color: #fff; border: none; padding: 12px 24px;
-  border-radius: 8px; font-size: .9rem; font-weight: 700; cursor: pointer;
-  box-shadow: 0 4px 20px rgba(59,130,246,.4);
+.doc-footer {
+  border-top: 1px solid rgba(255,255,255,.06); margin-top: 1.5rem; padding-top: 1.25rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  font-size: .74rem; color: #7a8aaa;
+}
+.floating-print {
+  position: fixed; bottom: 1.5rem; left: 1.5rem;
+  background: #3b82f6; color: #fff; border: none; border-radius: 100px;
+  padding: .65rem 1.4rem; font-weight: 700; font-size: .85rem; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(59,130,246,.4); font-family: 'Inter', sans-serif;
+  transition: all .2s;
+}
+.floating-print:hover { background: #2563eb; transform: translateY(-2px); }
+
+@media(max-width:700px) {
+  .two-col, .three-col, .four-col { grid-template-columns: 1fr; }
+  .doc-header { flex-direction: column; }
+  .doc-meta { text-align: right; }
 }
 </style>
 </head>
 <body>
+
+<nav class="no-print">
+  <div class="nav-logo">🏛️ AI לאדריכלים — סיכום מנהלים</div>
+  <button class="nav-print" onclick="window.print()">🖨️ שמור PDF</button>
+</nav>
+
 <div class="page">
 
   <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <h1>פלטפורמת AI לאדריכלים<br>סיכום מנהלים</h1>
-      <p>ניתוח מקיף — הזדמנות טכנולוגית לשינוי תפעולי מלא</p>
+  <div class="doc-header">
+    <div>
+      <h1>AI לאדריכלים<br>6 תהליכים שמשנים את המשרד</h1>
+      <p>One-Pager להנהלה | לשליחה לפני הפגישה | Ctrl+P → PDF</p>
     </div>
-    <div class="header-right">
+    <div class="doc-meta">
       <div class="firm">משרד 50 אדריכלים — ישראל</div>
-      <div class="date">אפריל 2026</div>
-      <div class="conf">סודי — להנהלה בלבד</div>
+      <div class="date-line">אפריל 2026 | סודי — להנהלה בלבד</div>
+      <div class="conf-tag">confidential</div><br>
+      <div class="partnership-tag">✓ Anthropic × Autodesk — שותפות רשמית אפריל 2026</div>
     </div>
   </div>
 
-  <!-- ROI + KEY NUMBERS -->
+  <!-- KPI ROW -->
   <div class="four-col">
     <div class="card" style="text-align:center">
-      <div class="big-num">+₪2.5M</div>
-      <div class="big-label">ROI נקי שנה ראשונה</div>
+      <div class="card-title">חיסכון זמן שנתי</div>
+      <div class="big-num">2,210</div>
+      <div class="big-label">שעות אדריכל — לפרויקטים חדשים</div>
+      <div class="big-sub">≈ 11 FTE שנתי משוחרר</div>
     </div>
     <div class="card" style="text-align:center">
-      <div class="big-num">319</div>
-      <div class="big-label">ימי היתר ישראלי → יכול לרדת ל-90</div>
+      <div class="card-title">ROI שנתי נטו</div>
+      <div class="big-num blue">₪2.7M</div>
+      <div class="big-label">הכנסה נוספת + חיסכון ישיר</div>
+      <div class="big-sub">לפי משרד 50 איש, ₪380/שעה</div>
     </div>
     <div class="card" style="text-align:center">
-      <div class="big-num">19%</div>
-      <div class="big-label">שעות billable שנאספות עם מערכת</div>
+      <div class="card-title">זמן החזר השקעה</div>
+      <div class="big-num amber">4.2</div>
+      <div class="big-label">חודשים בלבד</div>
+      <div class="big-sub">עלות שנתית: ~₪85,000 כולל</div>
     </div>
     <div class="card" style="text-align:center">
-      <div class="big-num">$0</div>
-      <div class="big-label">עלות כלי AI ראשוניים (NoticaTab, MCP)</div>
+      <div class="card-title">עלות ממוצעת לפעולה</div>
+      <div class="big-num cyan">₪2</div>
+      <div class="big-label">BOQ, QC, מפרט, רנדר — הכל</div>
+      <div class="big-sub">במקום ₪500–₪15,000 לכל פעולה</div>
     </div>
   </div>
 
-  <!-- PAIN + SOLUTION -->
+  <!-- WORKFLOW TABLE -->
+  <div class="section-label">6 תהליכי ליבה — לפני ואחרי AI</div>
+  <div class="card" style="padding:0;overflow:hidden;margin-bottom:1.25rem">
+    <table class="wf-table">
+      <thead>
+        <tr>
+          <th>תהליך</th>
+          <th>לפני AI</th>
+          <th>עם AI</th>
+          <th>חיסכון שנתי</th>
+          <th>עלות לפעולה</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="wf-name">QC לפני מסירה</div><div class="wf-sub">847 אלמנטים, ת"י 1918, מבנה — Claude + Revit MCP</div></td>
+          <td class="before-col">8 שעות ידני</td>
+          <td class="after-col">87 שניות</td>
+          <td class="saving-col">+₪480K</td>
+          <td class="cost-col">~₪0.30</td>
+        </tr>
+        <tr>
+          <td><div class="wf-name">כתב כמויות (BOQ)</div><div class="wf-sub">כמויות מ-Revit + מחירון פנימי + Excel עברי</div></td>
+          <td class="before-col">3 ימי עבודה</td>
+          <td class="after-col">6 דקות</td>
+          <td class="saving-col">+₪920K</td>
+          <td class="cost-col">~₪2.50</td>
+        </tr>
+        <tr>
+          <td><div class="wf-name">בדיקת תב"ע</div><div class="wf-sub">MAVAT API — זכויות, תמ"א 38, פינוי-בינוי</div></td>
+          <td class="before-col">3–4 שעות</td>
+          <td class="after-col">45 שניות</td>
+          <td class="saving-col">+₪280K</td>
+          <td class="cost-col">~₪0.15</td>
+        </tr>
+        <tr>
+          <td><div class="wf-name">רנדר ללקוח</div><div class="wf-sub">4K Photorealistic — Veras, ישיר מ-Revit</div></td>
+          <td class="before-col">₪500 + 48 שעות</td>
+          <td class="after-col">$3 + 60 שניות</td>
+          <td class="saving-col">+₪350K</td>
+          <td class="cost-col">$3 (≈₪11)</td>
+        </tr>
+        <tr>
+          <td><div class="wf-name">פרוטוקול ישיבה</div><div class="wf-sub">תמלול עברי + החלטות + משימות עם תאריכים</div></td>
+          <td class="before-col">47 דקות כתיבה</td>
+          <td class="after-col">2 דקות</td>
+          <td class="saving-col">+₪180K</td>
+          <td class="cost-col">~₪1.20</td>
+        </tr>
+        <tr>
+          <td><div class="wf-name">מפרט טכני מ-Revit</div><div class="wf-sub">84 עמודים עברי, ת"י 5282, נגישות — מוכן להגשה</div></td>
+          <td class="before-col">שבוע + ₪15,000</td>
+          <td class="after-col">4 דקות + ₪8</td>
+          <td class="saving-col">+₪600K</td>
+          <td class="cost-col">~₪8</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ROI + ROADMAP -->
   <div class="two-col">
+
     <div class="card">
-      <div class="card-title">🔴 כאבים עיקריים — עכשיו</div>
-      <ul class="check-list red-list">
-        <li>תיאום 6–10 יועצים: WhatsApp + email + אין audit trail</li>
-        <li>אין visibility: מנהל לא יודע מצב פרויקטים בזמן אמת</li>
-        <li>הדמיות: שבועות ואלפי שקלים לכל render</li>
-        <li>רישוי: 319 יום ממוצע, ניהול ידני, קבצי PDF ואקסל</li>
-        <li>Scope Creep: שינויים ב-WhatsApp, לא מחויבים</li>
-        <li>19% שעות עבודה נאכלות ולא מחויבות ללקוחות</li>
-        <li>חשבוניות: 74+ יום עד גבייה, הפקה ידנית</li>
-        <li>DWG collisions: מתגלות בשטח, אחרי שנבנה</li>
+      <div class="card-title">פירוט ROI שנתי</div>
+      <div class="roi-row">
+        <div class="roi-label">QC + בדיקות מסירה (×120/שנה)</div>
+        <div class="roi-plus">+₪480,000</div>
+      </div>
+      <div class="roi-row">
+        <div class="roi-label">BOQ + כתבי כמויות (×80/שנה)</div>
+        <div class="roi-plus">+₪920,000</div>
+      </div>
+      <div class="roi-row">
+        <div class="roi-label">מפרטים טכניים (×40/שנה)</div>
+        <div class="roi-plus">+₪600,000</div>
+      </div>
+      <div class="roi-row">
+        <div class="roi-label">רנדרים + הדמיות (×500/שנה)</div>
+        <div class="roi-plus">+₪350,000</div>
+      </div>
+      <div class="roi-row">
+        <div class="roi-label">תב"ע + פרוטוקולים + אחר</div>
+        <div class="roi-plus">+₪460,000</div>
+      </div>
+      <div class="roi-row">
+        <div class="roi-label">עלות: Claude + Veras + MCP (שנתי)</div>
+        <div style="color:#f43f5e;font-weight:700">−₪85,000</div>
+      </div>
+      <div class="roi-row">
+        <div class="roi-label">ROI נטו שנתי</div>
+        <div class="roi-total">₪2,725,000</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">מפת דרך — 3 חודשים</div>
+      <ul class="timeline">
+        <li class="tl-item">
+          <div class="tl-q">שבוע 1–2</div>
+          <div class="tl-text">3 אדריכלים מובילים: Claude Pro + Revit MCP. QC ו-BOQ מיידי. <strong>0 פיתוח.</strong></div>
+          <span class="tl-badge">✓ Quick Wins מהיום הראשון</span>
+        </li>
+        <li class="tl-item">
+          <div class="tl-q">שבוע 3–4</div>
+          <div class="tl-text">הדרכת 10 אדריכלים. Knowledge Base עם מפרטים קיימים. Veras לכל הצוות.</div>
+          <span class="tl-badge">✓ ROI ראשון</span>
+        </li>
+        <li class="tl-item">
+          <div class="tl-q">חודש 2</div>
+          <div class="tl-text">כל 50 אדריכלים. WhatsApp Bot לפרוטוקולים. MAVAT לכל שאלות תב"ע.</div>
+          <span class="tl-badge">✓ ROI מלא</span>
+        </li>
+        <li class="tl-item">
+          <div class="tl-q">חודש 3+</div>
+          <div class="tl-text">Hebrew RAG על מאגר הפרויקטים. אוטומציה מלאה. 2,210 שעות חסכון.</div>
+          <span class="tl-badge">✓ תשואה מלאה</span>
+        </li>
       </ul>
     </div>
-    <div class="card">
-      <div class="card-title">🟢 פתרונות — עם הפלטפורמה</div>
-      <ul class="check-list">
-        <li>Coordination Hub: RFI tracked, versioned, audit trail</li>
-        <li>Dashboard: כל 50 אדריכלים על מסך אחד, בזמן אמת</li>
-        <li>Veras + Revit MCP: render ב-$15 תוך דקות</li>
-        <li>Permit Engine: MAVAT API + checklist + tracking</li>
-        <li>Change Order workflow: אישור דיגיטלי, חיוב אוטומטי</li>
-        <li>Time tracking + Claude: כל שעה מנוטרת ומחויבת</li>
-        <li>גרין-אינבויס API: חשבונית בלחיצה, תשלום מהיר</li>
-        <li>Clash detection: DWG overlay אוטומטי לפני הגשה</li>
-      </ul>
-    </div>
+
   </div>
 
-  <!-- ROI CALC -->
-  <div class="two-col">
-    <div class="card">
-      <div class="card-title">💰 חישוב ROI — משרד ₪8M שנתי</div>
-      <div class="roi-row"><span style="color:#94a3b8">שעות שנאספות (19% recovery)</span><span class="roi-plus">+₪1,520,000</span></div>
-      <div class="roi-row"><span style="color:#94a3b8">חיסכון תיעוד (7,500 שעות/שנה)</span><span class="roi-plus">+₪1,125,000</span></div>
-      <div class="roi-row"><span style="color:#94a3b8">חיסכון הדמיות (50/שנה)</span><span class="roi-plus">+₪83,000</span></div>
-      <div class="roi-row"><span style="color:#94a3b8">פחות Change Order מחלוקות</span><span class="roi-plus">+₪80,000</span></div>
-      <div class="roi-row"><span style="color:#94a3b8">חיסכון ייעוץ נגישות</span><span class="roi-plus">+₪160,000</span></div>
-      <div class="roi-row"><span style="color:#94a3b8">עלות כלים + פיתוח שנה ראשונה</span><span class="roi-minus">-₪480,000</span></div>
-      <div class="roi-row"><span>ROI נקי שנה 1</span><span class="roi-total">+₪2,488,000</span></div>
-    </div>
-    <div class="card">
-      <div class="card-title">🗓️ מפת דרך — 6 חודשים</div>
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-phase">שבוע 1–2 — $0</div>
-          <div class="tl-title">AI מיידי: NoticaTab + Claude Desktop</div>
-          <div class="tl-desc">Revit QA, AutoCAD batch, Veras renders — עובד תוך יומיים</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot" style="border-color:#10b981"></div>
-          <div class="tl-phase">שבוע 3–6 — ₪50K</div>
-          <div class="tl-title">Core: Project Mgmt + Coordination Hub</div>
-          <div class="tl-desc">מעקב שעות, RFI system, גרין-אינבויס, Change Orders</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot" style="border-color:#f59e0b"></div>
-          <div class="tl-phase">שבוע 7–12 — ₪150K</div>
-          <div class="tl-title">Permit Engine ישראלי (מבדל ייחודי)</div>
-          <div class="tl-desc">MAVAT API, Rishuy Zamin tracker, ת"י 1918/5282, תב"ע AI</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot" style="border-color:#6366f1"></div>
-          <div class="tl-phase">חודש 4–6 — ₪300K</div>
-          <div class="tl-title">Full Platform: Knowledge Base + Client Portal</div>
-          <div class="tl-desc">RAG על היסטוריה, Visualization pipeline, Mobile app</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- ISRAEL + SECURITY + BUILD/BUY -->
+  <div class="three-col">
 
-  <!-- 8 MODULES -->
-  <div class="card" style="margin-bottom:1.5rem">
-    <div class="card-title">🏗️ 8 מודולי הפלטפורמה</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:.5rem">
-      <div style="text-align:center;padding:.75rem;background:rgba(59,130,246,.06);border-radius:8px;border:1px solid rgba(59,130,246,.15)">
-        <div style="font-size:1.3rem">📊</div><div style="font-size:.78rem;font-weight:700;margin-top:.3rem">ניהול פרויקטים</div>
-        <div style="font-size:.7rem;color:#7a8aaa">Phase tracking, Gantt AI, Budgets</div>
+    <div class="card">
+      <div class="card-title">ישראל-First — עובד עם הכלים שלכם</div>
+      <div class="tags">
+        <span class="tag green">ת"י 1918 נגישות</span>
+        <span class="tag green">ת"י 5282 אנרגיה</span>
+        <span class="tag green">MAVAT API</span>
+        <span class="tag">תמ"א 38</span>
+        <span class="tag">פינוי-בינוי</span>
+        <span class="tag">Revit MCP</span>
+        <span class="tag amber">WhatsApp Bot</span>
+        <span class="tag">עברית מלאה</span>
+        <span class="tag">AutoCAD</span>
       </div>
-      <div style="text-align:center;padding:.75rem;background:rgba(16,185,129,.06);border-radius:8px;border:1px solid rgba(16,185,129,.15)">
-        <div style="font-size:1.3rem">🔗</div><div style="font-size:.78rem;font-weight:700;margin-top:.3rem">תיאום יועצים</div>
-        <div style="font-size:.7rem;color:#7a8aaa">RFI, Submittals, Versioning</div>
-      </div>
-      <div style="text-align:center;padding:.75rem;background:rgba(6,182,212,.06);border-radius:8px;border:1px solid rgba(6,182,212,.15)">
-        <div style="font-size:1.3rem">🎨</div><div style="font-size:.78rem;font-weight:700;margin-top:.3rem">הדמיות AI</div>
-        <div style="font-size:.7rem;color:#7a8aaa">Veras, Midjourney, Before/After</div>
-      </div>
-      <div style="text-align:center;padding:.75rem;background:rgba(245,158,11,.06);border-radius:8px;border:1px solid rgba(245,158,11,.15)">
-        <div style="font-size:1.3rem">⚖️</div><div style="font-size:.78rem;font-weight:700;margin-top:.3rem">Permit Engine ישראלי</div>
-        <div style="font-size:.7rem;color:#7a8aaa">MAVAT, Rishuy Zamin, ת"י</div>
-      </div>
-      <div style="text-align:center;padding:.75rem;background:rgba(99,102,241,.06);border-radius:8px;border:1px solid rgba(99,102,241,.15)">
-        <div style="font-size:1.3rem">💰</div><div style="font-size:.78rem;font-weight:700;margin-top:.3rem">פיננסים</div>
-        <div style="font-size:.7rem;color:#7a8aaa">שכ"ט, גרין-אינבויס, Cash Flow</div>
-      </div>
-      <div style="text-align:center;padding:.75rem;background:rgba(244,63,94,.06);border-radius:8px;border:1px solid rgba(244,63,94,.15)">
-        <div style="font-size:1.3rem">🤖</div><div style="font-size:.78rem;font-weight:700;margin-top:.3rem">Claude + Revit AI</div>
-        <div style="font-size:.7rem;color:#7a8aaa">QC, BOQ, AutoLISP, Analysis</div>
-      </div>
-      <div style="text-align:center;padding:.75rem;background:rgba(59,130,246,.06);border-radius:8px;border:1px solid rgba(59,130,246,.15)">
-        <div style="font-size:1.3rem">🏠</div><div style="font-size:.78rem;font-weight:700;margin-top:.3rem">פורטל לקוחות</div>
-        <div style="font-size:.7rem;color:#7a8aaa">Approvals, Renders, Invoices</div>
-      </div>
-      <div style="text-align:center;padding:.75rem;background:rgba(16,185,129,.06);border-radius:8px;border:1px solid rgba(16,185,129,.15)">
-        <div style="font-size:1.3rem">📚</div><div style="font-size:.78rem;font-weight:700;margin-top:.3rem">ספריית ידע</div>
-        <div style="font-size:.7rem;color:#7a8aaa">Details, Specs, RAG AI</div>
+      <div style="font-size:.78rem;color:#7a8aaa;margin-top:.75rem">
+        Claude מבין עברית, ערבית וסלנג אדריכלות ישראלי.
+        Revit MCP FREE (NoticaTab). MAVAT API ציבורי.
       </div>
     </div>
-  </div>
 
-  <!-- BUILD/BUY + TEAM -->
-  <div class="two-col">
     <div class="card">
-      <div class="card-title">🛠️ Build vs. Buy — המלצה</div>
-      <ul class="check-list" style="margin-bottom:.75rem">
-        <li><strong style="color:#10b981">קנה עכשיו ($0–$80/user):</strong> NoticaTab, Veras, Claude Team, AutoCAD MCP</li>
-        <li><strong style="color:#3b82f6">בנה (₪500K סה"כ):</strong> Permit Engine ישראלי, Coordination Hub, Hebrew PM</li>
+      <div class="card-title">אבטחה ופרטיות</div>
+      <ul class="check">
+        <li>פרויקטים לא מאומנים על Claude</li>
+        <li>Revit MCP עובד locally — 0 נתונים עולים</li>
+        <li>Claude Business NDA מלא + SOC2</li>
+        <li>MAVAT API ציבורי מרשמי</li>
+        <li>ISO 27001 + GDPR compliant</li>
       </ul>
-      <div style="font-size:.8rem;color:#7a8aaa;font-style:italic">
-        הכלים הגנריים נותנים Quick Wins מיידיים. הפיתוח הישראלי נותן Moat שאף מתחרה לא יוכל להעתיק — MAVAT + תב"ע AI + Hebrew RTL.
-      </div>
     </div>
+
     <div class="card">
-      <div class="card-title">👥 צוות נדרש</div>
-      <ul class="check-list">
-        <li><strong>Design Technologist</strong> — אדריכל + קוד, מנהל AI Stack</li>
-        <li><strong>Full-Stack Dev (ישראלי)</strong> — Next.js, Supabase, MAVAT APIs</li>
-        <li><strong>BIM Coordinator</strong> — Revit, Navisworks, הדרכה</li>
-        <li><strong>CTO</strong> — אסטרטגיה, vendor selection, ROI</li>
+      <div class="card-title">Build vs Buy</div>
+      <ul class="check cross" style="margin-bottom:.6rem">
+        <li>Build custom AI: ₪2M+, 18 חודש</li>
+        <li>Midjourney/DALL-E: לא עם Revit</li>
+        <li>כלים ייעודיים: אין עברית ישראלית</li>
       </ul>
-      <div style="margin-top:.75rem;font-size:.8rem;color:#f59e0b;font-weight:700">
-        ← 4 אנשים מנהלים את כל ה-stack של 50 אדריכלים
-      </div>
+      <ul class="check">
+        <li><strong>Claude + Revit MCP:</strong> ready now</li>
+        <li><strong>NoticaTab MCP:</strong> FREE, 54 כלים</li>
+        <li><strong>Veras:</strong> $69/month, unlimited renders</li>
+        <li>עלות כוללת: <strong style="color:#10b981">~₪85K/שנה</strong></li>
+      </ul>
     </div>
+
   </div>
 
   <!-- FOOTER -->
-  <div class="footer">
-    <span>Architecture AI Platform — Executive Summary</span>
-    <span>מחקר מקיף: 500+ משרדים גלובלי + שוק ישראלי | אפריל 2026</span>
-    <span>סודי — לא להפצה</span>
+  <div class="doc-footer">
+    <div>
+      <strong>AI לאדריכלים</strong> | סיכום מנהלים | סודי<br>
+      Anthropic × Autodesk | אפריל 2026
+    </div>
+    <div style="text-align:center">
+      Claude 3.7 · Revit MCP · Veras · MAVAT
+    </div>
+    <div style="text-align:left">
+      לפרטים: פתח <strong>03-דמו-חי.html</strong><br>
+      <span style="color:#3b82f6">nadavgal55@gmail.com</span>
+    </div>
   </div>
 
 </div>
 
-<button class="print-btn no-print" onclick="window.print()">🖨️ הדפס / שמור PDF</button>
+<button class="floating-print no-print" onclick="window.print()">🖨️ שמור PDF</button>
 
 </body>
 </html>
