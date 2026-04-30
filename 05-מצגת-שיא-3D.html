@@ -858,6 +858,37 @@ nav.scrolled {
   background: var(--bg2);
 }
 
+.roi-mega {
+  text-align: center;
+  padding: 48px 24px;
+  background: linear-gradient(135deg, rgba(59,130,246,.08), rgba(129,140,248,.08));
+  border: 1px solid rgba(129,140,248,.2);
+  border-radius: var(--radius-xl);
+  margin-bottom: 48px;
+}
+.roi-mega-label {
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .75rem;
+}
+.roi-mega-value, .roi-big {
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.roi-mega-sub {
+  font-size: .85rem;
+  color: var(--muted);
+}
+
 .calc-wrap {
   background: var(--bg3);
   border: 1px solid var(--border2);
@@ -3399,7 +3430,7 @@ footer {
     <p class="section-sub">כל מודול עומד בפני עצמו — יחד הם מכונה שמייצרת ₪2.49M+</p>
     <div class="modules-grid">
 
-      <div class="module-card">
+      <div class="mod-card">
         <div class="module-header">
           <span class="module-num">01</span>
           <span class="module-roi">+₪1.52M ROI</span>
@@ -3413,7 +3444,7 @@ footer {
         </ul>
       </div>
 
-      <div class="module-card">
+      <div class="mod-card">
         <div class="module-header">
           <span class="module-num">02</span>
           <span class="module-roi">+₪1.125M ROI</span>
@@ -3427,7 +3458,7 @@ footer {
         </ul>
       </div>
 
-      <div class="module-card">
+      <div class="mod-card">
         <div class="module-header">
           <span class="module-num">03</span>
           <span class="module-roi">+₪83K ROI</span>
@@ -3441,7 +3472,7 @@ footer {
         </ul>
       </div>
 
-      <div class="module-card module-card--highlight">
+      <div class="mod-card mod-card--highlight">
         <div class="module-header">
           <span class="module-num">04</span>
           <span class="module-roi">+₪160K ROI</span>
@@ -3455,7 +3486,7 @@ footer {
         </ul>
       </div>
 
-      <div class="module-card">
+      <div class="mod-card">
         <div class="module-header">
           <span class="module-num">05</span>
           <span class="module-roi">+₪80K ROI</span>
@@ -3469,7 +3500,7 @@ footer {
         </ul>
       </div>
 
-      <div class="module-card">
+      <div class="mod-card">
         <div class="module-header">
           <span class="module-num">06</span>
           <span class="module-roi">2% הכנסות</span>
@@ -3483,7 +3514,7 @@ footer {
         </ul>
       </div>
 
-      <div class="module-card module-card--highlight">
+      <div class="mod-card mod-card--highlight">
         <div class="module-header">
           <span class="module-num">07</span>
           <span class="module-roi">₪2,500/עובד</span>
@@ -3497,7 +3528,7 @@ footer {
         </ul>
       </div>
 
-      <div class="module-card">
+      <div class="mod-card">
         <div class="module-header">
           <span class="module-num">08</span>
           <span class="module-roi">₪3,000/עובד</span>
@@ -3783,7 +3814,7 @@ footer {
 
     <div class="roi-mega">
       <div class="roi-mega-label">ROI נקי שנה ראשונה</div>
-      <div class="roi-mega-value">+₪2,488,250</div>
+      <div class="roi-mega-value roi-big">+₪2,488,250</div>
       <div class="roi-mega-sub">לאחר קיזוז עלויות פלטפורמה מלאה</div>
     </div>
 
@@ -3877,16 +3908,16 @@ footer {
     <p class="section-sub">10 תרחישים אמיתיים — לחץ כדי לצפות בסימולציה</p>
 
     <div class="demo-tabs" role="tablist">
-      <button class="demo-tab demo-tab--active" data-tab="revit-qc" role="tab">⚡ Revit QC</button>
-      <button class="demo-tab" data-tab="boq" role="tab">📊 BOQ</button>
-      <button class="demo-tab" data-tab="veras" role="tab">🎨 Veras</button>
-      <button class="demo-tab" data-tab="taba" role="tab">🇮🇱 תב"ע</button>
-      <button class="demo-tab" data-tab="batch-dwg" role="tab">📐 Batch DWG</button>
-      <button class="demo-tab" data-tab="access" role="tab">♿ נגישות</button>
-      <button class="demo-tab" data-tab="co" role="tab">📜 Change Order</button>
-      <button class="demo-tab" data-tab="knowledge" role="tab">📚 Knowledge</button>
-      <button class="demo-tab" data-tab="client-bot" role="tab">👥 Client Bot</button>
-      <button class="demo-tab" data-tab="energy" role="tab">⚡ Energy</button>
+      <button class="demo-tab dtab demo-tab--active on" data-tab="revit-qc" role="tab" onclick="runD(0)">⚡ Revit QC</button>
+      <button class="demo-tab dtab" data-tab="boq" role="tab" onclick="runD(1)">📊 BOQ</button>
+      <button class="demo-tab dtab" data-tab="veras" role="tab" onclick="runD(2)">🎨 Veras</button>
+      <button class="demo-tab dtab" data-tab="taba" role="tab" onclick="runD(3)">🇮🇱 תב"ע</button>
+      <button class="demo-tab dtab" data-tab="batch-dwg" role="tab" onclick="runD(4)">📐 Batch DWG</button>
+      <button class="demo-tab dtab" data-tab="access" role="tab" onclick="runD(5)">♿ נגישות</button>
+      <button class="demo-tab dtab" data-tab="co" role="tab" onclick="runD(6)">📜 Change Order</button>
+      <button class="demo-tab dtab" data-tab="knowledge" role="tab" onclick="runD(7)">📚 Knowledge</button>
+      <button class="demo-tab dtab" data-tab="client-bot" role="tab" onclick="runD(8)">👥 Client Bot</button>
+      <button class="demo-tab dtab" data-tab="energy" role="tab" onclick="runD(9)">⚡ Energy</button>
     </div>
 
     <div class="terminal-window">
@@ -3959,7 +3990,7 @@ footer {
     <div class="section-label">הדמיות AI</div>
     <h2 class="section-title">Revit → הדמיה פוטוריאליסטית ב-60 שניות</h2>
 
-    <div class="render-slider-wrapper">
+    <div class="render-slider-wrapper" id="rsc">
       <div class="render-before">
         <div class="render-label render-label--before">לפני — Revit Wireframe</div>
         <svg class="render-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
@@ -4415,7 +4446,7 @@ footer {
     <p class="section-sub">למה אין אלטרנטיבה אמיתית לפלטפורמה ישראלית עם Claude AI</p>
 
     <div class="compare-table-wrap">
-      <table class="compare-table">
+      <table class="compare-table cmp-table">
         <thead>
           <tr>
             <th class="compare-feature-col">תכונה</th>
@@ -5472,7 +5503,8 @@ function runD(i) {
   demoTimers = [];
 
   /* Update tab active state */
-  document.querySelectorAll('.dtab').forEach(function (tab, j) {
+  document.querySelectorAll('.demo-tab').forEach(function (tab, j) {
+    tab.classList.toggle('demo-tab--active', j === i);
     tab.classList.toggle('on', j === i);
   });
   currentDemo = i;
@@ -5587,6 +5619,39 @@ window.addEventListener('load', function () {
   window.addEventListener('load', calcROI);
 })();
 
+
+/* ─────────────────────────────────────────────────────────────
+   6b. CAPACITY HEATMAP — generates 50 architect dots
+   ───────────────────────────────────────────────────────────── */
+window.addEventListener('load', function initCapacityHeatmap() {
+  var names = [
+    'נועם כ','אור ל','דנה מ','יואב ש','מיכל ב','ערן ג','שירה ד','אמיר פ','תמר ה','רן צ',
+    'ליאת ו','גל ז','נגה ח','יובל ט','מאיה י','אלון כ','ריבה ל','שי מ','נעמה נ','גיא ס',
+    'אביב ע','קרן פ','ניר צ','הדר ק','עמרי ר','שחר ש','ליהי ת','בן א','רוני ב','יפית ג',
+    'אסף ד','נילי ה','ידין ו','צוף ז','אילן ח','רחל ט','בועז י','יהלי כ','מנחם ל','שנית מ',
+    'פנינה נ','יניב ס','אורלי ע','רוי פ','חנה צ','ציון ק','עדנה ר','אבי ש','טלי ת','כלנית א'
+  ];
+  var loads = [
+    72,88,65,95,78,102,83,91,69,74,
+    85,77,98,63,87,71,94,80,67,89,
+    76,92,84,70,108,73,86,99,61,81,
+    90,75,97,68,82,105,79,93,66,88,
+    74,83,96,72,89,77,101,64,87,78
+  ];
+  var container = document.getElementById('capDots');
+  if (!container) return;
+  container.innerHTML = '';
+  names.forEach(function(name, i) {
+    var load = loads[i];
+    var color = load < 85 ? 'rgba(16,185,129,.75)' : load < 100 ? 'rgba(245,158,11,.85)' : 'rgba(244,63,94,.9)';
+    var dot = document.createElement('div');
+    dot.className = 'cap-dot';
+    dot.style.background = color;
+    dot.style.boxShadow = '0 0 6px ' + color;
+    dot.innerHTML = '<div class="tooltip">' + name + '<br>' + load + '%</div>';
+    container.appendChild(dot);
+  });
+});
 
 /* ─────────────────────────────────────────────────────────────
    7. RENDER SLIDER (~lines 640–680)
