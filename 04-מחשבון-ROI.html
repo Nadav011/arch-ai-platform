@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>מחשבון ROI — AI לאדריכלים</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060912;color:#f0f4ff;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;padding:0 0 4rem}
+.header{background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(99,102,241,.08));border-bottom:1px solid rgba(59,130,246,.2);padding:2rem;text-align:center}
+h1{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#fff,#93c5fd,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{color:#7a8aaa;margin-top:.4rem}
+.container{max-width:1000px;margin:0 auto;padding:2.5rem 2rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.card{background:#111827;border:1px solid rgba(59,130,246,.2);border-radius:16px;padding:1.75rem}
+.card-title{font-size:.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#06b6d4;margin-bottom:1.25rem}
+.field{margin-bottom:1.25rem}
+label{display:block;font-size:.85rem;color:#94a3b8;margin-bottom:.4rem;font-weight:600}
+input[type=range]{width:100%;accent-color:#3b82f6;height:5px;cursor:pointer}
+.range-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem}
+.range-val{font-size:1.1rem;font-weight:800;color:#3b82f6;min-width:80px;text-align:left}
+.checkbox-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem;cursor:pointer}
+.checkbox-row input{width:18px;height:18px;accent-color:#3b82f6;cursor:pointer}
+.checkbox-row span{font-size:.875rem;color:#94a3b8}
+.checkbox-row strong{color:#f0f4ff}
+
+.result-card{background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(6,182,212,.06));border:1px solid rgba(16,185,129,.25);border-radius:16px;padding:2rem;margin-top:2rem;text-align:center}
+.result-total{font-size:4rem;font-weight:900;color:#10b981;line-height:1}
+.result-label{font-size:1rem;color:#7a8aaa;margin-top:.5rem}
+.result-subtitle{font-size:.85rem;color:#94a3b8;margin-top:.25rem}
+
+.breakdown{background:#0d1321;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1.25rem;margin-top:1.5rem}
+.br-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.875rem}
+.br-row:last-child{border:none;border-top:1px solid rgba(59,130,246,.2);padding-top:.6rem;margin-top:.3rem;font-weight:800;font-size:1rem}
+.br-label{color:#7a8aaa}
+.br-plus{color:#10b981;font-weight:700}
+.br-minus{color:#f43f5e;font-weight:700}
+.br-net{color:#10b981;font-size:1.2rem}
+
+.payback{
+  display:flex;gap:1rem;margin-top:1.5rem;
+}
+.pb-card{
+  flex:1;background:#0d1321;border:1px solid rgba(255,255,255,.06);border-radius:10px;
+  padding:1rem;text-align:center;
+}
+.pb-num{font-size:1.8rem;font-weight:900;color:#06b6d4}
+.pb-label{font-size:.75rem;color:#7a8aaa;margin-top:.2rem}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🧮 מחשבון ROI — AI לאדריכלים</h1>
+  <p class="sub">הכנס את הנתונים של המשרד שלך — ראה ROI בזמן אמת</p>
+</div>
+
+<div class="container">
+  <div class="grid2">
+
+    <!-- INPUTS -->
+    <div class="card">
+      <div class="card-title">📊 נתוני המשרד</div>
+
+      <div class="field">
+        <div class="range-row">
+          <label>מספר אדריכלים</label>
+          <span class="range-val" id="v-staff">50</span>
+        </div>
+        <input type="range" min="5" max="200" value="50" id="staff" oninput="calc()">
+        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:#7a8aaa"><span>5</span><span>200</span></div>
+      </div>
+
+      <div class="field">
+        <div class="range-row">
+          <label>הכנסות שנתיות (₪M)</label>
+          <span class="range-val" id="v-revenue">8M</span>
+        </div>
+        <input type="range" min="1" max="50" value="8" id="revenue" oninput="calc()">
+        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:#7a8aaa"><span>₪1M</span><span>₪50M</span></div>
+      </div>
+
+      <div class="field">
+        <div class="range-row">
+          <label>שיעור שעות שנאספות כיום (%)</label>
+          <span class="range-val" id="v-rate">81%</span>
+        </div>
+        <input type="range" min="60" max="99" value="81" id="rate" oninput="calc()">
+        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:#7a8aaa"><span>60%</span><span>99%</span></div>
+      </div>
+
+      <div class="field">
+        <div class="range-row">
+          <label>הדמיות לשנה</label>
+          <span class="range-val" id="v-renders">50</span>
+        </div>
+        <input type="range" min="5" max="300" value="50" id="renders" oninput="calc()">
+        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:#7a8aaa"><span>5</span><span>300</span></div>
+      </div>
+
+      <div class="field">
+        <div class="range-row">
+          <label>פרויקטים שנתיים (לצורך ת"י 1918)</label>
+          <span class="range-val" id="v-projects">20</span>
+        </div>
+        <input type="range" min="5" max="100" value="20" id="projects" oninput="calc()">
+        <div style="display:flex;justify-content:space-between;font-size:.7rem;color:#7a8aaa"><span>5</span><span>100</span></div>
+      </div>
+    </div>
+
+    <!-- MODULES -->
+    <div class="card">
+      <div class="card-title">⚡ מודולים שמטמיעים</div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="m1" checked onchange="calc()">
+        <span><strong>מעקב שעות + Project Management</strong><br>+21% revenue recovery</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="m2" checked onchange="calc()">
+        <span><strong>Coordination Hub — תיאום יועצים</strong><br>חיסכון 60% זמן תיעוד</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="m3" checked onchange="calc()">
+        <span><strong>Veras AI Renders</strong><br>$450 חיסכון להדמיה</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="m4" checked onchange="calc()">
+        <span><strong>Permit Engine ישראלי</strong><br>חיסכון ייעוץ נגישות + זמן</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="m5" checked onchange="calc()">
+        <span><strong>Change Order Tracking</strong><br>40% פחות מחלוקות</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="m6" onchange="calc()">
+        <span><strong>Client Portal</strong><br>קצר מחזור אישורים ב-50%</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="m7" onchange="calc()">
+        <span><strong>Claude + Revit MCP (מלא)</strong><br>AutoLISP, batch, BOQ</span>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" id="m8" onchange="calc()">
+        <span><strong>Knowledge Base AI (RAG)</strong><br>חיסכון Onboarding</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card">
+    <div class="result-total" id="total">+₪2,488,000</div>
+    <div class="result-label">ROI נקי שנה ראשונה</div>
+    <div class="result-subtitle" id="result-sub">על בסיס ₪8M הכנסות, 50 אדריכלים, 5 מודולים</div>
+
+    <div class="breakdown">
+      <div class="br-row" id="row-billable" style="display:none"><span class="br-label">שעות billable שנאספות</span><span class="br-plus" id="val-billable">+₪1,520,000</span></div>
+      <div class="br-row" id="row-doc" style="display:none"><span class="br-label">חיסכון תיעוד</span><span class="br-plus" id="val-doc">+₪1,125,000</span></div>
+      <div class="br-row" id="row-render" style="display:none"><span class="br-label">חיסכון הדמיות</span><span class="br-plus" id="val-render">+₪83,250</span></div>
+      <div class="br-row" id="row-permit" style="display:none"><span class="br-label">חיסכון ייעוץ נגישות</span><span class="br-plus" id="val-permit">+₪160,000</span></div>
+      <div class="br-row" id="row-co" style="display:none"><span class="br-label">מניעת Change Order מחלוקות</span><span class="br-plus" id="val-co">+₪80,000</span></div>
+      <div class="br-row" id="row-portal" style="display:none"><span class="br-label">חיסכון ממחזור אישורים קצר</span><span class="br-plus" id="val-portal"></span></div>
+      <div class="br-row" id="row-mcp" style="display:none"><span class="br-label">חיסכון Revit MCP (BOQ, batch)</span><span class="br-plus" id="val-mcp"></span></div>
+      <div class="br-row"><span class="br-label">עלות כלים + פיתוח</span><span class="br-minus" id="val-cost">-₪480,000</span></div>
+      <div class="br-row"><span>ROI נקי</span><span class="br-net" id="val-net">+₪2,488,250</span></div>
+    </div>
+
+    <div class="payback">
+      <div class="pb-card"><div class="pb-num" id="pb-months">2.3</div><div class="pb-label">חודשי Payback</div></div>
+      <div class="pb-card"><div class="pb-num" id="pb-year2">₪2.97M</div><div class="pb-label">ROI שנה 2 (ללא פיתוח)</div></div>
+      <div class="pb-card"><div class="pb-num" id="pb-per-head">₪49,760</div><div class="pb-label">ROI לאדריכל</div></div>
+      <div class="pb-card"><div class="pb-num" id="pb-pct">31%</div><div class="pb-label">% מהכנסות</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ILS = 3.7;
+function fmt(n){ return '₪' + Math.round(n).toLocaleString('he-IL'); }
+function calc(){
+  const staff = +document.getElementById('staff').value;
+  const rev = +document.getElementById('revenue').value * 1000000;
+  const rate = +document.getElementById('rate').value / 100;
+  const renders = +document.getElementById('renders').value;
+  const projects = +document.getElementById('projects').value;
+  document.getElementById('v-staff').textContent = staff;
+  document.getElementById('v-revenue').textContent = (+document.getElementById('revenue').value) + 'M';
+  document.getElementById('v-rate').textContent = Math.round(rate*100) + '%';
+  document.getElementById('v-renders').textContent = renders;
+  document.getElementById('v-projects').textContent = projects;
+
+  const m1=document.getElementById('m1').checked;
+  const m2=document.getElementById('m2').checked;
+  const m3=document.getElementById('m3').checked;
+  const m4=document.getElementById('m4').checked;
+  const m5=document.getElementById('m5').checked;
+  const m6=document.getElementById('m6').checked;
+  const m7=document.getElementById('m7').checked;
+  const m8=document.getElementById('m8').checked;
+
+  let gains = 0, cost = 0;
+
+  // billable recovery
+  const billable = m1 ? rev * 0.21 : 0;
+  showRow('row-billable', m1, 'val-billable', '+' + fmt(billable));
+  gains += billable;
+
+  // doc savings: 3h/week/person × 52w × cost₪150
+  const docHours = staff * 3 * 52 * 0.6;
+  const doc = m2 ? docHours * 150 : 0;
+  showRow('row-doc', m2, 'val-doc', '+' + fmt(doc));
+  gains += doc;
+
+  // render savings: $450 per render × ILS
+  const renderSave = m3 ? renders * 450 * ILS : 0;
+  showRow('row-render', m3, 'val-render', '+' + fmt(renderSave));
+  gains += renderSave;
+
+  // permit: 8K NIS per project
+  const permitSave = m4 ? projects * 8000 : 0;
+  showRow('row-permit', m4, 'val-permit', '+' + fmt(permitSave));
+  gains += permitSave;
+
+  // CO disputes: 40% of 200K
+  const co = m5 ? 80000 : 0;
+  showRow('row-co', m5, 'val-co', '+' + fmt(co));
+  gains += co;
+
+  // client portal
+  const portal = m6 ? rev * 0.02 : 0;
+  showRow('row-portal', m6, 'val-portal', '+' + fmt(portal));
+  gains += portal;
+
+  // MCP
+  const mcp = m7 ? staff * 2500 : 0;
+  showRow('row-mcp', m7, 'val-mcp', '+' + fmt(mcp));
+  gains += mcp;
+
+  // knowledge base
+  const kb = m8 ? staff * 3000 : 0;
+  gains += kb;
+
+  // cost: tools $50/month/user + dev ₪250K
+  const toolCost = staff * 50 * 12 * ILS;
+  const devCost = 250000;
+  cost = toolCost + devCost;
+  document.getElementById('val-cost').textContent = '-' + fmt(cost);
+
+  const net = gains - cost;
+  document.getElementById('total').textContent = (net > 0 ? '+' : '') + fmt(net);
+  document.getElementById('val-net').textContent = (net > 0 ? '+' : '') + fmt(net);
+
+  const paybackMonths = cost / (gains / 12);
+  document.getElementById('pb-months').textContent = paybackMonths.toFixed(1);
+  document.getElementById('pb-year2').textContent = fmt(net + devCost);
+  document.getElementById('pb-per-head').textContent = fmt(net / staff);
+  document.getElementById('pb-pct').textContent = Math.round(net / rev * 100) + '%';
+
+  const mCount = [m1,m2,m3,m4,m5,m6,m7,m8].filter(Boolean).length;
+  document.getElementById('result-sub').textContent = `על בסיס ₪${+document.getElementById('revenue').value}M הכנסות, ${staff} אדריכלים, ${mCount} מודולים`;
+}
+
+function showRow(rowId, show, valId, val){
+  document.getElementById(rowId).style.display = show ? 'flex' : 'none';
+  if(show) document.getElementById(valId).textContent = val;
+}
+
+calc();
+</script>
+</body>
+</html>

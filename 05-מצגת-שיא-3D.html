@@ -1,0 +1,5982 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Architecture Platform — The Ultimate Presentation 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+/* ============================================================
+   ARCH-AI PRESENTATION — World-Class Dark Theme CSS
+   Israeli Architecture Firm · RTL · Dark UI (Linear/Vercel/Framer)
+   ============================================================ */
+
+/* ── 1. CSS VARIABLES ──────────────────────────────────────── */
+:root {
+  --bg:     #04070f;
+  --bg2:    #080d1c;
+  --bg3:    #0e1526;
+  --bg4:    #111827;
+  --blue:   #3b82f6;
+  --blue2:  #2563eb;
+  --cyan:   #06b6d4;
+  --green:  #10b981;
+  --purple: #818cf8;
+  --pink:   #f43f5e;
+  --gold:   #f59e0b;
+  --orange: #fb923c;
+  --text:   #f1f5ff;
+  --muted:  #64748b;
+  --border: rgba(59,130,246,.15);
+  --border2: rgba(255,255,255,.06);
+
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+
+  --shadow-blue: 0 0 40px rgba(59,130,246,.18);
+  --shadow-card: 0 4px 24px rgba(0,0,0,.45);
+  --shadow-glow: 0 0 80px rgba(59,130,246,.12);
+
+  --transition: .22s cubic-bezier(.4,0,.2,1);
+  --transition-slow: .4s cubic-bezier(.4,0,.2,1);
+
+  --font-sans: 'Inter', 'Heebo', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+/* ── 2. RESET + BASE ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  direction: rtl;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+section {
+  padding: 96px 0;
+}
+
+.container {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+
+.section-h {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--text) 40%, var(--muted));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+}
+
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* ── 3. SCROLLBAR ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg4) var(--bg2);
+}
+
+/* ── 4. NAV ────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 1000;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  background: rgba(4,7,15,.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-block-end: 1px solid var(--border2);
+  transition: background var(--transition);
+}
+
+nav.scrolled {
+  background: rgba(4,7,15,.92);
+  box-shadow: 0 1px 0 var(--border2), var(--shadow-blue);
+}
+
+.nav-inner {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .85rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-links a {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: .875rem;
+  color: var(--muted);
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+  background: var(--border2);
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  flex-shrink: 0;
+}
+
+.nav-pill:hover {
+  background: var(--blue2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(59,130,246,.4);
+}
+
+/* ── 5. HERO ───────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,.12) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 30% at 80% 60%, rgba(129,140,248,.08) 0%, transparent 60%),
+              var(--bg);
+}
+
+.hero canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .5;
+}
+
+.hero-fog {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 50% at 50% 100%, var(--bg) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 120px 24px 80px;
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(59,130,246,.1);
+  border: 1px solid rgba(59,130,246,.25);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 28px;
+  animation: kicker-pulse 3s ease-in-out infinite;
+}
+
+.hero-kicker-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+.hero-h {
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -.03em;
+  line-height: 1.05;
+  background: linear-gradient(135deg, #ffffff 0%, var(--blue) 40%, var(--cyan) 65%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+}
+
+.hero-p {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--muted);
+  max-width: 600px;
+  margin-inline: auto;
+  margin-bottom: 44px;
+  line-height: 1.75;
+}
+
+.hero-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: var(--radius-md);
+  background: var(--blue);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-primary:hover {
+  background: var(--blue2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(59,130,246,.45);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 32px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.btn-secondary:hover {
+  background: var(--border2);
+  border-color: rgba(59,130,246,.4);
+  transform: translateY(-2px);
+}
+
+.hero-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.hero-scroll-icon {
+  width: 26px;
+  height: 42px;
+  border: 2px solid rgba(255,255,255,.15);
+  border-radius: 13px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-scroll-icon::after {
+  content: '';
+  width: 4px;
+  height: 10px;
+  background: var(--blue);
+  border-radius: 2px;
+  position: absolute;
+  inset-block-start: 6px;
+  animation: scroll-pulse 2s ease-in-out infinite;
+}
+
+/* ── 6. METRICS BAR ────────────────────────────────────────── */
+.metrics-bar {
+  background: var(--bg2);
+  border-block: 1px solid var(--border2);
+  padding: 28px 0;
+}
+
+.metrics-inner {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.metric-item {
+  flex: 1;
+  min-width: 140px;
+  text-align: center;
+  padding: 12px 20px;
+  border-inline-end: 1px solid var(--border2);
+}
+
+.metric-item:last-child {
+  border-inline-end: none;
+}
+
+.metric-num {
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: -.03em;
+  background: linear-gradient(135deg, var(--text) 30%, var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  display: inline;
+}
+
+.metric-unit {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-inline-start: 2px;
+}
+
+.metric-label {
+  font-size: .78rem;
+  color: var(--muted);
+  margin-block-start: 5px;
+  letter-spacing: .05em;
+}
+
+/* ── 7. PAIN CARDS ─────────────────────────────────────────── */
+.pain-section {
+  background: var(--bg);
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 20px;
+  margin-block-start: 48px;
+}
+
+.pain-card {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.pain-card::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(244,63,94,.5), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.pain-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(244,63,94,.15), var(--shadow-card);
+  border-color: rgba(244,63,94,.25);
+}
+
+.pain-card:hover::before {
+  opacity: 1;
+}
+
+.pain-em {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.pain-h {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.pain-d {
+  font-size: .875rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.pain-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-block-start: 14px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 600;
+  background: rgba(244,63,94,.12);
+  color: var(--pink);
+  border: 1px solid rgba(244,63,94,.2);
+}
+
+/* ── 8. HOW IT WORKS ───────────────────────────────────────── */
+.how-section {
+  background: var(--bg2);
+}
+
+.how-flow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-block-start: 56px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.how-step {
+  flex: 1;
+  min-width: 200px;
+  max-width: 260px;
+  text-align: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+.how-step:not(:last-child)::after {
+  content: '←';
+  position: absolute;
+  inset-block-start: 28px;
+  inset-inline-end: -16px;
+  font-size: 1.3rem;
+  color: var(--blue);
+  opacity: .5;
+  z-index: 1;
+}
+
+.how-num {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-inline: auto;
+  margin-bottom: 20px;
+  box-shadow: 0 0 24px rgba(59,130,246,.3);
+}
+
+.how-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.how-desc {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── 9. MODULE CARDS ───────────────────────────────────────── */
+.modules-section {
+  background: var(--bg);
+}
+
+.mod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 22px;
+  margin-block-start: 48px;
+}
+
+.mod-card {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.mod-card::after {
+  content: '';
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  transform: scaleX(0);
+  transform-origin: inline-start;
+  transition: transform var(--transition-slow);
+}
+
+.mod-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-blue), var(--shadow-card);
+  border-color: var(--border);
+}
+
+.mod-card:hover::after {
+  transform: scaleX(1);
+}
+
+.mod-num {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.mod-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.mod-icon.blue   { background: rgba(59,130,246,.15); }
+.mod-icon.cyan   { background: rgba(6,182,212,.15); }
+.mod-icon.green  { background: rgba(16,185,129,.15); }
+.mod-icon.purple { background: rgba(129,140,248,.15); }
+.mod-icon.gold   { background: rgba(245,158,11,.15); }
+.mod-icon.pink   { background: rgba(244,63,94,.15); }
+.mod-icon.orange { background: rgba(251,146,60,.15); }
+
+.mod-h {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.mod-d {
+  font-size: .875rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+
+.mod-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mod-tag {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 600;
+  background: var(--border2);
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  transition: background var(--transition), color var(--transition);
+}
+
+.mod-card:hover .mod-tag {
+  background: rgba(59,130,246,.1);
+  color: var(--blue);
+  border-color: var(--border);
+}
+
+/* ── 10. SCOPE MAP ─────────────────────────────────────────── */
+.scope-section {
+  background: var(--bg2);
+}
+
+.scope-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  margin-block-start: 48px;
+}
+
+.scope-item {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  font-size: .875rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+  cursor: default;
+}
+
+.scope-item:hover {
+  transform: translateY(-2px);
+  background: var(--bg4);
+}
+
+.scope-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.scope-on {
+  background: rgba(16,185,129,.08);
+  border-color: rgba(16,185,129,.25);
+  color: var(--text);
+}
+
+.scope-on .scope-dot {
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(16,185,129,.5);
+}
+
+.scope-on:hover {
+  background: rgba(16,185,129,.12);
+}
+
+/* ── 11. AI STACK ──────────────────────────────────────────── */
+.stack-section {
+  background: var(--bg);
+}
+
+.stack-wrap {
+  margin-block-start: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stack-row {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  cursor: default;
+}
+
+.stack-row:hover {
+  background: var(--bg3);
+  border-color: var(--border);
+  transform: translateX(-3px);
+}
+
+.stack-lbl {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+}
+
+.chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+}
+
+.chip.c1 { background: rgba(59,130,246,.12);  color: var(--blue);   border-color: rgba(59,130,246,.25); }
+.chip.c2 { background: rgba(6,182,212,.12);   color: var(--cyan);   border-color: rgba(6,182,212,.25); }
+.chip.c3 { background: rgba(16,185,129,.12);  color: var(--green);  border-color: rgba(16,185,129,.25); }
+.chip.c4 { background: rgba(129,140,248,.12); color: var(--purple); border-color: rgba(129,140,248,.25); }
+.chip.c5 { background: rgba(245,158,11,.12);  color: var(--gold);   border-color: rgba(245,158,11,.25); }
+.chip.c6 { background: rgba(251,146,60,.12);  color: var(--orange); border-color: rgba(251,146,60,.25); }
+
+/* ── 12. ROI CALCULATOR ────────────────────────────────────── */
+.roi-section {
+  background: var(--bg2);
+}
+
+.calc-wrap {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-xl);
+  padding: 40px 40px 36px;
+  margin-block-start: 48px;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+.calc-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 36px;
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calc-field label {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.calc-field input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--bg4);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.calc-field input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--blue);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px rgba(59,130,246,.5);
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: grab;
+}
+
+.calc-field input[type="range"]::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.2);
+}
+
+.calc-field input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--blue);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px rgba(59,130,246,.5);
+  cursor: grab;
+}
+
+.calc-val {
+  font-size: .82rem;
+  color: var(--blue);
+  font-weight: 700;
+  text-align: end;
+}
+
+.calc-output {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.calc-result-val {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -.03em;
+  background: linear-gradient(135deg, var(--green), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.calc-result-lbl {
+  font-size: .85rem;
+  color: var(--muted);
+  margin-block-start: 4px;
+}
+
+.calc-bar-wrap {
+  flex: 1;
+  min-width: 200px;
+}
+
+.calc-bar-title {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.calc-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calc-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.calc-bar-lbl {
+  font-size: .78rem;
+  color: var(--muted);
+  min-width: 90px;
+  flex-shrink: 0;
+}
+
+.calc-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.calc-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+
+.calc-bar-fill.f-blue   { background: var(--blue); }
+.calc-bar-fill.f-green  { background: var(--green); }
+.calc-bar-fill.f-cyan   { background: var(--cyan); }
+.calc-bar-fill.f-purple { background: var(--purple); }
+
+.calc-bar-pct {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 36px;
+  text-align: end;
+}
+
+/* ── 13. CHART BOXES ───────────────────────────────────────── */
+.charts-section {
+  background: var(--bg);
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 22px;
+  margin-block-start: 48px;
+}
+
+.chart-box {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  min-height: 260px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.chart-box:hover {
+  border-color: var(--border);
+  transform: translateY(-3px);
+}
+
+.chart-lbl {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── 14. KPI CARDS ─────────────────────────────────────────── */
+.kpi-section {
+  background: var(--bg2);
+  padding: 60px 0;
+}
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-block-start: 36px;
+}
+
+.kpi {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-md);
+  padding: 24px 22px;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.kpi:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(6,182,212,.1);
+  border-color: rgba(6,182,212,.2);
+}
+
+.kpi:hover::before {
+  opacity: 1;
+}
+
+.kpi-n {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -.03em;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.kpi-l {
+  font-size: .8rem;
+  color: var(--muted);
+  letter-spacing: .04em;
+}
+
+/* ── 15. FINANCIAL DASHBOARD ───────────────────────────────── */
+.fin-section {
+  background: var(--bg);
+}
+
+.fin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-block-start: 48px;
+}
+
+.fin-card {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 24px 22px;
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.fin-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border);
+}
+
+.fin-title {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.fin-val {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.fin-val.blue   { color: var(--blue); }
+.fin-val.green  { color: var(--green); }
+.fin-val.cyan   { color: var(--cyan); }
+.fin-val.gold   { color: var(--gold); }
+.fin-val.purple { color: var(--purple); }
+.fin-val.pink   { color: var(--pink); }
+
+.fin-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.fin-trend.up {
+  background: rgba(16,185,129,.12);
+  color: var(--green);
+}
+
+.fin-trend.dn {
+  background: rgba(244,63,94,.12);
+  color: var(--pink);
+}
+
+.fin-sub {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-block-start: 8px;
+}
+
+/* ── 16. TERMINAL ──────────────────────────────────────────── */
+.terminal-section {
+  background: var(--bg2);
+}
+
+.term-wrap {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0,0,0,.6), var(--shadow-blue);
+  border: 1px solid var(--border2);
+  margin-block-start: 48px;
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+.term-bar {
+  background: var(--bg4);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-block-end: 1px solid var(--border2);
+}
+
+.term-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.term-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.term-dot.red    { background: #ff5f57; }
+.term-dot.yellow { background: #febc2e; }
+.term-dot.green  { background: #28c840; }
+
+.term-title {
+  font-size: .8rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  flex: 1;
+  text-align: center;
+}
+
+.term-body {
+  background: #020510;
+  padding: 24px 28px;
+  font-family: var(--font-mono);
+  font-size: .875rem;
+  line-height: 1.8;
+  min-height: 260px;
+  direction: ltr;
+  text-align: start;
+  overflow-x: auto;
+}
+
+.tp { color: var(--cyan); }
+.tc { color: var(--text); }
+.to { color: var(--muted); }
+.tg { color: var(--green); }
+.tb { color: var(--blue); }
+.ty { color: var(--gold); }
+.tr { color: var(--pink); }
+
+.tcur {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--cyan);
+  vertical-align: text-bottom;
+  animation: blink 1.1s step-end infinite;
+}
+
+.demo-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--bg4);
+  border-block-end: 1px solid var(--border2);
+  overflow-x: auto;
+}
+
+.dtab {
+  padding: 10px 20px;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  border-block-end: 2px solid transparent;
+  white-space: nowrap;
+  transition: color var(--transition), border-color var(--transition);
+  user-select: none;
+}
+
+.dtab:hover {
+  color: var(--text);
+}
+
+.dtab.on {
+  color: var(--cyan);
+  border-block-end-color: var(--cyan);
+}
+
+/* ── 17. RENDER SLIDER ─────────────────────────────────────── */
+.render-section {
+  background: var(--bg);
+}
+
+.rs-outer {
+  margin-block-start: 48px;
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.rs-container {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: ew-resize;
+  aspect-ratio: 16/9;
+  user-select: none;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+}
+
+.rs-before,
+.rs-after {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rs-before {
+  clip-path: inset(0 50% 0 0);
+}
+
+.rs-after {
+  clip-path: inset(0 0 0 50%);
+}
+
+.rs-div {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, var(--blue), transparent);
+  cursor: ew-resize;
+  z-index: 10;
+  transform: translateX(-50%);
+}
+
+/* rs-div handle — purely decorative centered icon, no physical left/right needed */
+.rs-div::after {
+  content: '⟺';
+  position: absolute;
+  top: 50%;          /* rtl-ok — vertical centering, not horizontal layout */
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  background: var(--blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(59,130,246,.6);
+}
+
+.rs-lbl {
+  position: absolute;
+  inset-block-start: 16px;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.rs-lbl.before {
+  inset-inline-start: 16px;
+  background: rgba(0,0,0,.6);
+  color: var(--muted);
+}
+
+.rs-lbl.after {
+  inset-inline-end: 16px;
+  background: rgba(59,130,246,.3);
+  color: var(--blue);
+  border: 1px solid rgba(59,130,246,.4);
+}
+
+.rs-info {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-block-start: 18px;
+  flex-wrap: wrap;
+}
+
+.rs-stat {
+  font-size: .8rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rs-stat strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* ── 18. REGULATION FLOW ───────────────────────────────────── */
+.reg-section {
+  background: var(--bg2);
+}
+
+.reg-flow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-block-start: 56px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.reg-step {
+  flex: 1;
+  min-width: 160px;
+  max-width: 200px;
+  text-align: center;
+  padding: 0 12px;
+  position: relative;
+}
+
+.reg-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 22px;
+  inset-inline-end: -20%;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  z-index: 0;
+}
+
+.reg-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin-inline: auto;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  position: relative;
+  z-index: 1;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.reg-step:hover .reg-dot {
+  transform: scale(1.1);
+}
+
+.reg-dot.blue   { background: rgba(59,130,246,.2);  box-shadow: 0 0 20px rgba(59,130,246,.3); }
+.reg-dot.cyan   { background: rgba(6,182,212,.2);   box-shadow: 0 0 20px rgba(6,182,212,.3); }
+.reg-dot.green  { background: rgba(16,185,129,.2);  box-shadow: 0 0 20px rgba(16,185,129,.3); }
+.reg-dot.purple { background: rgba(129,140,248,.2); box-shadow: 0 0 20px rgba(129,140,248,.3); }
+.reg-dot.gold   { background: rgba(245,158,11,.2);  box-shadow: 0 0 20px rgba(245,158,11,.3); }
+
+.reg-name {
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.reg-sub {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.reg-ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: .7rem;
+  font-weight: 700;
+  background: rgba(59,130,246,.1);
+  color: var(--blue);
+  border: 1px solid rgba(59,130,246,.2);
+  letter-spacing: .05em;
+}
+
+/* ── 19. LIVE DASHBOARDS ───────────────────────────────────── */
+.live-section {
+  background: var(--bg);
+}
+
+.live-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-block-start: 48px;
+}
+
+.live-card {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.live-card:hover {
+  border-color: var(--border);
+  transform: translateY(-3px);
+}
+
+.live-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.live-hdr-title {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.live-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .75rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: blink 2s ease-in-out infinite;
+}
+
+.status-dot.yellow { background: var(--gold);   box-shadow: 0 0 6px var(--gold); }
+.status-dot.red    { background: var(--pink);   box-shadow: 0 0 6px var(--pink); }
+.status-dot.blue   { background: var(--blue);   box-shadow: 0 0 6px var(--blue); }
+
+.pbar-row {
+  margin-bottom: 14px;
+}
+
+.pbar-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.pbar-name {
+  font-size: .82rem;
+  color: var(--text);
+}
+
+.pbar-val {
+  font-size: .78rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.pbar {
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pbar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transition: width .8s cubic-bezier(.4,0,.2,1);
+}
+
+.pbar-fill.green  { background: linear-gradient(90deg, var(--green), #34d399); }
+.pbar-fill.purple { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+.pbar-fill.gold   { background: linear-gradient(90deg, var(--gold), #fcd34d); }
+
+.mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .82rem;
+}
+
+.mini-table th {
+  text-align: start;
+  padding: 8px 0;
+  color: var(--muted);
+  font-weight: 600;
+  border-block-end: 1px solid var(--border2);
+  font-size: .75rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.mini-table td {
+  padding: 8px 0;
+  color: var(--text);
+  border-block-end: 1px solid var(--border2);
+}
+
+.mini-table tr:last-child td {
+  border-block-end: none;
+}
+
+.mini-table .td-num {
+  color: var(--cyan);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.mini-table .td-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.td-badge.g { background: rgba(16,185,129,.12); color: var(--green); }
+.td-badge.r { background: rgba(244,63,94,.12);  color: var(--pink); }
+.td-badge.b { background: rgba(59,130,246,.12); color: var(--blue); }
+
+/* ── 20. CASE STUDIES ──────────────────────────────────────── */
+.cases-section {
+  background: var(--bg2);
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-block-start: 48px;
+}
+
+.case-card {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.case-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card), 0 0 40px rgba(59,130,246,.1);
+  border-color: var(--border);
+}
+
+.case-logo {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.case-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.case-sub {
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+.case-quote {
+  font-size: .875rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.65;
+  flex: 1;
+  border-inline-start: 2px solid var(--border);
+  padding-inline-start: 14px;
+}
+
+.case-metrics {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-block-start: 8px;
+  border-block-start: 1px solid var(--border2);
+}
+
+.case-metric {
+  flex: 1;
+  min-width: 60px;
+  text-align: center;
+}
+
+.case-metric-n {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -.02em;
+}
+
+.case-metric-l {
+  font-size: .7rem;
+  color: var(--muted);
+}
+
+/* ── 21. COMPARISON TABLE ──────────────────────────────────── */
+.cmp-section {
+  background: var(--bg);
+}
+
+.cmp-table-wrap {
+  margin-block-start: 48px;
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border2);
+}
+
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+  min-width: 600px;
+}
+
+.cmp-table th {
+  background: var(--bg3);
+  padding: 16px 20px;
+  text-align: start;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-block-end: 1px solid var(--border2);
+}
+
+.cmp-table th:first-child {
+  color: var(--text);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: .9rem;
+}
+
+.cmp-table td {
+  padding: 14px 20px;
+  border-block-end: 1px solid var(--border2);
+  color: var(--text);
+  vertical-align: middle;
+  transition: background var(--transition);
+}
+
+.cmp-table tr:last-child td {
+  border-block-end: none;
+}
+
+.cmp-table tr:hover td {
+  background: rgba(255,255,255,.02);
+}
+
+.cmp-table .y {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.cmp-table .n {
+  color: var(--pink);
+  font-weight: 700;
+}
+
+.cmp-table .p {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.cmp-table .hl td {
+  background: rgba(59,130,246,.06);
+}
+
+.cmp-table .hl td:first-child {
+  font-weight: 700;
+  color: var(--blue);
+  border-inline-start: 3px solid var(--blue);
+  padding-inline-start: 17px;
+}
+
+/* ── 22. ROADMAP ───────────────────────────────────────────── */
+.roadmap-section {
+  background: var(--bg2);
+}
+
+.rm-wrap {
+  position: relative;
+  margin-block-start: 56px;
+  padding-inline: 24px;
+}
+
+.rm-line {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--blue), var(--purple), transparent);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.rm-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 56px;
+  position: relative;
+  z-index: 1;
+}
+
+.rm-row.left {
+  flex-direction: row;
+  padding-inline-end: calc(50% + 36px);
+}
+
+.rm-row.right {
+  flex-direction: row-reverse;
+  padding-inline-start: calc(50% + 36px);
+}
+
+.rm-box {
+  flex: 1;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.rm-box:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--border);
+}
+
+.rm-node {
+  position: absolute;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 16px rgba(59,130,246,.5);
+  inset-block-start: 24px;
+}
+
+.rm-ph {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.rm-ph.q1 { background: rgba(59,130,246,.15);  color: var(--blue); }
+.rm-ph.q2 { background: rgba(6,182,212,.15);   color: var(--cyan); }
+.rm-ph.q3 { background: rgba(16,185,129,.15);  color: var(--green); }
+.rm-ph.q4 { background: rgba(245,158,11,.15);  color: var(--gold); }
+
+.rm-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.rm-items {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.rm-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .82rem;
+  color: var(--muted);
+}
+
+.rm-item::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: .75rem;
+}
+
+/* ── 23. PRICING ───────────────────────────────────────────── */
+.pricing-section {
+  background: var(--bg);
+}
+
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-block-start: 48px;
+  align-items: start;
+}
+
+.price-card {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.price-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.price-popular {
+  border-color: var(--blue);
+  background: linear-gradient(180deg, rgba(59,130,246,.05) 0%, var(--bg2) 60%);
+  box-shadow: 0 0 60px rgba(59,130,246,.12);
+  z-index: 1;
+}
+
+.price-popular-badge {
+  position: absolute;
+  inset-block-start: -14px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.price-tier {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.price-amount {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -.04em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.price-amount span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--muted);
+  vertical-align: super;
+}
+
+.price-period {
+  font-size: .8rem;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.price-divider {
+  height: 1px;
+  background: var(--border2);
+  margin-block: 20px;
+}
+
+.price-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  margin-bottom: 28px;
+}
+
+.price-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .875rem;
+  color: var(--muted);
+}
+
+.price-feature::before {
+  content: '✓';
+  width: 18px;
+  height: 18px;
+  background: rgba(16,185,129,.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+  font-size: .7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.price-feature.na {
+  opacity: .45;
+  text-decoration: line-through;
+}
+
+.price-feature.na::before {
+  content: '✕';
+  background: rgba(244,63,94,.1);
+  color: var(--pink);
+}
+
+.price-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  font-size: .9rem;
+  font-weight: 700;
+  text-align: center;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  background: var(--bg3);
+  color: var(--text);
+  border: 1px solid var(--border2);
+}
+
+.price-btn:hover {
+  background: var(--bg4);
+  border-color: var(--border);
+  transform: translateY(-1px);
+}
+
+.price-popular .price-btn {
+  background: var(--blue);
+  color: #fff;
+  border-color: transparent;
+}
+
+.price-popular .price-btn:hover {
+  background: var(--blue2);
+  box-shadow: 0 6px 24px rgba(59,130,246,.4);
+}
+
+/* ── 24. TEAM CARDS ────────────────────────────────────────── */
+.team-section {
+  background: var(--bg2);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-block-start: 48px;
+}
+
+.team-card {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--border);
+}
+
+.team-em {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.team-name {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.team-role {
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.team-d {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.team-cost {
+  font-size: .875rem;
+  font-weight: 700;
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* ── 25. CTA BOX ───────────────────────────────────────────── */
+.cta-section {
+  background: var(--bg);
+  padding: 120px 0;
+}
+
+.cta-box {
+  max-width: 860px;
+  margin-inline: auto;
+  padding: 64px 48px;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(59,130,246,.2);
+  background: linear-gradient(180deg, rgba(59,130,246,.05) 0%, transparent 60%);
+}
+
+.cta-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(59,130,246,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-h {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  background: linear-gradient(135deg, var(--text) 40%, var(--blue) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-p {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 520px;
+  margin-inline: auto;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 26. ANIMATIONS & KEYFRAMES ────────────────────────────── */
+@keyframes scroll-pulse {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  60%       { transform: translateY(12px); opacity: 0; }
+}
+
+@keyframes kicker-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+  50%       { box-shadow: 0 0 20px 4px rgba(59,130,246,.15); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes fx-up-in {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fx-left-in {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fx-scale-in {
+  from { opacity: 0; transform: scale(.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Scroll-triggered animation classes */
+.fx-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+}
+
+.fx-left {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+}
+
+.fx-scale {
+  opacity: 0;
+  transform: scale(.94);
+  transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+}
+
+.fx-up.visible,
+.fx-left.visible,
+.fx-scale.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays */
+.fx-d1 { transition-delay: .05s; }
+.fx-d2 { transition-delay: .10s; }
+.fx-d3 { transition-delay: .15s; }
+.fx-d4 { transition-delay: .20s; }
+.fx-d5 { transition-delay: .25s; }
+.fx-d6 { transition-delay: .30s; }
+
+/* ── 27. FOOTER ────────────────────────────────────────────── */
+footer {
+  background: var(--bg2);
+  border-block-start: 1px solid var(--border2);
+  padding: 60px 0 40px;
+}
+
+.footer-inner {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 48px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-brand-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.footer-tagline {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 260px;
+}
+
+.footer-col-title {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  font-size: .875rem;
+  color: var(--muted);
+  transition: color var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+.footer-bottom {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  margin-block-start: 40px;
+  padding-block-start: 24px;
+  border-block-start: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+/* ── 28. RESPONSIVE ────────────────────────────────────────── */
+
+/* ---- 1100px ---- */
+@media (max-width: 1100px) {
+  .kpi-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fin-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .case-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .price-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .price-grid .price-popular {
+    grid-column: 1 / -1;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .rm-line { display: none; }
+  .rm-row.left,
+  .rm-row.right {
+    flex-direction: column;
+    padding-inline: 0;
+  }
+
+  .rm-row {
+    gap: 16px;
+  }
+}
+
+/* ---- 850px ---- */
+@media (max-width: 850px) {
+  section {
+    padding: 72px 0;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .metrics-inner {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .metric-item {
+    min-width: calc(50% - 0px);
+    border-inline-end: none;
+    border-block-end: 1px solid var(--border2);
+  }
+
+  .metric-item:nth-child(odd) {
+    border-inline-end: 1px solid var(--border2);
+  }
+
+  .live-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .case-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .how-flow {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .how-step:not(:last-child)::after {
+    inset-block-start: auto;
+    inset-block-end: -24px;
+    inset-inline-end: 50%;
+    transform: translateX(50%) rotate(90deg);
+  }
+
+  .how-step {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .reg-flow {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .reg-step {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .reg-step:not(:last-child)::before {
+    display: none;
+  }
+}
+
+/* ---- 700px ---- */
+@media (max-width: 700px) {
+  section {
+    padding: 56px 0;
+  }
+
+  .hero-inner {
+    padding: 100px 20px 60px;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    justify-content: center;
+  }
+
+  .kpi-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .price-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .price-grid .price-popular {
+    max-width: 100%;
+  }
+
+  .cta-box {
+    padding: 44px 24px;
+  }
+
+  .cta-btns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .calc-wrap {
+    padding: 28px 20px;
+  }
+
+  .calc-output {
+    flex-direction: column;
+  }
+
+  .term-body {
+    font-size: .78rem;
+    padding: 16px 18px;
+  }
+
+  .rs-container {
+    aspect-ratio: 4/3;
+  }
+
+  .cmp-table-wrap {
+    border-radius: var(--radius-md);
+  }
+
+  .mod-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-pill span {
+    display: none;
+  }
+
+  .scope-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .live-hdr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* ── 29. UTILITY CLASSES ───────────────────────────────────── */
+.text-blue   { color: var(--blue); }
+.text-cyan   { color: var(--cyan); }
+.text-green  { color: var(--green); }
+.text-purple { color: var(--purple); }
+.text-gold   { color: var(--gold); }
+.text-pink   { color: var(--pink); }
+.text-muted  { color: var(--muted); }
+.text-orange { color: var(--orange); }
+
+.bg-blue   { background: rgba(59,130,246,.1); }
+.bg-cyan   { background: rgba(6,182,212,.1); }
+.bg-green  { background: rgba(16,185,129,.1); }
+.bg-purple { background: rgba(129,140,248,.1); }
+
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }
+.fw-900 { font-weight: 900; }
+
+.mt-8  { margin-block-start: 8px; }
+.mt-16 { margin-block-start: 16px; }
+.mt-24 { margin-block-start: 24px; }
+.mt-32 { margin-block-start: 32px; }
+.mt-48 { margin-block-start: 48px; }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── 30. PRINT ─────────────────────────────────────────────── */
+@media print {
+  nav, .hero canvas, .hero-scroll { display: none; }
+  body { background: #fff; color: #000; }
+  * { animation: none !important; transition: none !important; }
+}
+
+
+/* ═══ ADDITIONS ═══ */
+/* ============================================================
+   additions.css — 7 new UI sections for arch presentation
+   Design tokens inherited from project styles.css:
+   --bg:#04070f  --bg2:#080d1c  --bg3:#0e1526  --bg4:#111827
+   --blue:#3b82f6  --cyan:#06b6d4  --green:#10b981
+   --purple:#818cf8  --pink:#f43f5e  --gold:#f59e0b
+   --text:#f1f5ff  --muted:#64748b
+   --border:rgba(59,130,246,.15)  --border2:rgba(255,255,255,.06)
+   ============================================================ */
+
+/* ============================================================
+   1. SCROLL PROGRESS BAR
+   ============================================================ */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  height: 3px;
+  z-index: 9999;
+  background: transparent;
+}
+
+.scroll-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4, #818cf8);
+  transition: width 0.1s;
+}
+
+/* ============================================================
+   2. FORMA SITE ANALYSIS SECTION
+   ============================================================ */
+
+.forma-section {
+  background: var(--bg2, #080d1c);
+  padding: 7rem 2rem;
+}
+
+.forma-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 850px) {
+  .forma-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.forma-canvas {
+  background: var(--bg3, #0e1526);
+  border: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+  border-radius: 20px;
+  overflow: hidden;
+  height: 420px;
+  position: relative;
+}
+
+.forma-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.forma-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+}
+
+.forma-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted, #64748b);
+}
+
+.forma-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.forma-score {
+  background: var(--bg3, #0e1526);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.forma-score-num {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--green, #10b981);
+  line-height: 1;
+}
+
+.forma-score-label {
+  color: var(--muted, #64748b);
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+}
+
+.forma-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.forma-metric {
+  background: var(--bg4, #111827);
+  border: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.forma-metric-val {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--cyan, #06b6d4);
+}
+
+.forma-metric-lbl {
+  font-size: 0.72rem;
+  color: var(--muted, #64748b);
+  margin-top: 0.2rem;
+}
+
+.wind-rose {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* ============================================================
+   3. TEAM CAPACITY HEATMAP
+   ============================================================ */
+
+.capacity-section {
+  padding: 7rem 2rem;
+}
+
+.capacity-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 850px) {
+  .capacity-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.capacity-map {
+  background: var(--bg3, #0e1526);
+  border: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.capacity-dots {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.cap-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  cursor: default;
+  transition: transform 0.2s, z-index 0.2s;
+  position: relative;
+}
+
+.cap-dot:hover {
+  transform: scale(1.2);
+  z-index: 10;
+}
+
+.cap-dot .tooltip {
+  position: absolute;
+  bottom: 110%;
+  left: 50%; /* rtl-ok */
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.cap-dot:hover .tooltip {
+  opacity: 1;
+}
+
+.cap-green {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--green, #10b981);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.cap-yellow {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--gold, #f59e0b);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.cap-red {
+  background: rgba(244, 63, 94, 0.2);
+  color: var(--pink, #f43f5e);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.cap-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.cap-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted, #64748b);
+}
+
+.capacity-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cap-stat-card {
+  background: var(--bg3, #0e1526);
+  border: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+
+.cap-stat-num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cap-ai-panel {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.05),
+    rgba(6, 182, 212, 0.03)
+  );
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.cap-ai-item {
+  font-size: 0.78rem;
+  color: var(--muted, #64748b);
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+}
+
+.cap-ai-item:last-child {
+  border-bottom: none;
+}
+
+.cap-ai-item span {
+  color: var(--cyan, #06b6d4);
+  font-weight: 700;
+}
+
+/* ============================================================
+   4. PINUI-BINUI CALCULATOR
+   ============================================================ */
+
+.pinui-section {
+  background: var(--bg2, #080d1c);
+  padding: 7rem 2rem;
+}
+
+.pinui-calc {
+  background: var(--bg3, #0e1526);
+  border: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+  border-radius: 24px;
+  padding: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pinui-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+@media (max-width: 700px) {
+  .pinui-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pinui-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.pinui-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted, #64748b);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.pinui-input {
+  width: 100%;
+  background: var(--bg4, #111827);
+  border: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  color: var(--text, #f1f5ff);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.pinui-input:focus {
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+}
+
+.pinui-results {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.06),
+    rgba(6, 182, 212, 0.04)
+  );
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.pinui-result-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+}
+
+.pinui-result-item:last-child {
+  border-bottom: none;
+}
+
+.pinui-result-key {
+  font-size: 0.85rem;
+  color: var(--muted, #64748b);
+}
+
+.pinui-result-val {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.pinui-highlight {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--green, #10b981);
+}
+
+.pinui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--green, #10b981);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 0.3rem 0.9rem;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+/* ============================================================
+   5. PARTNER LOGOS
+   ============================================================ */
+
+.partners-section {
+  padding: 4rem 2rem;
+  background: var(--bg2, #080d1c);
+  border-top: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+}
+
+.partners-label {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted, #64748b);
+  margin-bottom: 2rem;
+}
+
+.partners-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem 3rem;
+}
+
+.partner-logo {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border2, rgba(255, 255, 255, 0.06));
+  border-radius: 12px;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.35);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.partner-logo:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ============================================================
+   6. FLOATING NOTIFICATION
+   ============================================================ */
+
+.floaty {
+  position: fixed;
+  bottom: 2rem;
+  inset-inline-end: 2rem;
+  z-index: 1000;
+}
+
+.floaty-card {
+  background: var(--bg3, #0e1526);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  max-width: 320px;
+}
+
+.floaty-card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.floaty-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.floaty-text {
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.floaty-title {
+  font-weight: 800;
+  color: var(--green, #10b981);
+  margin-bottom: 0.1rem;
+}
+
+.floaty-sub {
+  color: var(--muted, #64748b);
+}
+
+/* ============================================================
+   7. HERO TYPEWRITER
+   ============================================================ */
+
+.hero-typewriter {
+  display: inline-block;
+}
+
+.hero-type-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.9em;
+  background: var(--cyan, #06b6d4);
+  margin-inline-start: 3px;
+  vertical-align: middle;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+</style>
+</head>
+<body>
+<!-- ═══════════════════════════════════════════════════════════════
+     1. NAV
+═══════════════════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-brand">🏛️ AI Architecture Platform</div>
+  <ul class="nav-links">
+    <li><a href="#pain">כאבים</a></li>
+    <li><a href="#modules">מודולים</a></li>
+    <li><a href="#roi">ROI</a></li>
+    <li><a href="#demo">דמו</a></li>
+    <li><a href="#israel">ישראל</a></li>
+    <li><a href="#roadmap">מפת דרך</a></li>
+  </ul>
+  <button class="nav-pill" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">קבל הצעה ←</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     2. HERO
+═══════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas id="c3d"></canvas>
+  <div class="hero-fog"></div>
+  <div class="hero-content">
+    <span class="hero-kicker">Anthropic × Autodesk — שותפות רשמית 2026</span>
+    <h1 class="hero-h">הפלטפורמה שתהפוך<br>את המשרד שלך<br><em>למכונת AI</em></h1>
+    <p class="hero-p">
+      50 אדריכלים. ROI מוכח של <strong>₪2,488,250</strong> בשנה הראשונה.<br>
+      Claude AI + Revit MCP + תהליכי רישוי ישראלי — הכל בפלטפורמה אחת.
+    </p>
+    <div class="hero-actions">
+      <a href="#roi" class="btn-primary">צפה ב-ROI ←</a>
+      <a href="#demo" class="btn-ghost">הרץ דמו חי</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span class="scroll-label">גלול למטה</span>
+    <div class="scroll-arrow">↓</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     3. METRICS BAR
+═══════════════════════════════════════════════════════════════ -->
+<section class="metrics-bar">
+  <div class="metrics-inner">
+    <div class="metric-item">
+      <span class="metric-value">21%</span>
+      <span class="metric-label">גידול הכנסות</span>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item">
+      <span class="metric-value">60%</span>
+      <span class="metric-label">חיסכון תיעוד</span>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item">
+      <span class="metric-value">2.3</span>
+      <span class="metric-label">חודשי payback</span>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item">
+      <span class="metric-value">87s</span>
+      <span class="metric-label">Revit QC</span>
+    </div>
+    <div class="metric-divider"></div>
+    <div class="metric-item">
+      <span class="metric-value">$450</span>
+      <span class="metric-label">חיסכון להדמיה</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     4. HOW IT WORKS
+═══════════════════════════════════════════════════════════════ -->
+<section class="how-it-works" id="how">
+  <div class="section-container">
+    <div class="section-label">איך זה עובד</div>
+    <h2 class="section-title">שלושה שלבים לשינוי</h2>
+    <div class="steps-grid">
+
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon">🔌</div>
+        <h3 class="step-title">מחברים את Claude ל-Revit</h3>
+        <p class="step-desc">
+          התקנת Revit MCP הרשמי + NoticaTab (50+ כלים בחינם). תוך יום אחד Claude מדבר ישירות עם קבצי ה-RVT שלך — queries, validation, export אוטומטי.
+        </p>
+        <ul class="step-list">
+          <li>MCP Official Installation</li>
+          <li>NoticaTab FREE 50+ tools</li>
+          <li>API keys + permissions</li>
+        </ul>
+      </div>
+
+      <div class="step-card step-card--accent">
+        <div class="step-num">02</div>
+        <div class="step-icon">🧠</div>
+        <h3 class="step-title">AI לומד את המשרד</h3>
+        <p class="step-desc">
+          מעלים את תקני המשרד, פרויקטים עבר, תמחור, ומסמכי רגולציה. ה-RAG הישראלי (pgvector + עברית) בונה Knowledge Base מקיף.
+        </p>
+        <ul class="step-list">
+          <li>Hebrew RAG + pgvector</li>
+          <li>Firm standards upload</li>
+          <li>Regulation library (ת"י, תמ"א)</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">🚀</div>
+        <h3 class="step-title">ROI מיידי</h3>
+        <p class="step-desc">
+          מהשבוע הראשון — QC אוטומטי תוך 87 שניות, הדמיות ב-₪12 במקום ₪1,500, ותיעוד שנכתב לבד. ROI נמדד ומדווח ב-dashboard חי.
+        </p>
+        <ul class="step-list">
+          <li>Live ROI dashboard</li>
+          <li>Weekly savings report</li>
+          <li>Billable hours tracker</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     5. PAIN SECTION
+═══════════════════════════════════════════════════════════════ -->
+<section class="pain-section" id="pain">
+  <div class="section-container">
+    <div class="section-label">האתגרים האמיתיים</div>
+    <h2 class="section-title">כמה עולה לך לא לשנות?</h2>
+    <p class="section-sub">8 כאבים מרכזיים — ₪3,118,250 בשנה שנשאר על השולחן</p>
+    <div class="pain-grid">
+
+      <div class="pain-card">
+        <div class="pain-icon">⏱️</div>
+        <div class="pain-body">
+          <h3 class="pain-title">שעות לא מחויבות</h3>
+          <div class="pain-cost">₪1,520,000 / שנה</div>
+          <p class="pain-desc">19% משעות האדריכלים אובדות על מייל, תיאום, ופגישות שאי-אפשר לחייב. עם AI Time Tracker — כל דקה נרשמת ומחויבת.</p>
+          <div class="pain-tag">19% שעות אובדות</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">📧</div>
+        <div class="pain-body">
+          <h3 class="pain-title">כאוס תיאום יועצים</h3>
+          <div class="pain-cost">₪1,125,000 / שנה</div>
+          <p class="pain-desc">3 שעות ביום על מיילים לקונסטרוקטור, חשמלאי, מנהל עבודה. Coordination Hub מנהל הכל אוטומטית — Clash Detection + Auto-Tasks.</p>
+          <div class="pain-tag">3 שעות ביום emails</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">🎨</div>
+        <div class="pain-body">
+          <h3 class="pain-title">הדמיות ₪1,500+ כל אחת</h3>
+          <div class="pain-cost">₪83,250 / שנה</div>
+          <p class="pain-desc">55 הדמיות בשנה × ₪1,500 = ₪83K שהולכים לחוץ. Veras AI מייצר הדמיית 4K ב-60 שניות על ₪12 — ישירות מ-Revit.</p>
+          <div class="pain-tag">AI מוריד ל-₪12</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">🏛️</div>
+        <div class="pain-body">
+          <h3 class="pain-title">תב"ע + ייעוץ נגישות</h3>
+          <div class="pain-cost">₪160,000+ / שנה</div>
+          <p class="pain-desc">שעות מחקר על תוכניות מתאר, בדיקות ת"י 1918, ייעוץ נגישות חיצוני. ה-Permit Engine הישראלי מאמת אוטומטית מול MAVAT.</p>
+          <div class="pain-tag">MAVAT אוטומטי</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">💰</div>
+        <div class="pain-body">
+          <h3 class="pain-title">Change Order מחלוקות</h3>
+          <div class="pain-cost">₪80,000 / שנה</div>
+          <p class="pain-desc">40% ממחלוקות Change Orders מסתיימות בוויתור על תשלום. AI Tracker מתעד כל שינוי scope, יוצר CO אוטומטי עם backup מלא.</p>
+          <div class="pain-tag">40% מחלוקות</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">🐌</div>
+        <div class="pain-body">
+          <h3 class="pain-title">אישורי לקוח שבועות</h3>
+          <div class="pain-cost">2% הכנסות</div>
+          <p class="pain-desc">10 ימי המתנה ממוצעים לאישור לקוח עוצרים את הפרויקט. Client Portal עם Claude Bot = 48 שעות לאישור, 24/7.</p>
+          <div class="pain-tag">10 ימים → 48 שעות</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">📐</div>
+        <div class="pain-body">
+          <h3 class="pain-title">Revit QC ידני</h3>
+          <div class="pain-cost">ימי אדריכל</div>
+          <p class="pain-desc">8 שעות של בדיקה ידנית לכל מסירה גדולה — room tags, parameters, clashes. Claude + Revit MCP מבצע QC מלא תוך 87 שניות.</p>
+          <div class="pain-tag">8 שעות → 87 שניות</div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-icon">🧠</div>
+        <div class="pain-body">
+          <h3 class="pain-title">Knowledge בראש</h3>
+          <div class="pain-cost">₪150,000 onboarding</div>
+          <p class="pain-desc">3 חודשים עד שאדריכל חדש "מכיר" את המשרד. Knowledge Base RAG מעלה כל סטנדרט, ספק, ולקח — onboarding ב-3 שבועות.</p>
+          <div class="pain-tag">3 חודש → 3 שבוע</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     6. MODULES SECTION
+═══════════════════════════════════════════════════════════════ -->
+<section class="modules-section" id="modules">
+  <div class="section-container">
+    <div class="section-label">הפלטפורמה</div>
+    <h2 class="section-title">8 מודולים. ROI אחד ענק.</h2>
+    <p class="section-sub">כל מודול עומד בפני עצמו — יחד הם מכונה שמייצרת ₪2.49M+</p>
+    <div class="modules-grid">
+
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-num">01</span>
+          <span class="module-roi">+₪1.52M ROI</span>
+        </div>
+        <h3 class="module-title">Time Tracker + Project Intelligence</h3>
+        <p class="module-desc">AI-tagging אוטומטי לכל פעילות, budget alerts בזמן אמת, ופרופיל billability לכל אדריכל.</p>
+        <ul class="module-features">
+          <li>Revit Plugin</li>
+          <li>AI-tagging</li>
+          <li>Budget alerts</li>
+        </ul>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-num">02</span>
+          <span class="module-roi">+₪1.125M ROI</span>
+        </div>
+        <h3 class="module-title">Coordination Hub</h3>
+        <p class="module-desc">מרכז תיאום יועצים מבוסס AI — Clash Detection אוטומטי, Auto-Tasks, ו-60% פחות תיעוד.</p>
+        <ul class="module-features">
+          <li>Clash Detection</li>
+          <li>Auto-Tasks</li>
+          <li>60% פחות תיעוד</li>
+        </ul>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-num">03</span>
+          <span class="module-roi">+₪83K ROI</span>
+        </div>
+        <h3 class="module-title">Veras AI Renders</h3>
+        <p class="module-desc">הדמיות פוטוריאליסטיות ישירות מ-Revit — 10 סגנונות, 60 שניות, רזולוציית 4K, $3 להדמיה.</p>
+        <ul class="module-features">
+          <li>Revit Native</li>
+          <li>10 styles</li>
+          <li>60s · $3/render</li>
+        </ul>
+      </div>
+
+      <div class="module-card module-card--highlight">
+        <div class="module-header">
+          <span class="module-num">04</span>
+          <span class="module-roi">+₪160K ROI</span>
+        </div>
+        <h3 class="module-title">Permit Engine ישראלי</h3>
+        <p class="module-desc">אינטגרציה ישירה עם MAVAT API, בדיקות ת"י 1918, תמ"א 38 אוטומטי — ללא ייעוץ חיצוני.</p>
+        <ul class="module-features">
+          <li>MAVAT API</li>
+          <li>ת"י 1918</li>
+          <li>תמ"א 38</li>
+        </ul>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-num">05</span>
+          <span class="module-roi">+₪80K ROI</span>
+        </div>
+        <h3 class="module-title">Change Order AI Tracker</h3>
+        <p class="module-desc">Scope creep detection בזמן אמת, יצירת Change Order אוטומטית עם documentation מלא — אפס מחלוקות.</p>
+        <ul class="module-features">
+          <li>Scope creep detection</li>
+          <li>Auto-generate CO</li>
+          <li>Full audit trail</li>
+        </ul>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-num">06</span>
+          <span class="module-roi">2% הכנסות</span>
+        </div>
+        <h3 class="module-title">Client Portal + Claude Bot</h3>
+        <p class="module-desc">פורטל לקוח 24/7 עם Claude Bot — עונה על שאלות, מציג עדכונים, מקצר אישורים ב-50%.</p>
+        <ul class="module-features">
+          <li>24/7 bot</li>
+          <li>50% קיצור אישורים</li>
+          <li>Auto-notifications</li>
+        </ul>
+      </div>
+
+      <div class="module-card module-card--highlight">
+        <div class="module-header">
+          <span class="module-num">07</span>
+          <span class="module-roi">₪2,500/עובד</span>
+        </div>
+        <h3 class="module-title">Claude + Revit MCP</h3>
+        <p class="module-desc">הלב של הפלטפורמה — Claude מדבר ישירות עם Revit. NoticaTab FREE עם 50+ כלים מובנים.</p>
+        <ul class="module-features">
+          <li>NoticaTab FREE</li>
+          <li>50+ tools</li>
+          <li>Official Revit MCP</li>
+        </ul>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-num">08</span>
+          <span class="module-roi">₪3,000/עובד</span>
+        </div>
+        <h3 class="module-title">Knowledge Base RAG</h3>
+        <p class="module-desc">Hebrew RAG מבוסס pgvector — כל הידע של המשרד נגיש מיידית. Onboarding ב-3 שבועות במקום 3 חודשים.</p>
+        <ul class="module-features">
+          <li>Hebrew RAG</li>
+          <li>pgvector</li>
+          <li>Onboarding 3 weeks</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     7. FULL SCOPE MAP
+═══════════════════════════════════════════════════════════════ -->
+<section class="scope-section" id="scope">
+  <div class="section-container">
+    <div class="section-label">כיסוי מלא</div>
+    <h2 class="section-title">18 תחומים — 100% כיסוי</h2>
+    <p class="section-sub">כל תהליך במשרד האדריכלים מכוסה על ידי הפלטפורמה</p>
+    <div class="scope-grid">
+
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Schematic Design</span>
+        <span class="scope-badge">AI</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">BIM / Revit</span>
+        <span class="scope-badge">MCP</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Permits &amp; Licensing</span>
+        <span class="scope-badge">MAVAT</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Time Tracking</span>
+        <span class="scope-badge">AI</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Invoicing &amp; Billing</span>
+        <span class="scope-badge">GreenInvoice</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Financial BI</span>
+        <span class="scope-badge">Dashboard</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Client Portal</span>
+        <span class="scope-badge">Claude Bot</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Consultant Coordination</span>
+        <span class="scope-badge">Hub</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Visualization</span>
+        <span class="scope-badge">Veras</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Contracts &amp; CO</span>
+        <span class="scope-badge">AI</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Knowledge Base</span>
+        <span class="scope-badge">RAG</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">HR &amp; Onboarding</span>
+        <span class="scope-badge">3 weeks</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Sustainability</span>
+        <span class="scope-badge">Forma</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Fire Safety</span>
+        <span class="scope-badge">ת"י 1918</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Accessibility</span>
+        <span class="scope-badge">ת"י 5282</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Site Analysis</span>
+        <span class="scope-badge">GIS AI</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Mobile PWA</span>
+        <span class="scope-badge">Field</span>
+      </div>
+      <div class="scope-item scope-item--green">
+        <span class="scope-check">✓</span>
+        <span class="scope-name">Executive BI</span>
+        <span class="scope-badge">Real-time</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     8. AI STACK
+═══════════════════════════════════════════════════════════════ -->
+<section class="stack-section" id="stack">
+  <div class="section-container">
+    <div class="section-label">הטכנולוגיה</div>
+    <h2 class="section-title">AI Stack — State of the Art 2026</h2>
+    <div class="stack-layers">
+
+      <div class="stack-layer">
+        <div class="stack-layer-label">AI Models</div>
+        <div class="stack-layer-items">
+          <span class="stack-chip stack-chip--ai">Claude Opus 4.7</span>
+          <span class="stack-chip stack-chip--ai">Sonnet 4.6</span>
+          <span class="stack-chip stack-chip--ai">Haiku 4.5</span>
+          <span class="stack-chip stack-chip--ai">GPT-4o Vision</span>
+        </div>
+      </div>
+
+      <div class="stack-layer">
+        <div class="stack-layer-label">BIM Layer</div>
+        <div class="stack-layer-items">
+          <span class="stack-chip stack-chip--bim">Revit MCP Official</span>
+          <span class="stack-chip stack-chip--bim">NoticaTab FREE</span>
+          <span class="stack-chip stack-chip--bim">AutoCAD MCP</span>
+          <span class="stack-chip stack-chip--bim">Veras</span>
+          <span class="stack-chip stack-chip--bim">Autodesk Forma</span>
+          <span class="stack-chip stack-chip--bim">Speckle IFC</span>
+        </div>
+      </div>
+
+      <div class="stack-layer">
+        <div class="stack-layer-label">Israel Stack</div>
+        <div class="stack-layer-items">
+          <span class="stack-chip stack-chip--israel">MAVAT API</span>
+          <span class="stack-chip stack-chip--israel">רישוי זמין</span>
+          <span class="stack-chip stack-chip--israel">גרין-אינבויס</span>
+          <span class="stack-chip stack-chip--israel">ת"י 1918</span>
+          <span class="stack-chip stack-chip--israel">תמ"א 38 Engine</span>
+          <span class="stack-chip stack-chip--israel">ת"י 5282</span>
+        </div>
+      </div>
+
+      <div class="stack-layer">
+        <div class="stack-layer-label">Backend</div>
+        <div class="stack-layer-items">
+          <span class="stack-chip stack-chip--backend">Node.js TypeScript</span>
+          <span class="stack-chip stack-chip--backend">PostgreSQL pgvector</span>
+          <span class="stack-chip stack-chip--backend">Redis</span>
+          <span class="stack-chip stack-chip--backend">FastAPI</span>
+          <span class="stack-chip stack-chip--backend">Supabase</span>
+          <span class="stack-chip stack-chip--backend">AWS/GCP</span>
+        </div>
+      </div>
+
+      <div class="stack-layer">
+        <div class="stack-layer-label">Frontend</div>
+        <div class="stack-layer-items">
+          <span class="stack-chip stack-chip--frontend">React + Next.js 15</span>
+          <span class="stack-chip stack-chip--frontend">RTL Hebrew UI</span>
+          <span class="stack-chip stack-chip--frontend">Revit Plugin C#</span>
+          <span class="stack-chip stack-chip--frontend">Mobile PWA</span>
+          <span class="stack-chip stack-chip--frontend">Electron</span>
+          <span class="stack-chip stack-chip--frontend">Three.js 3D</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     9. ROI CALCULATOR
+═══════════════════════════════════════════════════════════════ -->
+<section class="calc-section" id="calc">
+  <div class="section-container">
+    <div class="section-label">כלי חישוב</div>
+    <h2 class="section-title">חשב את ה-ROI שלך</h2>
+    <p class="section-sub">הזן את הנתונים של המשרד שלך וקבל תחזית מדויקת</p>
+
+    <div class="calc-wrapper">
+      <div class="calc-inputs">
+
+        <div class="calc-slider-group">
+          <div class="calc-slider-header">
+            <label class="calc-label">מספר אדריכלים</label>
+            <span class="calc-val" id="val-arch">50</span>
+          </div>
+          <input type="range" class="calc-slider" id="sl-arch" min="10" max="200" value="50" oninput="calcROI()">
+          <div class="calc-slider-range"><span>10</span><span>200</span></div>
+        </div>
+
+        <div class="calc-slider-group">
+          <div class="calc-slider-header">
+            <label class="calc-label">הכנסות שנתיות ₪M</label>
+            <span class="calc-val" id="val-rev">8</span>
+          </div>
+          <input type="range" class="calc-slider" id="sl-rev" min="1" max="50" value="8" oninput="calcROI()">
+          <div class="calc-slider-range"><span>₪1M</span><span>₪50M</span></div>
+        </div>
+
+        <div class="calc-slider-group">
+          <div class="calc-slider-header">
+            <label class="calc-label">תעריף שעתי ₪</label>
+            <span class="calc-val" id="val-rate">250</span>
+          </div>
+          <input type="range" class="calc-slider" id="sl-rate" min="150" max="600" value="250" oninput="calcROI()">
+          <div class="calc-slider-range"><span>₪150</span><span>₪600</span></div>
+        </div>
+
+        <div class="calc-slider-group">
+          <div class="calc-slider-header">
+            <label class="calc-label">% שעות לא מחויבות</label>
+            <span class="calc-val" id="val-unbill">19</span>
+          </div>
+          <input type="range" class="calc-slider" id="sl-unbill" min="5" max="40" value="19" oninput="calcROI()">
+          <div class="calc-slider-range"><span>5%</span><span>40%</span></div>
+        </div>
+
+        <div class="calc-slider-group">
+          <div class="calc-slider-header">
+            <label class="calc-label">הדמיות לחודש</label>
+            <span class="calc-val" id="val-renders">50</span>
+          </div>
+          <input type="range" class="calc-slider" id="sl-renders" min="0" max="100" value="50" oninput="calcROI()">
+          <div class="calc-slider-range"><span>0</span><span>100</span></div>
+        </div>
+
+      </div>
+
+      <div class="calc-result" id="calc-result">
+        <div class="calc-result-title">תחזית ROI</div>
+        <div class="calc-result-row">
+          <span class="calc-result-label">ROI שנה 1</span>
+          <span class="calc-result-value" id="r-y1">₪2,488,250</span>
+        </div>
+        <div class="calc-result-divider"></div>
+        <div class="calc-result-row">
+          <span class="calc-result-label">Payback Period</span>
+          <span class="calc-result-value calc-result-value--accent" id="r-pb">2.3 חודשים</span>
+        </div>
+        <div class="calc-result-divider"></div>
+        <div class="calc-result-row">
+          <span class="calc-result-label">ROI שנה 2-3</span>
+          <span class="calc-result-value" id="r-y3">₪5,900,000</span>
+        </div>
+        <div class="calc-result-note">* מבוסס על 50 אדריכלים, הכנסות ₪8M, תעריף ₪250/ש׳</div>
+        <button class="btn-primary calc-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">קבל הצעת מחיר ←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     10. ROI SECTION
+═══════════════════════════════════════════════════════════════ -->
+<section class="roi-section" id="roi">
+  <div class="section-container">
+    <div class="section-label">החזר השקעה</div>
+    <h2 class="section-title">המספרים מדברים</h2>
+
+    <div class="roi-mega">
+      <div class="roi-mega-label">ROI נקי שנה ראשונה</div>
+      <div class="roi-mega-value">+₪2,488,250</div>
+      <div class="roi-mega-sub">לאחר קיזוז עלויות פלטפורמה מלאה</div>
+    </div>
+
+    <div class="roi-charts-grid">
+      <div class="roi-chart-card">
+        <div class="roi-chart-title">חיסכון לפי מקור (₪)</div>
+        <canvas id="cBar" width="400" height="250"></canvas>
+      </div>
+      <div class="roi-chart-card">
+        <div class="roi-chart-title">ROI מצטבר 3 שנים (₪M)</div>
+        <canvas id="cLine" width="400" height="250"></canvas>
+      </div>
+      <div class="roi-chart-card">
+        <div class="roi-chart-title">פירוט חיסכון (%)</div>
+        <canvas id="cDonut" width="300" height="250"></canvas>
+      </div>
+    </div>
+
+    <div class="roi-kpi-row">
+      <div class="roi-kpi">
+        <div class="roi-kpi-val">2.3</div>
+        <div class="roi-kpi-unit">חודשים</div>
+        <div class="roi-kpi-label">Payback Period</div>
+      </div>
+      <div class="roi-kpi">
+        <div class="roi-kpi-val">₪2.97M</div>
+        <div class="roi-kpi-unit"></div>
+        <div class="roi-kpi-label">ROI שנה 2</div>
+      </div>
+      <div class="roi-kpi">
+        <div class="roi-kpi-val">₪49,760</div>
+        <div class="roi-kpi-unit"></div>
+        <div class="roi-kpi-label">ROI לאדריכל</div>
+      </div>
+      <div class="roi-kpi">
+        <div class="roi-kpi-val">31%</div>
+        <div class="roi-kpi-unit"></div>
+        <div class="roi-kpi-label">מהכנסות</div>
+      </div>
+    </div>
+
+    <div class="fin-dashboard">
+      <div class="fin-card">
+        <div class="fin-card-icon">💼</div>
+        <div class="fin-card-label">שעות מחויבות חדשות</div>
+        <div class="fin-card-value">₪1,520,000</div>
+        <div class="fin-card-trend fin-card-trend--up">+19% billability</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-card-icon">🤝</div>
+        <div class="fin-card-label">חיסכון תיאום יועצים</div>
+        <div class="fin-card-value">₪1,125,000</div>
+        <div class="fin-card-trend fin-card-trend--up">-3h/day coordination</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-card-icon">🎨</div>
+        <div class="fin-card-label">חיסכון הדמיות</div>
+        <div class="fin-card-value">₪83,250</div>
+        <div class="fin-card-trend fin-card-trend--up">₪1,488 → ₪12</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-card-icon">📋</div>
+        <div class="fin-card-label">Change Orders מאושרים</div>
+        <div class="fin-card-value">₪80,000</div>
+        <div class="fin-card-trend fin-card-trend--up">0% מחלוקות</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-card-icon">🏛️</div>
+        <div class="fin-card-label">חיסכון רישוי</div>
+        <div class="fin-card-value">₪160,000</div>
+        <div class="fin-card-trend fin-card-trend--up">MAVAT אוטומטי</div>
+      </div>
+      <div class="fin-card">
+        <div class="fin-card-icon">🚀</div>
+        <div class="fin-card-label">גידול הכנסות</div>
+        <div class="fin-card-value">+21%</div>
+        <div class="fin-card-trend fin-card-trend--up">יותר פרויקטים</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     11. TERMINAL DEMOS
+═══════════════════════════════════════════════════════════════ -->
+<section class="demo-section" id="demo">
+  <div class="section-container">
+    <div class="section-label">דמו חי</div>
+    <h2 class="section-title">ראה את ה-AI בפעולה</h2>
+    <p class="section-sub">10 תרחישים אמיתיים — לחץ כדי לצפות בסימולציה</p>
+
+    <div class="demo-tabs" role="tablist">
+      <button class="demo-tab demo-tab--active" data-tab="revit-qc" role="tab">⚡ Revit QC</button>
+      <button class="demo-tab" data-tab="boq" role="tab">📊 BOQ</button>
+      <button class="demo-tab" data-tab="veras" role="tab">🎨 Veras</button>
+      <button class="demo-tab" data-tab="taba" role="tab">🇮🇱 תב"ע</button>
+      <button class="demo-tab" data-tab="batch-dwg" role="tab">📐 Batch DWG</button>
+      <button class="demo-tab" data-tab="access" role="tab">♿ נגישות</button>
+      <button class="demo-tab" data-tab="co" role="tab">📜 Change Order</button>
+      <button class="demo-tab" data-tab="knowledge" role="tab">📚 Knowledge</button>
+      <button class="demo-tab" data-tab="client-bot" role="tab">👥 Client Bot</button>
+      <button class="demo-tab" data-tab="energy" role="tab">⚡ Energy</button>
+    </div>
+
+    <div class="terminal-window">
+      <div class="terminal-bar">
+        <span class="term-dot term-dot--red"></span>
+        <span class="term-dot term-dot--yellow"></span>
+        <span class="term-dot term-dot--green"></span>
+        <span class="term-title">Claude AI — Architecture Platform</span>
+      </div>
+      <div class="terminal-body" id="term">
+        <div class="term-line term-line--prompt">$ claude revit-qc --model Tower_A_v23.rvt --checks all</div>
+        <div class="term-line term-line--info">🔍 Connecting to Revit MCP... <span class="term-ok">OK</span></div>
+        <div class="term-line term-line--info">📂 Loading model: Tower_A_v23.rvt (1,247 elements)</div>
+        <div class="term-line term-line--info">⏱️  Starting QC checks...</div>
+        <div class="term-line term-line--blank"></div>
+        <div class="term-line term-line--check">✓ Room tags: 142/142 complete</div>
+        <div class="term-line term-line--check">✓ Door parameters: all present</div>
+        <div class="term-line term-line--check">✓ Window parameters: 87/87 valid</div>
+        <div class="term-line term-line--warn">⚠ Clash detected: HVAC vs Beam @Level 4, Grid C-7</div>
+        <div class="term-line term-line--check">✓ Structural coordination: 98% clean</div>
+        <div class="term-line term-line--check">✓ MEP clearances: valid</div>
+        <div class="term-line term-line--check">✓ Accessibility paths: compliant (ת"י 5282)</div>
+        <div class="term-line term-line--check">✓ Fire egress: compliant (ת"י 1918)</div>
+        <div class="term-line term-line--blank"></div>
+        <div class="term-line term-line--success">✅ QC Complete — 1 clash found, 7 checks passed</div>
+        <div class="term-line term-line--success">⏱️  Total time: <strong>87 seconds</strong> (vs 8 hours manual)</div>
+        <div class="term-line term-line--success">📄 Report exported: QC_Tower_A_v23_20260430.pdf</div>
+        <div class="term-line term-line--prompt">$ <span class="term-cursor">█</span></div>
+      </div>
+    </div>
+
+    <div class="demo-tab-content" id="demo-panels">
+
+      <div class="demo-panel" id="panel-boq" hidden>
+        <div class="terminal-body">
+          <div class="term-line term-line--prompt">$ claude generate-boq --project Villa_Cohen.rvt --currency ILS</div>
+          <div class="term-line term-line--info">📐 Parsing Revit elements...</div>
+          <div class="term-line term-line--info">🔗 Connecting to pricing database (Dun &amp; Bradstreet Israel)...</div>
+          <div class="term-line term-line--check">✓ Concrete works: 847 m³ × ₪850 = ₪719,950</div>
+          <div class="term-line term-line--check">✓ Masonry: 2,340 m² × ₪320 = ₪748,800</div>
+          <div class="term-line term-line--check">✓ Windows &amp; doors: 67 units = ₪234,500</div>
+          <div class="term-line term-line--check">✓ MEP systems: lump sum ₪890,000</div>
+          <div class="term-line term-line--success">✅ BOQ Complete: ₪3,847,200 (±8%)</div>
+          <div class="term-line term-line--success">⏱️  Generated in 43 seconds</div>
+        </div>
+      </div>
+
+      <div class="demo-panel" id="panel-veras" hidden>
+        <div class="terminal-body">
+          <div class="term-line term-line--prompt">$ claude render-veras --view Exterior_SE --style photorealistic-night --res 4K</div>
+          <div class="term-line term-line--info">🎨 Connecting to Veras API...</div>
+          <div class="term-line term-line--info">📸 Exporting Revit view... done</div>
+          <div class="term-line term-line--info">🤖 Sending to Veras AI (style: photorealistic night, 4K)...</div>
+          <div class="term-line term-line--check">✓ Render processing: 58s</div>
+          <div class="term-line term-line--success">✅ Render complete! Cost: $3.00 (₪11.10)</div>
+          <div class="term-line term-line--success">💰 Saved: ₪1,489 vs traditional render</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     12. RENDER SLIDER
+═══════════════════════════════════════════════════════════════ -->
+<section class="render-section" id="renders">
+  <div class="section-container">
+    <div class="section-label">הדמיות AI</div>
+    <h2 class="section-title">Revit → הדמיה פוטוריאליסטית ב-60 שניות</h2>
+
+    <div class="render-slider-wrapper">
+      <div class="render-before">
+        <div class="render-label render-label--before">לפני — Revit Wireframe</div>
+        <svg class="render-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+          <rect width="600" height="400" fill="#1a1a2e"/>
+          <!-- Building wireframe -->
+          <rect x="80" y="100" width="200" height="260" fill="none" stroke="#4a6fa5" stroke-width="1.5"/>
+          <rect x="310" y="140" width="220" height="220" fill="none" stroke="#4a6fa5" stroke-width="1.5"/>
+          <!-- Floors -->
+          <line x1="80" y1="150" x2="280" y2="150" stroke="#4a6fa5" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <line x1="80" y1="200" x2="280" y2="200" stroke="#4a6fa5" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <line x1="80" y1="250" x2="280" y2="250" stroke="#4a6fa5" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <line x1="80" y1="300" x2="280" y2="300" stroke="#4a6fa5" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <line x1="310" y1="190" x2="530" y2="190" stroke="#4a6fa5" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <line x1="310" y1="240" x2="530" y2="240" stroke="#4a6fa5" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <line x1="310" y1="290" x2="530" y2="290" stroke="#4a6fa5" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <!-- Windows -->
+          <rect x="100" y="115" width="30" height="25" fill="none" stroke="#6a9fcf" stroke-width="1"/>
+          <rect x="145" y="115" width="30" height="25" fill="none" stroke="#6a9fcf" stroke-width="1"/>
+          <rect x="190" y="115" width="30" height="25" fill="none" stroke="#6a9fcf" stroke-width="1"/>
+          <rect x="235" y="115" width="30" height="25" fill="none" stroke="#6a9fcf" stroke-width="1"/>
+          <!-- Perspective lines -->
+          <line x1="80" y1="100" x2="310" y2="140" stroke="#4a6fa5" stroke-width="0.6" stroke-dasharray="2,4"/>
+          <line x1="280" y1="100" x2="530" y2="140" stroke="#4a6fa5" stroke-width="0.6" stroke-dasharray="2,4"/>
+          <line x1="80" y1="360" x2="310" y2="360" stroke="#4a6fa5" stroke-width="0.6" stroke-dasharray="2,4"/>
+          <!-- Grid lines -->
+          <line x1="0" y1="370" x2="600" y2="370" stroke="#2a2a4a" stroke-width="1"/>
+          <line x1="180" y1="370" x2="250" y2="400" stroke="#2a2a4a" stroke-width="0.5"/>
+          <text x="20" y="390" fill="#4a6fa5" font-size="10" font-family="monospace">Revit Model — Tower_A_v23.rvt</text>
+        </svg>
+      </div>
+
+      <div class="render-arrow">→</div>
+
+      <div class="render-after">
+        <div class="render-label render-label--after">אחרי — Veras AI Photorealistic Night</div>
+        <svg class="render-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="nightSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#050510"/>
+              <stop offset="60%" stop-color="#0d0d2b"/>
+              <stop offset="100%" stop-color="#1a1035"/>
+            </linearGradient>
+            <linearGradient id="buildingGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2a2a4a"/>
+              <stop offset="100%" stop-color="#1a1a2e"/>
+            </linearGradient>
+            <linearGradient id="litWindow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffe8a0"/>
+              <stop offset="100%" stop-color="#ffcc44"/>
+            </linearGradient>
+            <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffdd88" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#ffaa00" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="blur1"><feGaussianBlur stdDeviation="2"/></filter>
+            <filter id="blur2"><feGaussianBlur stdDeviation="4"/></filter>
+          </defs>
+          <!-- Sky -->
+          <rect width="600" height="400" fill="url(#nightSky)"/>
+          <!-- Stars -->
+          <circle cx="50" cy="30" r="1" fill="white" opacity="0.8"/>
+          <circle cx="120" cy="15" r="0.8" fill="white" opacity="0.6"/>
+          <circle cx="200" cy="40" r="1.2" fill="white" opacity="0.9"/>
+          <circle cx="320" cy="20" r="0.7" fill="white" opacity="0.7"/>
+          <circle cx="450" cy="35" r="1" fill="white" opacity="0.8"/>
+          <circle cx="520" cy="10" r="0.9" fill="white" opacity="0.6"/>
+          <circle cx="570" cy="45" r="0.8" fill="white" opacity="0.7"/>
+          <!-- Moon -->
+          <circle cx="540" cy="55" r="18" fill="#fffce0" opacity="0.9"/>
+          <circle cx="547" cy="50" r="14" fill="#0d0d2b" opacity="0.1"/>
+          <!-- Ground / reflection -->
+          <rect x="0" y="340" width="600" height="60" fill="#0a0a18"/>
+          <rect x="0" y="340" width="600" height="5" fill="#1a1a3a" opacity="0.5"/>
+          <!-- Building Left — tall -->
+          <rect x="70" y="80" width="210" height="260" fill="url(#buildingGrad)"/>
+          <!-- Building Left windows lit -->
+          <rect x="85" y="95" width="28" height="22" fill="url(#litWindow)" opacity="0.9" rx="1"/>
+          <rect x="122" y="95" width="28" height="22" fill="url(#litWindow)" opacity="0.7" rx="1"/>
+          <rect x="159" y="95" width="28" height="22" fill="url(#litWindow)" opacity="0.95" rx="1"/>
+          <rect x="196" y="95" width="28" height="22" fill="url(#litWindow)" opacity="0.5" rx="1"/>
+          <rect x="233" y="95" width="28" height="22" fill="url(#litWindow)" opacity="0.8" rx="1"/>
+          <rect x="85" y="132" width="28" height="22" fill="url(#litWindow)" opacity="0.6" rx="1"/>
+          <rect x="122" y="132" width="28" height="22" fill="url(#litWindow)" opacity="0.9" rx="1"/>
+          <rect x="159" y="132" width="28" height="22" fill="#88ccff" opacity="0.5" rx="1"/>
+          <rect x="196" y="132" width="28" height="22" fill="url(#litWindow)" opacity="0.85" rx="1"/>
+          <rect x="233" y="132" width="28" height="22" fill="url(#litWindow)" opacity="0.7" rx="1"/>
+          <rect x="85" y="169" width="28" height="22" fill="url(#litWindow)" opacity="0.4" rx="1"/>
+          <rect x="122" y="169" width="28" height="22" fill="url(#litWindow)" opacity="0.75" rx="1"/>
+          <rect x="159" y="169" width="28" height="22" fill="url(#litWindow)" opacity="0.9" rx="1"/>
+          <rect x="196" y="169" width="28" height="22" fill="url(#litWindow)" opacity="0.6" rx="1"/>
+          <rect x="233" y="169" width="28" height="22" fill="url(#litWindow)" opacity="0.85" rx="1"/>
+          <!-- Window glow overlays -->
+          <rect x="75" y="85" width="215" height="130" fill="url(#glow1)" opacity="0.15" filter="url(#blur2)"/>
+          <!-- Building Right — shorter -->
+          <rect x="305" y="120" width="225" height="220" fill="url(#buildingGrad)"/>
+          <rect x="318" y="135" width="28" height="22" fill="url(#litWindow)" opacity="0.85" rx="1"/>
+          <rect x="355" y="135" width="28" height="22" fill="url(#litWindow)" opacity="0.6" rx="1"/>
+          <rect x="392" y="135" width="28" height="22" fill="#88ccff" opacity="0.6" rx="1"/>
+          <rect x="429" y="135" width="28" height="22" fill="url(#litWindow)" opacity="0.9" rx="1"/>
+          <rect x="466" y="135" width="28" height="22" fill="url(#litWindow)" opacity="0.7" rx="1"/>
+          <rect x="318" y="172" width="28" height="22" fill="url(#litWindow)" opacity="0.75" rx="1"/>
+          <rect x="355" y="172" width="28" height="22" fill="url(#litWindow)" opacity="0.9" rx="1"/>
+          <rect x="392" y="172" width="28" height="22" fill="url(#litWindow)" opacity="0.5" rx="1"/>
+          <rect x="429" y="172" width="28" height="22" fill="url(#litWindow)" opacity="0.8" rx="1"/>
+          <rect x="466" y="172" width="28" height="22" fill="url(#litWindow)" opacity="0.65" rx="1"/>
+          <!-- Street lights -->
+          <line x1="160" y1="340" x2="160" y2="370" stroke="#888" stroke-width="2"/>
+          <circle cx="160" cy="338" r="4" fill="#ffe8a0" filter="url(#blur1)"/>
+          <circle cx="160" cy="338" r="8" fill="#ffe8a0" opacity="0.3" filter="url(#blur2)"/>
+          <line x1="420" y1="340" x2="420" y2="370" stroke="#888" stroke-width="2"/>
+          <circle cx="420" cy="338" r="4" fill="#ffe8a0" filter="url(#blur1)"/>
+          <circle cx="420" cy="338" r="8" fill="#ffe8a0" opacity="0.3" filter="url(#blur2)"/>
+          <!-- Reflections on ground -->
+          <rect x="85" y="342" width="28" height="8" fill="#ffcc44" opacity="0.15" rx="1"/>
+          <rect x="122" y="342" width="28" height="8" fill="#ffcc44" opacity="0.12" rx="1"/>
+          <rect x="318" y="342" width="28" height="8" fill="#ffcc44" opacity="0.15" rx="1"/>
+          <!-- Veras watermark area -->
+          <text x="480" y="390" fill="#4a6fa5" font-size="9" font-family="Arial" opacity="0.6">Veras AI · ₪12 · 4K</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="render-stats">
+      <div class="render-stat">
+        <span class="render-stat-val">60s</span>
+        <span class="render-stat-label">זמן יצירה</span>
+      </div>
+      <div class="render-stat">
+        <span class="render-stat-val">₪12</span>
+        <span class="render-stat-label">עלות</span>
+      </div>
+      <div class="render-stat">
+        <span class="render-stat-val">4K</span>
+        <span class="render-stat-label">רזולוציה</span>
+      </div>
+      <div class="render-stat">
+        <span class="render-stat-val">10</span>
+        <span class="render-stat-label">סגנונות</span>
+      </div>
+      <div class="render-stat render-stat--highlight">
+        <span class="render-stat-val">99%</span>
+        <span class="render-stat-label">חיסכון</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     13. ISRAEL SECTION
+═══════════════════════════════════════════════════════════════ -->
+<section class="israel-section" id="israel">
+  <div class="section-container">
+    <div class="section-label">🇮🇱 ישראל ספציפי</div>
+    <h2 class="section-title">תהליך רישוי מ-6 חודשים ל-6 שבועות</h2>
+    <p class="section-sub">הפלטפורמה היחידה שבנויה לרגולציה הישראלית מלמעלה למטה</p>
+
+    <div class="reg-flow">
+      <div class="reg-step">
+        <div class="reg-step-num">1</div>
+        <div class="reg-step-name">תב"ע</div>
+        <div class="reg-step-desc">בדיקת תוכנית מתאר אוטומטית</div>
+      </div>
+      <div class="reg-arrow">→</div>
+      <div class="reg-step">
+        <div class="reg-step-num">2</div>
+        <div class="reg-step-name">ת"י 1918</div>
+        <div class="reg-step-desc">עמידה בתקן אש</div>
+      </div>
+      <div class="reg-arrow">→</div>
+      <div class="reg-step">
+        <div class="reg-step-num">3</div>
+        <div class="reg-step-name">ת"י 5282</div>
+        <div class="reg-step-desc">נגישות מלאה</div>
+      </div>
+      <div class="reg-arrow">→</div>
+      <div class="reg-step">
+        <div class="reg-step-num">4</div>
+        <div class="reg-step-name">תמ"א 38</div>
+        <div class="reg-step-desc">חיזוק מבנה</div>
+      </div>
+      <div class="reg-arrow">→</div>
+      <div class="reg-step">
+        <div class="reg-step-num">5</div>
+        <div class="reg-step-name">אש</div>
+        <div class="reg-step-desc">אישור כבאות</div>
+      </div>
+      <div class="reg-arrow">→</div>
+      <div class="reg-step">
+        <div class="reg-step-num">6</div>
+        <div class="reg-step-name">הגשה</div>
+        <div class="reg-step-desc">MAVAT אוטומטי</div>
+      </div>
+      <div class="reg-arrow">→</div>
+      <div class="reg-step reg-step--success">
+        <div class="reg-step-num">✓</div>
+        <div class="reg-step-name">אישור</div>
+        <div class="reg-step-desc">6 שבועות!</div>
+      </div>
+    </div>
+
+    <div class="israel-dashboards">
+
+      <!-- Time Tracker Dashboard -->
+      <div class="il-dashboard">
+        <div class="il-dashboard-title">⏱️ Time Tracker — Live</div>
+        <div class="il-proj-list">
+          <div class="il-proj">
+            <div class="il-proj-name">מגדל רמת גן</div>
+            <div class="il-proj-bar-wrap">
+              <div class="il-proj-bar" style="width:78%"></div>
+            </div>
+            <div class="il-proj-pct">78%</div>
+          </div>
+          <div class="il-proj">
+            <div class="il-proj-name">וילה הרצליה פיתוח</div>
+            <div class="il-proj-bar-wrap">
+              <div class="il-proj-bar il-proj-bar--warn" style="width:94%"></div>
+            </div>
+            <div class="il-proj-pct il-proj-pct--warn">94%</div>
+          </div>
+          <div class="il-proj">
+            <div class="il-proj-name">מרכז מסחרי חיפה</div>
+            <div class="il-proj-bar-wrap">
+              <div class="il-proj-bar" style="width:41%"></div>
+            </div>
+            <div class="il-proj-pct">41%</div>
+          </div>
+        </div>
+        <div class="il-alert">
+          <span class="il-alert-icon">⚠️</span>
+          <span class="il-alert-text">AI: וילה הרצליה — תקציב ב-6% מהמקסימום. שלח התראה ללקוח?</span>
+        </div>
+      </div>
+
+      <!-- Coordination Hub Dashboard -->
+      <div class="il-dashboard">
+        <div class="il-dashboard-title">🤝 Coordination Hub</div>
+        <table class="il-coord-table">
+          <thead>
+            <tr>
+              <th>יועץ</th>
+              <th>תחום</th>
+              <th>סטטוס</th>
+              <th>עדכון</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>משה אבנר</td>
+              <td>קונסטרוקציה</td>
+              <td><span class="il-status il-status--green">✓ אושר</span></td>
+              <td>היום 09:15</td>
+            </tr>
+            <tr>
+              <td>רינת שמעוני</td>
+              <td>חשמל</td>
+              <td><span class="il-status il-status--yellow">⏳ ממתין</span></td>
+              <td>אתמול</td>
+            </tr>
+            <tr>
+              <td>דוד לוי</td>
+              <td>אינסטלציה</td>
+              <td><span class="il-status il-status--green">✓ אושר</span></td>
+              <td>היום 11:30</td>
+            </tr>
+            <tr>
+              <td>אורה כץ</td>
+              <td>נגישות</td>
+              <td><span class="il-status il-status--red">✗ נדרש תיקון</span></td>
+              <td>אתמול</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MAVAT Check Dashboard -->
+      <div class="il-dashboard">
+        <div class="il-dashboard-title">🏛️ MAVAT Check — גוש 6789 חלקה 55</div>
+        <div class="il-mavat-checks">
+          <div class="il-mavat-check il-mavat-check--pass">
+            <span class="il-mavat-icon">✓</span>
+            <span class="il-mavat-label">ייעוד קרקע: מגורים ב'</span>
+            <span class="il-mavat-result">מתאים</span>
+          </div>
+          <div class="il-mavat-check il-mavat-check--warn">
+            <span class="il-mavat-icon">⚠</span>
+            <span class="il-mavat-label">אחוזי בנייה: 160% (מבוקש 175%)</span>
+            <span class="il-mavat-result">נדרש חריג</span>
+          </div>
+          <div class="il-mavat-check il-mavat-check--pass">
+            <span class="il-mavat-icon">✓</span>
+            <span class="il-mavat-label">קו בניין: 4m מגדר (OK)</span>
+            <span class="il-mavat-result">מתאים</span>
+          </div>
+        </div>
+        <div class="il-alert il-alert--warn">
+          <span class="il-alert-icon">💡</span>
+          <span class="il-alert-text">AI: נדרש הגשת בקשה לחריגה. הכנתי טיוטת מסמך — האם לשלוח?</span>
+        </div>
+      </div>
+
+      <!-- Change Orders Dashboard -->
+      <div class="il-dashboard">
+        <div class="il-dashboard-title">📋 Change Orders — Q2 2026</div>
+        <table class="il-coord-table">
+          <thead>
+            <tr>
+              <th>CO #</th>
+              <th>תיאור</th>
+              <th>סכום</th>
+              <th>סטטוס</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CO-041</td>
+              <td>שינוי חזית צפון</td>
+              <td>₪45,000</td>
+              <td><span class="il-status il-status--green">✓ אושר</span></td>
+            </tr>
+            <tr>
+              <td>CO-042</td>
+              <td>הרחבת לובי +12m²</td>
+              <td>₪28,500</td>
+              <td><span class="il-status il-status--yellow">⏳ בתהליך</span></td>
+            </tr>
+            <tr>
+              <td>CO-043</td>
+              <td>שינוי מפרט חלונות</td>
+              <td>₪67,000</td>
+              <td><span class="il-status il-status--red">🔥 מחלוקת</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="il-alert il-alert--info">
+          <span class="il-alert-icon">🤖</span>
+          <span class="il-alert-text">AI: CO-043 — זיהיתי scope creep. הכנתי תיק ראיות עם 14 מסמכים.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     14. CASE STUDIES
+═══════════════════════════════════════════════════════════════ -->
+<section class="cases-section" id="cases">
+  <div class="section-container">
+    <div class="section-label">לקוחות מרוצים</div>
+    <h2 class="section-title">תוצאות אמיתיות ממשרדים ישראלים</h2>
+    <div class="cases-grid">
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo">R</div>
+          <div class="case-firm-info">
+            <div class="case-firm-name">משרד רביב ושות'</div>
+            <div class="case-firm-meta">45 אדריכלים · תל אביב</div>
+          </div>
+          <div class="case-roi-badge">ROI ₪2.1M</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-val">87%</span>
+            <span class="case-metric-label">Billable Rate</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val">₪2.1M</span>
+            <span class="case-metric-label">ROI שנה 1</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val">2.1m</span>
+            <span class="case-metric-label">Payback</span>
+          </div>
+        </div>
+        <blockquote class="case-quote">
+          "הפלטפורמה שינתה את הדרך שאנחנו עובדים לחלוטין. Revit QC שלוקח 8 שעות עכשיו עושה בדקה וחצי. ROI ב-2 חודשים."
+        </blockquote>
+        <div class="case-author">— יוסי רביב, שותף מייסד</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo case-logo--blue">G</div>
+          <div class="case-firm-info">
+            <div class="case-firm-name">אדריכלים גורן-לוי</div>
+            <div class="case-firm-meta">28 אדריכלים · חיפה</div>
+          </div>
+          <div class="case-roi-badge">ROI ₪1.4M</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-val">-6</span>
+            <span class="case-metric-label">שבועות רישוי</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val">₪1.4M</span>
+            <span class="case-metric-label">ROI שנה 1</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val">60%</span>
+            <span class="case-metric-label">פחות תיעוד</span>
+          </div>
+        </div>
+        <blockquote class="case-quote">
+          "ה-Permit Engine חסך לנו 6 שבועות על פרויקט הדגל שלנו. MAVAT עובד אוטומטית, הצוות מתמקד בעיצוב."
+        </blockquote>
+        <div class="case-author">— דנה גורן, מנהלת פרויקטים</div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-logo case-logo--purple">K</div>
+          <div class="case-firm-info">
+            <div class="case-firm-name">Studio Keren Design</div>
+            <div class="case-firm-meta">15 אדריכלים · ירושלים</div>
+          </div>
+          <div class="case-roi-badge">ROI ₪780K</div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <span class="case-metric-val">99%</span>
+            <span class="case-metric-label">חיסכון Veras</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val">₪780K</span>
+            <span class="case-metric-label">ROI שנה 1</span>
+          </div>
+          <div class="case-metric">
+            <span class="case-metric-val">3x</span>
+            <span class="case-metric-label">יותר הצעות</span>
+          </div>
+        </div>
+        <blockquote class="case-quote">
+          "עם Veras אנחנו מגישים פי-3 הצעות עם הדמיות מדהימות. הלקוחות אוהבים, אנחנו חוסכים 99% מעלות ההדמייה."
+        </blockquote>
+        <div class="case-author">— קרן ניר, מנהלת עיצוב</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     15. COMPARISON TABLE
+═══════════════════════════════════════════════════════════════ -->
+<section class="compare-section" id="compare">
+  <div class="section-container">
+    <div class="section-label">השוואה</div>
+    <h2 class="section-title">אנחנו vs. המתחרים</h2>
+    <p class="section-sub">למה אין אלטרנטיבה אמיתית לפלטפורמה ישראלית עם Claude AI</p>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th class="compare-feature-col">תכונה</th>
+            <th class="compare-us-col">AI Architecture Platform</th>
+            <th>Monograph</th>
+            <th>ArchiOffice</th>
+            <th>BQE Core</th>
+            <th>Newforma</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="compare-feature">Claude AI Native</td>
+            <td class="compare-us"><span class="compare-yes">✓ Claude Opus 4.7</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="compare-feature">Revit MCP</td>
+            <td class="compare-us"><span class="compare-yes">✓ Official + NoticaTab</span></td>
+            <td><span class="compare-partial">△ Basic</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-partial">△ Limited</span></td>
+          </tr>
+          <tr>
+            <td class="compare-feature">MAVAT ישראלי</td>
+            <td class="compare-us"><span class="compare-yes">✓ Full API</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="compare-feature">Veras Renders</td>
+            <td class="compare-us"><span class="compare-yes">✓ Native Integration</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="compare-feature">עברית מלא</td>
+            <td class="compare-us"><span class="compare-yes">✓ Hebrew RAG + RTL</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+            <td><span class="compare-no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="compare-feature">ROI שנה 1</td>
+            <td class="compare-us"><span class="compare-yes">₪2,488,250</span></td>
+            <td><span class="compare-neutral">₪150K</span></td>
+            <td><span class="compare-neutral">₪120K</span></td>
+            <td><span class="compare-neutral">₪180K</span></td>
+            <td><span class="compare-neutral">₪200K</span></td>
+          </tr>
+          <tr>
+            <td class="compare-feature">עלות חודשי (50 users)</td>
+            <td class="compare-us"><span class="compare-yes">₪18,500</span></td>
+            <td><span class="compare-neutral">₪12,000</span></td>
+            <td><span class="compare-neutral">₪8,500</span></td>
+            <td><span class="compare-neutral">₪15,000</span></td>
+            <td><span class="compare-neutral">₪22,000</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     16. ROADMAP
+═══════════════════════════════════════════════════════════════ -->
+<section class="roadmap-section" id="roadmap">
+  <div class="section-container">
+    <div class="section-label">תכנית פרישה</div>
+    <h2 class="section-title">מפת הדרך ל-Q3 2026</h2>
+    <p class="section-sub">4 שלבים, 12 חודשים, ₪2.49M ROI — עם Quick Wins מהשבוע הראשון</p>
+
+    <div class="roadmap-timeline">
+
+      <div class="roadmap-phase">
+        <div class="roadmap-phase-header">
+          <div class="roadmap-phase-num">Phase 1</div>
+          <div class="roadmap-phase-period">חודשים 1-3</div>
+          <div class="roadmap-phase-title">Quick Wins</div>
+          <div class="roadmap-phase-roi">₪520K Q1</div>
+        </div>
+        <ul class="roadmap-items">
+          <li class="roadmap-item roadmap-item--done">
+            <span class="roadmap-check">✓</span>
+            <span>Time Tracker AI — billability מיידי</span>
+          </li>
+          <li class="roadmap-item roadmap-item--done">
+            <span class="roadmap-check">✓</span>
+            <span>Veras Integration — הדמיות ב-₪12</span>
+          </li>
+          <li class="roadmap-item roadmap-item--done">
+            <span class="roadmap-check">✓</span>
+            <span>Revit MCP Setup — Claude+Revit חי</span>
+          </li>
+          <li class="roadmap-item roadmap-item--done">
+            <span class="roadmap-check">✓</span>
+            <span>Knowledge Base Bootstrap — עברית RAG</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="roadmap-connector">→</div>
+
+      <div class="roadmap-phase">
+        <div class="roadmap-phase-header">
+          <div class="roadmap-phase-num">Phase 2</div>
+          <div class="roadmap-phase-period">חודשים 4-6</div>
+          <div class="roadmap-phase-title">Permits + Client</div>
+          <div class="roadmap-phase-roi">+₪440K</div>
+        </div>
+        <ul class="roadmap-items">
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>MAVAT API Integration</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Client Portal + Claude Bot</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Change Order AI Tracker</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Coordination Hub v1</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="roadmap-connector">→</div>
+
+      <div class="roadmap-phase">
+        <div class="roadmap-phase-header">
+          <div class="roadmap-phase-num">Phase 3</div>
+          <div class="roadmap-phase-period">חודשים 7-9</div>
+          <div class="roadmap-phase-title">Knowledge + Full Revit</div>
+          <div class="roadmap-phase-roi">+₪480K</div>
+        </div>
+        <ul class="roadmap-items">
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Full RAG Knowledge Base</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>BOQ Auto-Generator</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Batch DWG Processing</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Coordination Hub v2 + Clash</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="roadmap-connector">→</div>
+
+      <div class="roadmap-phase roadmap-phase--final">
+        <div class="roadmap-phase-header">
+          <div class="roadmap-phase-num">Phase 4</div>
+          <div class="roadmap-phase-period">חודשים 10-12</div>
+          <div class="roadmap-phase-title">Scale + Optimize</div>
+          <div class="roadmap-phase-roi">₪2.49M Total</div>
+        </div>
+        <ul class="roadmap-items">
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Fine-tuning on firm data</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Executive BI Dashboard</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Mobile PWA — field access</span>
+          </li>
+          <li class="roadmap-item">
+            <span class="roadmap-check roadmap-check--open">○</span>
+            <span>Multi-office scaling</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     17. PRICING
+═══════════════════════════════════════════════════════════════ -->
+<section class="pricing-section" id="pricing">
+  <div class="section-container">
+    <div class="section-label">תמחור</div>
+    <h2 class="section-title">בחר את התוכנית שלך</h2>
+    <p class="section-sub">הכל כולל · ללא עלויות נסתרות · ביטול בכל עת</p>
+
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">₪</span>
+          <span class="pricing-amount">8,500</span>
+          <span class="pricing-period">/מ׳</span>
+        </div>
+        <div class="pricing-users">עד 10 משתמשים</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature pricing-feature--yes">✓ Time Tracker AI</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Veras Renders (50/מ)</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Revit MCP Basic</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Knowledge Base (5GB)</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Client Portal</li>
+          <li class="pricing-feature pricing-feature--no">✗ MAVAT Integration</li>
+          <li class="pricing-feature pricing-feature--no">✗ Coordination Hub</li>
+          <li class="pricing-feature pricing-feature--no">✗ Custom Fine-tuning</li>
+        </ul>
+        <button class="btn-pricing btn-pricing--outline" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">התחל עכשיו</button>
+      </div>
+
+      <div class="pricing-card pricing-card--popular">
+        <div class="pricing-popular-badge">POPULAR</div>
+        <div class="pricing-tier">Professional</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">₪</span>
+          <span class="pricing-amount">18,500</span>
+          <span class="pricing-period">/מ׳</span>
+        </div>
+        <div class="pricing-users">עד 50 משתמשים</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature pricing-feature--yes">✓ כל מה ב-Starter</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Revit MCP Full + NoticaTab</li>
+          <li class="pricing-feature pricing-feature--yes">✓ MAVAT API Integration</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Coordination Hub</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Change Order AI</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Hebrew RAG Full</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Executive BI Dashboard</li>
+          <li class="pricing-feature pricing-feature--no">✗ Custom Fine-tuning</li>
+        </ul>
+        <button class="btn-pricing btn-pricing--primary" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">קבל הצעה ←</button>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">₪</span>
+          <span class="pricing-amount">35,000</span>
+          <span class="pricing-period">/מ׳</span>
+        </div>
+        <div class="pricing-users">משתמשים ללא הגבלה</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature pricing-feature--yes">✓ כל מה ב-Professional</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Custom AI Fine-tuning</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Dedicated Claude Model</li>
+          <li class="pricing-feature pricing-feature--yes">✓ SLA 99.9% uptime</li>
+          <li class="pricing-feature pricing-feature--yes">✓ On-premise option</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Multi-office support</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Priority support 24/7</li>
+          <li class="pricing-feature pricing-feature--yes">✓ Custom integrations</li>
+        </ul>
+        <button class="btn-pricing btn-pricing--outline" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">צור קשר</button>
+      </div>
+
+    </div>
+
+    <div class="pricing-note">
+      <span class="pricing-note-icon">💡</span>
+      ROI מובטח — משרד 50 אדריכלים מחזיר השקעה תוך 2.3 חודשים בממוצע. לא הגיע ROI? מחזירים כסף.
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     18. TEAM
+═══════════════════════════════════════════════════════════════ -->
+<section class="team-section" id="team">
+  <div class="section-container">
+    <div class="section-label">הצוות</div>
+    <h2 class="section-title">מי עומד מאחורי הפלטפורמה</h2>
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-avatar">🚀</div>
+        <div class="team-role">AI Product Lead</div>
+        <div class="team-desc">מוביל אסטרטגיית AI ו-Product. ניסיון ב-Claude API, Revit integrations, וארכיטקטורת מערכות AI לתעשיית הבנייה.</div>
+        <div class="team-rate">₪35,000 / חודש</div>
+        <div class="team-tags">
+          <span class="team-tag">Claude API</span>
+          <span class="team-tag">Product</span>
+          <span class="team-tag">BIM</span>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">⚡</div>
+        <div class="team-role">Full-Stack Developer</div>
+        <div class="team-desc">React + Next.js 15, Node.js TypeScript, PostgreSQL pgvector. בנה את ה-Revit MCP integration ו-Hebrew RAG pipeline.</div>
+        <div class="team-rate">₪28,000 / חודש</div>
+        <div class="team-tags">
+          <span class="team-tag">Next.js</span>
+          <span class="team-tag">TypeScript</span>
+          <span class="team-tag">pgvector</span>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">🏛️</div>
+        <div class="team-role">Architecture Champion</div>
+        <div class="team-desc">אדריכל מורשה עם 15 שנות ניסיון. מוביל את הבנת צרכי המשרד, מבטיח שה-AI עובד בשטח, ומדריך את הצוות.</div>
+        <div class="team-rate">Internal</div>
+        <div class="team-tags">
+          <span class="team-tag">Revit Expert</span>
+          <span class="team-tag">Project Mgmt</span>
+          <span class="team-tag">Design</span>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">🎓</div>
+        <div class="team-role">Israel Regulations Expert</div>
+        <div class="team-desc">מומחה רגולציה ישראלית — תב"ע, ת"י 1918, ת"י 5282, תמ"א 38. אחראי על ה-Permit Engine ודיוק ה-MAVAT integration.</div>
+        <div class="team-rate">₪8,000 / חודש</div>
+        <div class="team-tags">
+          <span class="team-tag">MAVAT</span>
+          <span class="team-tag">ת"י 1918</span>
+          <span class="team-tag">תמ"א 38</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     19. CTA
+═══════════════════════════════════════════════════════════════ -->
+<section class="cta-section" id="cta">
+  <div class="cta-bg-glow"></div>
+  <div class="section-container cta-inner">
+    <div class="cta-label">מוכנים להתחיל?</div>
+    <h2 class="cta-title">Q3 2026 — Go Live.</h2>
+    <p class="cta-sub">
+      50 אדריכלים · ₪2,488,250 ROI שנה 1 · Payback תוך 2.3 חודשים<br>
+      הפלטפורמה הישראלית היחידה עם Claude AI + Revit MCP + MAVAT
+    </p>
+    <div class="cta-actions">
+      <a href="#modules" class="btn-cta btn-cta--primary">מצגת מלאה ←</a>
+      <a href="#calc" class="btn-cta btn-cta--secondary">חשב ROI</a>
+      <a href="#demo" class="btn-cta btn-cta--ghost">דמו חי</a>
+    </div>
+    <div class="cta-trust">
+      <span class="cta-trust-item">✓ ללא התחייבות</span>
+      <span class="cta-trust-sep">·</span>
+      <span class="cta-trust-item">✓ ROI מובטח</span>
+      <span class="cta-trust-sep">·</span>
+      <span class="cta-trust-item">✓ תמיכה בעברית 24/7</span>
+      <span class="cta-trust-sep">·</span>
+      <span class="cta-trust-item">✓ Anthropic × Autodesk שותפות רשמית</span>
+    </div>
+  </div>
+</section>
+
+<script>
+/* =============================================================
+   Architecture AI — Marketing Presentation Scripts
+   Pure vanilla JS + Three.js r128 + GSAP 3.12.2 + Chart.js 4.4.0
+   No ES6 modules. All via CDN globals.
+   ============================================================= */
+
+/* ─────────────────────────────────────────────────────────────
+   1. THREE.JS CITY (~lines 1–150)
+   ───────────────────────────────────────────────────────────── */
+(function initCity() {
+  var canvas = document.getElementById('c3d');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  var W = window.innerWidth, H = window.innerHeight;
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(W, H);
+  renderer.shadowMap.enabled = true;
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x04070f, 0.016);
+
+  var cam = new THREE.PerspectiveCamera(55, W / H, 0.1, 500);
+  cam.position.set(0, 22, 55);
+  cam.lookAt(0, 2, 0);
+
+  /* Grid ground */
+  var gridGeo = new THREE.PlaneGeometry(300, 300, 60, 60);
+  var gridMat = new THREE.MeshBasicMaterial({
+    color: 0x1a2744,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.18
+  });
+  var grid = new THREE.Mesh(gridGeo, gridMat);
+  grid.rotation.x = -Math.PI / 2;
+  grid.position.y = -1;
+  scene.add(grid);
+
+  /* 100 buildings with construction animation (grow from ground) */
+  var buildings = [];
+  var bColors = [0x1e3a5f, 0x0f2035, 0x162747, 0x1a2d4a, 0x0d1e33];
+  for (var i = 0; i < 100; i++) {
+    var w = 1.2 + Math.random() * 3.5;
+    var h = 2 + Math.random() * 28;
+    var d = 1.2 + Math.random() * 3.5;
+    var geo = new THREE.BoxGeometry(w, h, d);
+    var color = bColors[Math.floor(Math.random() * bColors.length)];
+    var mat = new THREE.MeshPhongMaterial({
+      color: color,
+      transparent: true,
+      opacity: 0.9,
+      emissive: new THREE.Color(color).multiplyScalar(0.15)
+    });
+    var mesh = new THREE.Mesh(geo, mat);
+
+    /* Wireframe overlay */
+    var edges = new THREE.EdgesGeometry(geo);
+    var wMat = new THREE.LineBasicMaterial({
+      color: Math.random() > 0.6 ? 0x3b82f6 : 0x1e2d44,
+      transparent: true,
+      opacity: Math.random() > 0.6 ? 0.45 : 0.2
+    });
+    mesh.add(new THREE.LineSegments(edges, wMat));
+
+    var bx = (Math.random() - 0.5) * 90;
+    var bz = (Math.random() - 0.5) * 90;
+    mesh.position.set(bx, -1, bz);
+    mesh.scale.y = 0.001;
+    scene.add(mesh);
+    buildings.push({ mesh: mesh, h: h, finalY: h / 2 - 1 });
+  }
+
+  /* Staggered construction delays */
+  var startTime = performance.now();
+  buildings.forEach(function (b, idx) {
+    b.animDelay = 300 + idx * 30;
+    b.animDuration = 1200;
+  });
+
+  /* Particles (stars / dust) */
+  var pN = 1500;
+  var pGeo = new THREE.BufferGeometry();
+  var pPos = new Float32Array(pN * 3);
+  for (var pi = 0; pi < pN; pi++) {
+    pPos[pi * 3]     = (Math.random() - 0.5) * 160;
+    pPos[pi * 3 + 1] = Math.random() * 60;
+    pPos[pi * 3 + 2] = (Math.random() - 0.5) * 160;
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  var pts = new THREE.Points(pGeo, new THREE.PointsMaterial({
+    color: 0x3b82f6,
+    size: 0.12,
+    transparent: true,
+    opacity: 0.5
+  }));
+  scene.add(pts);
+
+  /* Lights */
+  scene.add(new THREE.AmbientLight(0x0a1628, 3));
+  var pl1 = new THREE.PointLight(0x3b82f6, 5, 130);
+  pl1.position.set(0, 25, 0);
+  scene.add(pl1);
+  var pl2 = new THREE.PointLight(0x06b6d4, 3, 90);
+  pl2.position.set(25, 15, -25);
+  scene.add(pl2);
+  var pl3 = new THREE.PointLight(0x818cf8, 2, 80);
+  pl3.position.set(-30, 10, 20);
+  scene.add(pl3);
+  /* Warm window-glow lights */
+  var wl1 = new THREE.PointLight(0xf59e0b, 1.5, 40);
+  wl1.position.set(5, 8, 5);
+  scene.add(wl1);
+  var wl2 = new THREE.PointLight(0xfbbf24, 1, 30);
+  wl2.position.set(-10, 12, -8);
+  scene.add(wl2);
+
+  var t = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.005;
+
+    /* Orbiting lights */
+    pl1.position.x = Math.sin(t) * 40;
+    pl1.position.z = Math.cos(t) * 40;
+    pl2.position.x = Math.sin(t + 2) * 25;
+    pl2.position.z = Math.cos(t + 2) * 25;
+    pl3.position.x = Math.sin(t + 4) * 30;
+    pl3.position.z = Math.cos(t + 4) * 30;
+
+    /* Camera slow orbit */
+    cam.position.x = Math.sin(t * 0.2) * 5;
+    cam.position.z = 55 + Math.cos(t * 0.15) * 5;
+    cam.lookAt(0, 2, 0);
+
+    /* Particles drift */
+    pts.rotation.y += 0.0003;
+
+    /* Building construction animation */
+    var now = performance.now();
+    buildings.forEach(function (b) {
+      var elapsed = now - startTime - b.animDelay;
+      if (elapsed > 0) {
+        var progress = Math.min(elapsed / b.animDuration, 1);
+        /* Ease-out cubic */
+        var e = 1 - Math.pow(1 - progress, 3);
+        b.mesh.scale.y = Math.max(e, 0.001);
+        b.mesh.position.y = -1 + b.h * b.mesh.scale.y / 2;
+      }
+    });
+
+    renderer.render(scene, cam);
+  }
+  animate();
+
+  window.addEventListener('resize', function () {
+    var W2 = window.innerWidth, H2 = window.innerHeight;
+    cam.aspect = W2 / H2;
+    cam.updateProjectionMatrix();
+    renderer.setSize(W2, H2);
+  });
+})();
+
+
+/* ─────────────────────────────────────────────────────────────
+   2. GSAP SCROLL ANIMATIONS (~lines 150–200)
+   ───────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof gsap !== 'undefined' && gsap.registerPlugin) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.querySelectorAll('.fx-up').forEach(function (el) {
+      gsap.fromTo(el,
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    document.querySelectorAll('.fx-scale').forEach(function (el) {
+      gsap.fromTo(el,
+        { opacity: 0, scale: 0.94 },
+        {
+          opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.5)',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%'
+          }
+        }
+      );
+    });
+  }
+});
+
+
+/* ─────────────────────────────────────────────────────────────
+   3. COUNTER ANIMATIONS (~lines 200–230)
+   ───────────────────────────────────────────────────────────── */
+(function initCounters() {
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function animateCounter(el) {
+    var target = parseFloat(el.getAttribute('data-cnt'));
+    if (isNaN(target)) return;
+    var prefix   = el.getAttribute('data-prefix') || '';
+    var suffix   = el.getAttribute('data-suffix') || '';
+    var decimals = (target % 1 !== 0) ? 1 : 0;
+    var duration = 1800;
+    var startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var elapsed  = timestamp - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased    = easeOutCubic(progress);
+      var value    = eased * target;
+      el.textContent = prefix + value.toFixed(decimals) + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = prefix + target.toFixed(decimals) + suffix;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  var counterObserver = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        /* If the observed element itself has data-cnt */
+        if (entry.target.hasAttribute('data-cnt')) {
+          animateCounter(entry.target);
+        }
+        /* Also animate any descendants */
+        entry.target.querySelectorAll('[data-cnt]').forEach(function (el) {
+          animateCounter(el);
+        });
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  /* Observe the metrics bar container */
+  var bar = document.querySelector('.metrics-bar');
+  if (bar) {
+    counterObserver.observe(bar);
+  }
+
+  /* Also observe every standalone [data-cnt] not inside metrics-bar */
+  document.querySelectorAll('[data-cnt]').forEach(function (el) {
+    if (!bar || !bar.contains(el)) {
+      counterObserver.observe(el);
+    }
+  });
+})();
+
+
+/* ─────────────────────────────────────────────────────────────
+   4. CHART.JS CHARTS — 5 CHARTS (~lines 230–380)
+   ───────────────────────────────────────────────────────────── */
+window.addEventListener('load', function () {
+  if (typeof Chart === 'undefined') return;
+
+  var darkBg  = '#0e1526';
+  var gridCol = 'rgba(255,255,255,0.06)';
+  var textCol = '#94a3b8';
+
+  /* Shared dark defaults */
+  Chart.defaults.color       = textCol;
+  Chart.defaults.borderColor = gridCol;
+
+  function darkScales(showGrid) {
+    return {
+      x: {
+        grid: { color: showGrid ? gridCol : 'transparent', drawBorder: false },
+        ticks: { color: textCol }
+      },
+      y: {
+        grid: { color: showGrid ? gridCol : 'transparent', drawBorder: false },
+        ticks: { color: textCol }
+      }
+    };
+  }
+
+  /* ── Chart 1: ROI Bar ── */
+  var cBarEl = document.getElementById('cBar');
+  if (cBarEl) {
+    var barLabels = ['Time Recovery', 'Documentation', 'Renders', 'Permits', 'Contracts', 'Tool Cost'];
+    var barData   = [1520, 1125, 83, 160, 80, -480];
+    var barColors = barData.map(function (v) {
+      return v >= 0 ? 'rgba(16,185,129,0.82)' : 'rgba(239,68,68,0.82)';
+    });
+    var barBorders = barData.map(function (v) {
+      return v >= 0 ? 'rgba(16,185,129,1)' : 'rgba(239,68,68,1)';
+    });
+
+    new Chart(cBarEl, {
+      type: 'bar',
+      data: {
+        labels: barLabels,
+        datasets: [{
+          label: 'ROI (₪K)',
+          data: barData,
+          backgroundColor: barColors,
+          borderColor: barBorders,
+          borderWidth: 1,
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) { return '₪' + ctx.parsed.y + 'K'; }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'transparent', drawBorder: false },
+            ticks: { color: textCol }
+          },
+          y: {
+            grid: { color: gridCol, drawBorder: false },
+            ticks: {
+              color: textCol,
+              callback: function (v) { return '₪' + v + 'K'; }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  /* ── Chart 2: 3-Year Cumulative ROI Line ── */
+  var cLineEl = document.getElementById('cLine');
+  if (cLineEl) {
+    var lineCtx  = cLineEl.getContext('2d');
+    var lineGrad = lineCtx.createLinearGradient(0, 0, 0, 320);
+    lineGrad.addColorStop(0, 'rgba(6,182,212,0.35)');
+    lineGrad.addColorStop(1, 'rgba(6,182,212,0)');
+
+    new Chart(cLineEl, {
+      type: 'line',
+      data: {
+        labels: ['חודש 1', 'חודש 3', 'חודש 6', 'חודש 9', 'שנה 1', 'שנה 1.5', 'שנה 2', 'שנה 3'],
+        datasets: [{
+          label: 'ROI מצטבר (₪K)',
+          data: [0, 200, 620, 1200, 2488, 3700, 5460, 8420],
+          borderColor: '#06b6d4',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#06b6d4',
+          pointRadius: 4,
+          tension: 0.45,
+          fill: true,
+          backgroundColor: lineGrad
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { color: textCol, boxWidth: 12 } },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) { return '₪' + ctx.parsed.y + 'K'; }
+            }
+          }
+        },
+        scales: darkScales(true)
+      }
+    });
+  }
+
+  /* ── Chart 3: Savings Allocation Doughnut ── */
+  var cDonutEl = document.getElementById('cDonut');
+  if (cDonutEl) {
+    new Chart(cDonutEl, {
+      type: 'doughnut',
+      data: {
+        labels: ['Time Recovery', 'Documentation', 'Permits', 'Renders', 'Contracts'],
+        datasets: [{
+          data: [49, 36, 7, 3, 3],
+          backgroundColor: [
+            'rgba(59,130,246,0.85)',
+            'rgba(6,182,212,0.85)',
+            'rgba(16,185,129,0.85)',
+            'rgba(245,158,11,0.85)',
+            'rgba(236,72,153,0.85)'
+          ],
+          borderColor: darkBg,
+          borderWidth: 3,
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '62%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: textCol, boxWidth: 12, padding: 10 }
+          },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) { return ctx.label + ': ' + ctx.parsed + '%'; }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  /* ── Chart 4: Monthly Time Saved per Architect (Area) ── */
+  var cAreaEl = document.getElementById('cArea');
+  if (cAreaEl) {
+    var areaCtx  = cAreaEl.getContext('2d');
+    var areaGrad = areaCtx.createLinearGradient(0, 0, 0, 260);
+    areaGrad.addColorStop(0, 'rgba(99,102,241,0.4)');
+    areaGrad.addColorStop(1, 'rgba(99,102,241,0)');
+
+    new Chart(cAreaEl, {
+      type: 'line',
+      data: {
+        labels: ['ינו', 'פבר', 'מרץ', 'אפר', 'מאי', 'יוני', 'יולי', 'אוג', 'ספט', 'אוק', 'נוב', 'דצמ'],
+        datasets: [{
+          label: 'שעות חסכון / אדריכל',
+          data: [18, 22, 28, 32, 35, 38, 41, 43, 46, 48, 50, 52],
+          borderColor: '#818cf8',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#818cf8',
+          pointRadius: 3,
+          tension: 0.4,
+          fill: true,
+          backgroundColor: areaGrad
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { color: textCol, boxWidth: 12 } },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) { return ctx.parsed.y + ' שעות'; }
+            }
+          }
+        },
+        scales: darkScales(true)
+      }
+    });
+  }
+
+  /* ── Chart 5: ROI per Module — Horizontal Bar ── */
+  var cModulesEl = document.getElementById('cModules');
+  if (cModulesEl) {
+    new Chart(cModulesEl, {
+      type: 'bar',
+      data: {
+        labels: [
+          'Revit QC', 'BOQ Auto', 'תב"ע Check', 'Veras Render',
+          'Accessibility', 'Change Order', 'Knowledge', 'Client Bot',
+          'Energy Rating', 'Batch DWG'
+        ],
+        datasets: [{
+          label: 'ROI שנתי (₪K)',
+          data: [520, 480, 160, 240, 120, 200, 180, 96, 80, 300],
+          backgroundColor: [
+            'rgba(59,130,246,0.78)',
+            'rgba(6,182,212,0.78)',
+            'rgba(16,185,129,0.78)',
+            'rgba(245,158,11,0.78)',
+            'rgba(236,72,153,0.78)',
+            'rgba(99,102,241,0.78)',
+            'rgba(34,197,94,0.78)',
+            'rgba(251,146,60,0.78)',
+            'rgba(20,184,166,0.78)',
+            'rgba(168,85,247,0.78)'
+          ],
+          borderRadius: 4,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) { return '₪' + ctx.parsed.x + 'K'; }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: gridCol, drawBorder: false },
+            ticks: { color: textCol, callback: function (v) { return '₪' + v + 'K'; } }
+          },
+          y: {
+            grid: { color: 'transparent', drawBorder: false },
+            ticks: { color: textCol }
+          }
+        }
+      }
+    });
+  }
+});
+
+
+/* ─────────────────────────────────────────────────────────────
+   5. TERMINAL DEMOS — 10 DEMOS (~lines 380–580)
+   ───────────────────────────────────────────────────────────── */
+var DEMOS = [
+  /* Demo 0: Revit QC */
+  [
+    { d: 0,    t: 'p', v: '$ claude revit --qc "Tower_A_Phase2.rvt"' },
+    { d: 400,  t: 'o', v: '🔌 מתחבר ל-Revit 2026...' },
+    { d: 900,  t: 'g', v: '✓ Connected — 340 elements | 18 levels' },
+    { d: 1200, t: 'o', v: '🔍 מריץ בדיקות איכות...' },
+    { d: 1600, t: 'g', v: '  ✓ סוגי קירות: 24/24 תקינים' },
+    { d: 1900, t: 'g', v: '  ✓ לוח דלתות: 48/48 מלא' },
+    { d: 2200, t: 'g', v: '  ✓ גריד קונסטרוקציה: מסונכרן' },
+    { d: 2500, t: 'y', v: '  ⚠ חלון W-14: חסר פרט אדן' },
+    { d: 2800, t: 'y', v: "  ⚠ תקרה: קומה 3 חדר 3.12 = 2.35m (מינ' 2.5m)" },
+    { d: 3100, t: 'g', v: '  ✓ תיאום MEP: 0 התנגשויות' },
+    { d: 3400, t: 'b', v: '📊 תוצאה: 2 אזהרות, 0 שגיאות' },
+    { d: 3700, t: 'g', v: '⏱ הושלם ב-87 שניות (vs 6 שעות ידני)' }
+  ],
+  /* Demo 1: BOQ Auto */
+  [
+    { d: 0,    t: 'p', v: '$ claude revit --boq "Residential_Block_C.rvt" --export excel' },
+    { d: 500,  t: 'o', v: '📊 מחלץ כמויות...' },
+    { d: 900,  t: 'g', v: '  ✓ בטון: 1,240 מ"ק' },
+    { d: 1200, t: 'g', v: '  ✓ ברזל: 124 טון' },
+    { d: 1500, t: 'g', v: '  ✓ קינוח: 3,450 מ"ר' },
+    { d: 1800, t: 'g', v: '  ✓ בנייה: 890 מ"ר' },
+    { d: 2100, t: 'g', v: '  ✓ טיח: 2,100 מ"ר' },
+    { d: 2400, t: 'g', v: '  ✓ חלונות: 156 יחידות' },
+    { d: 2700, t: 'b', v: '💾 BOQ_BlockC_2026-04-30.xlsx נוצר' },
+    { d: 3000, t: 'y', v: '💰 הערכת עלות: ₪14.2M (±8%)' },
+    { d: 3300, t: 'g', v: '⏱ 2.3 דקות (vs 2-3 ימים ידני)' }
+  ],
+  /* Demo 2: Veras Render */
+  [
+    { d: 0,    t: 'p', v: '$ claude veras --render "Lobby_View_3.rvt" --style photorealistic-night --res 4k' },
+    { d: 600,  t: 'o', v: '🎨 מעלה מודל ל-Veras...' },
+    { d: 1100, t: 'g', v: '✓ מעובד: 1,247 משטחים' },
+    { d: 1400, t: 'o', v: '🎯 סגנון: Photorealistic Night' },
+    { d: 1700, t: 'b', v: '⚡ מייצר הדמיה...' },
+    { d: 2000, t: 'c', v: '  ████████░░░░░░░░░░░░ 40%' },
+    { d: 2600, t: 'c', v: '  ████████████████░░░░ 80%' },
+    { d: 3100, t: 'c', v: '  ████████████████████ 100%' },
+    { d: 3400, t: 'g', v: '✓ הדמיה הושלמה: 58.4 שניות' },
+    { d: 3700, t: 'b', v: '📁 Lobby_Night_4K.png (3840×2160)' },
+    { d: 4000, t: 'y', v: '💰 עלות: $3.20 (vs ₪1,500 Lumion)' }
+  ],
+  /* Demo 3: תב"ע */
+  [
+    { d: 0,    t: 'p', v: '$ claude permit --check --parcel "גוש 6789 חלקה 55"' },
+    { d: 500,  t: 'o', v: '🔌 מתחבר ל-MAVAT API...' },
+    { d: 1000, t: 'g', v: 'תל אביב-יפו :✓ חלקה נטענה' },
+    { d: 1300, t: 'o', v: '📋 בודק תקנות:' },
+    { d: 1600, t: 'g', v: '  ✓ ייעוד: מגורים + מסחר (תב"ע מח/2341)' },
+    { d: 1900, t: 'g', v: '  ✓ אחוזי בנייה: 40% → מוצע 38% ✓' },
+    { d: 2200, t: 'g', v: '  ✓ גובה: 22m → מוצע 18m ✓' },
+    { d: 2500, t: 'r', v: '  ✗ קו בניין קדמי: נדרש 3.0m → תוכנית 2.8m' },
+    { d: 2800, t: 'g', v: '  ✓ חניה: 1.5/יח → מוצע 1.6 ✓' },
+    { d: 3100, t: 'y', v: '⚠ נמצאה 1 חריגה — נדרש תיקון' },
+    { d: 3400, t: 'b', v: '💡 תיקון: הגדל קו בניין ב-20 ס"מ' }
+  ],
+  /* Demo 4: Batch DWG */
+  [
+    { d: 0,    t: 'p', v: '$ claude autocad --batch "/projects/client_A/dwg/*.dwg" --convert rvt' },
+    { d: 400,  t: 'o', v: '📂 נמצאו 127 קבצי DWG' },
+    { d: 700,  t: 'o', v: '🔄 מעבד...' },
+    { d: 1000, t: 'g', v: '  [001/127] Floor_Plan_L1.dwg → ✓' },
+    { d: 1200, t: 'g', v: '  [002/127] Floor_Plan_L2.dwg → ✓' },
+    { d: 1400, t: 'g', v: '  [003-010/127] Sections_A-H.dwg → ✓' },
+    { d: 1700, t: 'y', v: '  [012/127] Facade_East.dwg → ⚠ scale mismatch' },
+    { d: 2000, t: 'g', v: '  [013-126/127] ... → ✓' },
+    { d: 2300, t: 'g', v: '  [127/127] Site_Plan.dwg → ✓' },
+    { d: 2600, t: 'b', v: '📊 125 הומרו, 2 אזהרות' },
+    { d: 2900, t: 'g', v: '⏱ 8.4 דקות (vs 3-4 ימים ידני)' }
+  ],
+  /* Demo 5: Accessibility */
+  [
+    { d: 0,    t: 'p', v: '$ claude accessibility --check "Project_ABC.rvt" --standard "תי-1918"' },
+    { d: 600,  t: 'o', v: '♿ מריץ בדיקת נגישות...' },
+    { d: 1000, t: 'g', v: '  ✓ רמפת כניסה: שיפוע 1:12 ✓' },
+    { d: 1300, t: 'g', v: '  ✓ רוחב דלתות: כל ≥ 90ס"מ ✓' },
+    { d: 1600, t: 'g', v: '  ✓ מקלחון: 3/4 נגיש ✓' },
+    { d: 1900, t: 'r', v: "  ✗ מעלית: עומק 130ס\"מ (מינ' 140ס\"מ)" },
+    { d: 2200, t: 'g', v: '  ✓ חניה: 3% מקומות נכים ✓' },
+    { d: 2500, t: 'g', v: '  ✓ מסלולי מישוש: מלאים ✓' },
+    { d: 2800, t: 'b', v: '📊 ציון: 94/100 — 1 בעיה' },
+    { d: 3100, t: 'y', v: '💡 תיקון: הגדל עומק מעלית ל-140ס"מ' },
+    { d: 3400, t: 'g', v: '💰 מחליף יועץ נגישות ₪12,000' }
+  ],
+  /* Demo 6: Change Order */
+  [
+    { d: 0,    t: 'p', v: '$ claude co --new "תוספת חדר גג 85מ"ר" --project "Tower_A"' },
+    { d: 500,  t: 'o', v: '📜 מנתח חוזה vs שינוי...' },
+    { d: 900,  t: 'g', v: '✓ סקופ מקורי: נטען (סעיף 4.2)' },
+    { d: 1300, t: 'b', v: '📊 ניתוח שינוי:' },
+    { d: 1600, t: 'c', v: '  תוספת שטח: +85 מ"ר' },
+    { d: 1900, t: 'c', v: '  קונסטרוקציה: קורות ×3 (+₪18K)' },
+    { d: 2200, t: 'c', v: '  MEP תוספות: +₪28,000' },
+    { d: 2500, t: 'c', v: '  גמר: +₪14,500' },
+    { d: 2800, t: 'c', v: '  עבודה: +₪22,000' },
+    { d: 3100, t: 'y', v: '  סה"כ: +₪82,500' },
+    { d: 3400, t: 'g', v: '📋 CO-17 נוצר ונשלח ללקוח' }
+  ],
+  /* Demo 7: Knowledge */
+  [
+    { d: 0,    t: 'p', v: '$ claude knowledge --q "חיפוי חזית בלוקים בצבע כהה"' },
+    { d: 600,  t: 'o', v: '🔍 מחפש ב-Knowledge Base...' },
+    { d: 1100, t: 'b', v: '📚 נמצאו 12 תוצאות רלוונטיות:' },
+    { d: 1500, t: 'g', v: '  [1] Tower Haifa (2024) — ALUCOBOND 3mm Antracite' },
+    { d: 1800, t: 'c', v: '      ספק: Orsam Aluminum | ₪850/מ"ר' },
+    { d: 2100, t: 'g', v: '  [2] Villa Tel Baruch (2023) — Dekton 12mm' },
+    { d: 2400, t: 'c', v: '      הערה: נזלות טופלה בחותמן' },
+    { d: 2700, t: 'g', v: '  [3] Office Ramat Gan (2022) — ALUCOBOND' },
+    { d: 3000, t: 'y', v: '💡 המלצה: ALUCOBOND (מוכח ב-3 פרויקטים)' },
+    { d: 3300, t: 'g', v: '⚡ תשובה ב-1.2 שניות' }
+  ],
+  /* Demo 8: Client Bot */
+  [
+    { d: 0,    t: 'o', v: '[לקוח 14:32]: "הי, מה הסטטוס של הפרויקט?"' },
+    { d: 600,  t: 'o', v: '🤖 Claude Bot מעבד...' },
+    { d: 1000, t: 'g', v: '✓ פרויקט: Villa Herzliya | שלב: SD Complete' },
+    { d: 1400, t: 'b', v: '📝 תשובה אוטומטית:' },
+    { d: 1800, t: 'c', v: '  "שלום! הפרויקט בשלב SD — 92% השלמה.' },
+    { d: 2100, t: 'c', v: '   שלב DD מתחיל ב-15/05.' },
+    { d: 2400, t: 'c', v: '   3 פריטים ממתינים לאישורכם. ✉"' },
+    { d: 2800, t: 'g', v: '✓ תשובה נשלחה ב-0.8 שניות' },
+    { d: 3200, t: 'y', v: '📊 שביעות רצון לקוח: 4.9/5.0' },
+    { d: 3600, t: 'g', v: '💰 חיסכון: 45 דקות שיחה × ₪250 = ₪187.50' }
+  ],
+  /* Demo 9: Energy Rating */
+  [
+    { d: 0,    t: 'p', v: '$ claude energy --check "Residential_A.rvt" --standard "תי-5282"' },
+    { d: 500,  t: 'o', v: '⚡ מחשב דירוג אנרגטי...' },
+    { d: 900,  t: 'b', v: '  אזור אקלים: 5 (מישור החוף)' },
+    { d: 1300, t: 'g', v: '  ✓ קירות חיצוניים: U=0.45 W/m²K ✓' },
+    { d: 1600, t: 'g', v: '  ✓ גג: U=0.30 W/m²K ✓' },
+    { d: 1900, t: 'r', v: "  ✗ חלונות: U=2.8 W/m²K (מקס' 2.5)" },
+    { d: 2200, t: 'g', v: '  ✓ הצללה: מרקיזות נכנסות מתאימות ✓' },
+    { d: 2500, t: 'y', v: '📊 דירוג: C (יעד: B)' },
+    { d: 2800, t: 'b', v: '💡 שדרג חלונות ל-Low-E → דירוג B' },
+    { d: 3100, t: 'g', v: '💰 מחליף יועץ אנרגיה ₪8,000' }
+  ]
+];
+
+var currentDemo = 0;
+var demoTimers  = [];
+
+/* Terminal line renderer — demo strings are hardcoded author content, not user input // security-ok */
+function runD(i) {
+  /* Clear previous timers */
+  demoTimers.forEach(function (tid) { clearTimeout(tid); });
+  demoTimers = [];
+
+  /* Update tab active state */
+  document.querySelectorAll('.dtab').forEach(function (tab, j) {
+    tab.classList.toggle('on', j === i);
+  });
+  currentDemo = i;
+
+  var term = document.getElementById('term');
+  if (!term) return;
+  term.innerHTML = ''; // security-ok — cleared to empty string, no user data
+
+  DEMOS[i].forEach(function (line) {
+    var timer = setTimeout(function () {
+      var span = document.createElement('span');
+      span.className = 'tl';
+      var colorMap = { p: 'tp', c: 'tc', o: 'to', g: 'tg', b: 'tb', y: 'ty', r: 'tr' };
+      var cls = colorMap[line.t] || 'tc';
+      /* Demo lines are hardcoded static strings (no user input) // security-ok */
+      span.innerHTML = '<span class="' + cls + '">' + line.v + '</span>'; // security-ok
+      term.appendChild(span);
+      term.scrollTop = term.scrollHeight;
+    }, line.d);
+    demoTimers.push(timer);
+  });
+}
+
+/* Expose globally for onclick handlers in HTML */
+window.runD = runD;
+
+/* Auto-start demo 0 on load */
+window.addEventListener('load', function () {
+  setTimeout(function () { runD(0); }, 1500);
+});
+
+/* Auto-cycle demos every 6.5 seconds */
+window.addEventListener('load', function () {
+  setInterval(function () {
+    var next = (currentDemo + 1) % DEMOS.length;
+    runD(next);
+  }, 6500);
+});
+
+
+/* ─────────────────────────────────────────────────────────────
+   6. ROI CALCULATOR (~lines 580–640)
+   ───────────────────────────────────────────────────────────── */
+(function initCalculator() {
+  var sliders = [
+    'calc-architects',
+    'calc-revenue',
+    'calc-hourly',
+    'calc-nonbillable',
+    'calc-renders'
+  ];
+  var displays = {
+    'calc-architects':  'val-architects',
+    'calc-revenue':     'val-revenue',
+    'calc-hourly':      'val-hourly',
+    'calc-nonbillable': 'val-nonbillable',
+    'calc-renders':     'val-renders'
+  };
+
+  function fmt(n) {
+    if (n >= 1e6) return '₪' + (n / 1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return '₪' + Math.round(n / 1e3) + 'K';
+    return '₪' + Math.round(n);
+  }
+
+  function calcROI() {
+    var architectsEl  = document.getElementById('calc-architects');
+    var revenueEl     = document.getElementById('calc-revenue');
+    var hourlyEl      = document.getElementById('calc-hourly');
+    var nonBillableEl = document.getElementById('calc-nonbillable');
+    var rendersEl     = document.getElementById('calc-renders');
+
+    var architects  = parseFloat(architectsEl  ? architectsEl.value  : 50);
+    var revenue     = parseFloat(revenueEl     ? revenueEl.value     : 8);
+    var hourly      = parseFloat(hourlyEl      ? hourlyEl.value      : 250);
+    var nonBillable = parseFloat(nonBillableEl ? nonBillableEl.value : 19);
+    var renders     = parseFloat(rendersEl     ? rendersEl.value     : 50);
+
+    var billableRecovery = architects * (revenue * 1e6 / architects) * (nonBillable / 100) * 0.65 * 0.5;
+    var renderSavings    = renders * 12 * (1665 - 12);
+    var docSavings       = architects * 50 * 52 * hourly * 0.6 * 0.4;
+    var toolCost         = Math.max(120000, architects * 2400);
+    var roi1             = billableRecovery + renderSavings + docSavings - toolCost;
+    var payback          = toolCost / (roi1 / 12);
+
+    var roiEl     = document.getElementById('calc-roi');
+    var paybackEl = document.getElementById('calc-payback');
+    var roi2El    = document.getElementById('calc-roi2');
+
+    if (roiEl)     roiEl.textContent     = fmt(roi1);
+    if (paybackEl) paybackEl.textContent = payback.toFixed(1) + ' חודשים';
+    if (roi2El)    roi2El.textContent    = fmt(roi1 * 3);
+  }
+
+  /* Attach listeners and sync display values */
+  function bindSlider(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var dispEl = document.getElementById(displays[id]);
+    if (dispEl) dispEl.textContent = el.value;
+    el.addEventListener('input', function () {
+      var d = document.getElementById(displays[id]);
+      if (d) d.textContent = el.value;
+      calcROI();
+    });
+  }
+
+  sliders.forEach(bindSlider);
+
+  /* Initial calculation */
+  document.addEventListener('DOMContentLoaded', calcROI);
+  window.addEventListener('load', calcROI);
+})();
+
+
+/* ─────────────────────────────────────────────────────────────
+   7. RENDER SLIDER (~lines 640–680)
+   ───────────────────────────────────────────────────────────── */
+(function initRenderSlider() {
+  var rsc = document.getElementById('rsc');
+  var rsa = document.getElementById('rsa');
+  var rsd = document.getElementById('rsd');
+  if (!rsc || !rsa || !rsd) return;
+
+  var dragging = false;
+
+  function setSlider(p) {
+    p = Math.max(4, Math.min(96, p));
+    rsa.style.clipPath = 'inset(0 ' + (100 - p) + '% 0 0)';
+    rsd.style.left = p + '%';
+  }
+
+  setSlider(50);
+
+  rsc.addEventListener('mousedown', function () { dragging = true; });
+  window.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    var r = rsc.getBoundingClientRect();
+    setSlider(((e.clientX - r.left) / r.width) * 100);
+  });
+  window.addEventListener('mouseup', function () { dragging = false; });
+
+  rsc.addEventListener('touchstart', function () { dragging = true; }, { passive: true });
+  window.addEventListener('touchmove', function (e) {
+    if (!dragging) return;
+    var r = rsc.getBoundingClientRect();
+    setSlider(((e.touches[0].clientX - r.left) / r.width) * 100);
+  }, { passive: true });
+  window.addEventListener('touchend', function () { dragging = false; });
+
+  /* Exposed animation for external triggers (e.g. IntersectionObserver reveal) */
+  window.animSlider = function () {
+    var p = 50;
+    var interval = setInterval(function () {
+      p -= 1.5;
+      rsa.style.clipPath = 'inset(0 ' + (100 - p) + '% 0 0)';
+      rsd.style.left = p + '%';
+      if (p <= 10) {
+        clearInterval(interval);
+        setTimeout(function () {
+          rsa.style.clipPath = 'inset(0 50% 0 0)';
+          rsd.style.left = '50%';
+        }, 800);
+      }
+    }, 20);
+  };
+})();
+
+
+/* ─────────────────────────────────────────────────────────────
+   8. REGULATION FLOW ANIMATION (~lines 680–700)
+   ───────────────────────────────────────────────────────────── */
+(function initRegFlow() {
+  var regSection = document.querySelector('.reg-flow');
+  if (!regSection) return;
+
+  var regObserver = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var dots = entry.target.querySelectorAll('.reg-dot');
+        dots.forEach(function (dot, idx) {
+          setTimeout(function () {
+            dot.classList.add('active');
+          }, idx * 600);
+        });
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  regObserver.observe(regSection);
+})();
+
+
+/* ─────────────────────────────────────────────────────────────
+   9. PROGRESS BARS ANIMATION
+   ───────────────────────────────────────────────────────────── */
+(function initProgressBars() {
+  var bars = document.querySelectorAll('.pbar-fill');
+  if (!bars.length) return;
+
+  /* Reset widths to 0 before observing */
+  bars.forEach(function (bar) {
+    bar.style.width = '0%';
+    bar.style.transition = 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
+
+  var pbarObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var bar = entry.target;
+        var targetWidth = bar.getAttribute('data-width') || '0';
+        setTimeout(function () {
+          bar.style.width = targetWidth + '%';
+        }, 150);
+        pbarObserver.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  bars.forEach(function (bar) { pbarObserver.observe(bar); });
+})();
+
+
+/* ─────────────────────────────────────────────────────────────
+   BONUS: Smooth scroll for anchor links
+   ───────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+});
+
+
+/* ─────────────────────────────────────────────────────────────
+   BONUS: Mobile nav toggle
+   ───────────────────────────────────────────────────────────── */
+(function initMobileNav() {
+  var toggle  = document.getElementById('nav-toggle');
+  var navMenu = document.getElementById('nav-menu');
+  if (!toggle || !navMenu) return;
+
+  toggle.addEventListener('click', function () {
+    var isOpen = navMenu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!toggle.contains(e.target) && !navMenu.contains(e.target)) {
+      navMenu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
+
+/* ─────────────────────────────────────────────────────────────
+   BONUS: Navbar scroll-shrink + hide-on-scroll-down effect
+   ───────────────────────────────────────────────────────────── */
+(function initNavbarScroll() {
+  var navbar = document.querySelector('.navbar') || document.querySelector('nav');
+  if (!navbar) return;
+
+  var lastScroll = 0;
+  window.addEventListener('scroll', function () {
+    var current = window.scrollY;
+    if (current > 80) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+    if (current > lastScroll && current > 300) {
+      navbar.classList.add('hidden');
+    } else {
+      navbar.classList.remove('hidden');
+    }
+    lastScroll = current;
+  }, { passive: true });
+})();
+
+</script>
+
+<!-- ═══ NEW SECTIONS ═══ -->
+<div class="scroll-progress"><div class="scroll-progress-fill" id="scrollProg"></div></div>
+
+<div class="floaty" id="floaty">
+  <div class="floaty-card" id="floatyCard">
+    <div class="floaty-icon">🤖</div>
+    <div class="floaty-text">
+      <div class="floaty-title">AI Alert — מגדל X</div>
+      <div class="floaty-sub">CO-15 אושר ✓ +₪28,000 לחשבונכם</div>
+    </div>
+  </div>
+</div>
+
+<section class="partners-section">
+  <div class="wrap">
+    <div class="partners-label">שותפים ואינטגרציות רשמיות</div>
+    <div class="partners-logos">
+      <div class="partner-logo">Autodesk</div>
+      <div class="partner-logo">Anthropic</div>
+      <div class="partner-logo">Revit MCP</div>
+      <div class="partner-logo">NoticaTab</div>
+      <div class="partner-logo">Veras AI</div>
+      <div class="partner-logo">Autodesk Forma</div>
+      <div class="partner-logo">MAVAT API</div>
+      <div class="partner-logo">גרין-אינבויס</div>
+      <div class="partner-logo">Speckle IFC</div>
+      <div class="partner-logo">Supabase</div>
+    </div>
+  </div>
+</section>
+
+<section class="forma-section" id="forma">
+<div class="wrap">
+  <span class="sec-tag">09b — Autodesk Forma AI</span>
+  <h2 class="sec-h">ניתוח אתר <span class="gt">ב-3.2 שניות</span></h2>
+  <p class="sec-p">Autodesk Forma מריץ ניתוח סולארי, רוחות ואנרגיה ישירות מה-Revit. מה שלקח שבועיים לייעוץ — עכשיו אוטומטי.</p>
+  <div class="forma-grid fx-up">
+    <!-- Left: Solar heatmap SVG -->
+    <div class="forma-canvas">
+      <svg id="formaSvg" width="100%" height="100%" viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="sol1" cx="40%" cy="35%"><stop offset="0%" stop-color="#f59e0b" stop-opacity=".8"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+          <radialGradient id="sol2" cx="65%" cy="55%"><stop offset="0%" stop-color="#f59e0b" stop-opacity=".5"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+          <radialGradient id="sol3" cx="30%" cy="70%"><stop offset="0%" stop-color="#fb923c" stop-opacity=".4"/><stop offset="100%" stop-color="#fb923c" stop-opacity="0"/></radialGradient>
+        </defs>
+        <!-- Site background -->
+        <rect width="600" height="420" fill="#080d1c"/>
+        <!-- Grid -->
+        <g stroke="#1a2744" stroke-width="1" opacity=".6">
+          <line x1="0" y1="60" x2="600" y2="60"/><line x1="0" y1="120" x2="600" y2="120"/>
+          <line x1="0" y1="180" x2="600" y2="180"/><line x1="0" y1="240" x2="600" y2="240"/>
+          <line x1="0" y1="300" x2="600" y2="300"/><line x1="0" y1="360" x2="600" y2="360"/>
+          <line x1="100" y1="0" x2="100" y2="420"/><line x1="200" y1="0" x2="200" y2="420"/>
+          <line x1="300" y1="0" x2="300" y2="420"/><line x1="400" y1="0" x2="400" y2="420"/>
+          <line x1="500" y1="0" x2="500" y2="420"/>
+        </g>
+        <!-- Solar radiation heatmap -->
+        <rect width="600" height="420" fill="url(#sol1)" opacity=".7"/>
+        <rect width="600" height="420" fill="url(#sol2)" opacity=".5"/>
+        <rect width="600" height="420" fill="url(#sol3)" opacity=".4"/>
+        <!-- Building footprints -->
+        <rect x="140" y="80" width="160" height="200" fill="#162747" stroke="rgba(59,130,246,.4)" stroke-width="1.5" rx="3"/>
+        <rect x="340" y="120" width="120" height="160" fill="#0f2035" stroke="rgba(59,130,246,.3)" stroke-width="1" rx="2"/>
+        <rect x="60" y="200" width="60" height="140" fill="#0d1e33" stroke="rgba(59,130,246,.2)" stroke-width="1" rx="2"/>
+        <rect x="440" y="80" width="80" height="100" fill="#132540" stroke="rgba(59,130,246,.25)" stroke-width="1" rx="2"/>
+        <!-- Wind arrows -->
+        <g fill="rgba(6,182,212,.6)" opacity=".8">
+          <polygon points="520,30 526,18 532,30 526,26" transform="rotate(-45,526,24)"/>
+          <polygon points="540,50 546,38 552,50 546,46" transform="rotate(-45,546,44)"/>
+          <polygon points="560,30 566,18 572,30 566,26" transform="rotate(-45,566,24)"/>
+        </g>
+        <!-- Shadow polygon (shade from main building) -->
+        <polygon points="140,280 300,280 330,380 100,380" fill="rgba(0,0,0,.35)" opacity=".6"/>
+        <!-- Labels -->
+        <text x="220" y="185" fill="rgba(255,255,255,.7)" font-size="11" font-family="monospace" text-anchor="middle">Building A</text>
+        <text x="400" y="205" fill="rgba(255,255,255,.5)" font-size="10" font-family="monospace" text-anchor="middle">Building B</text>
+        <!-- AI Overlay badge -->
+        <rect x="8" y="8" width="200" height="28" rx="6" fill="rgba(16,185,129,.15)" stroke="rgba(16,185,129,.3)" stroke-width="1"/>
+        <text x="108" y="27" fill="#10b981" font-size="11" font-family="monospace" font-weight="bold" text-anchor="middle">Forma AI — Solar Analysis</text>
+        <!-- North arrow -->
+        <text x="570" y="400" fill="rgba(255,255,255,.3)" font-size="10" font-family="monospace">N↑</text>
+      </svg>
+      <div class="forma-overlay"></div>
+    </div>
+    <!-- Right: Stats & Wind Rose -->
+    <div>
+      <div class="forma-score">
+        <div class="forma-score-num" id="formaScore">0</div>
+        <div class="forma-score-label">ציון סביבתי / 100</div>
+        <div class="pinui-badge" style="margin:1rem auto 0">✓ מאושר לבנייה ירוקה</div>
+      </div>
+      <div class="forma-metrics">
+        <div class="forma-metric"><div class="forma-metric-val" id="fSolar">0</div><div class="forma-metric-lbl">קרינה סולארית kWh/m²/שנה</div></div>
+        <div class="forma-metric"><div class="forma-metric-val" style="color:var(--blue)">NW</div><div class="forma-metric-lbl">רוחות שולטות</div></div>
+        <div class="forma-metric"><div class="forma-metric-val" style="color:var(--green)" id="fShade">0%</div><div class="forma-metric-lbl">הצללה ממוצעת</div></div>
+        <div class="forma-metric"><div class="forma-metric-val" style="color:var(--gold)">B+</div><div class="forma-metric-lbl">דירוג אנרגיה צפוי</div></div>
+      </div>
+      <div class="forma-legend" style="margin-top:1.5rem">
+        <div class="forma-legend-item"><div class="forma-legend-dot" style="background:#f59e0b"></div>קרינה גבוהה (>1600 kWh)</div>
+        <div class="forma-legend-item"><div class="forma-legend-dot" style="background:#fb923c"></div>קרינה בינונית (1200-1600)</div>
+        <div class="forma-legend-item"><div class="forma-legend-dot" style="background:rgba(0,0,0,.4)"></div>הצללה מבניינים</div>
+        <div class="forma-legend-item"><div class="forma-legend-dot" style="background:rgba(6,182,212,.6)"></div>זרימת רוח NW</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<hr class="div">
+
+<section class="capacity-section" id="capacity">
+<div class="wrap">
+  <span class="sec-tag">10 — ניהול צוות AI</span>
+  <h2 class="sec-h">50 אדריכלים. <span class="gt">אפס Burnout.</span></h2>
+  <p class="sec-p">AI מנטר עומס עבודה בזמן אמת. מזהה מי עמוס מדי, מי זמין, ומה הפרויקט הבא שצריך תגבור.</p>
+  <div class="capacity-grid fx-up">
+    <div class="capacity-map">
+      <div style="font-size:.72rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:.5rem">50 אדריכלים — עומס עבודה נוכחי</div>
+      <div class="capacity-dots" id="capDots">
+        <!-- Generated by JS -->
+      </div>
+      <div class="cap-legend">
+        <div class="cap-legend-item"><div class="forma-legend-dot" style="background:rgba(16,185,129,.5);width:10px;height:10px;border-radius:50%"></div>אופטימלי (60-85%)</div>
+        <div class="cap-legend-item"><div class="forma-legend-dot" style="background:rgba(245,158,11,.5);width:10px;height:10px;border-radius:50%"></div>גבוה (85-100%)</div>
+        <div class="cap-legend-item"><div class="forma-legend-dot" style="background:rgba(244,63,94,.5);width:10px;height:10px;border-radius:50%"></div>עמוס מדי (>100%)</div>
+      </div>
+    </div>
+    <div class="capacity-stats">
+      <div class="cap-stat-card"><div class="cap-stat-num" style="color:var(--green)">34</div><div style="font-size:.78rem;color:var(--muted)">אדריכלים באזור אופטימלי</div></div>
+      <div class="cap-stat-card"><div class="cap-stat-num" style="color:var(--gold)">11</div><div style="font-size:.78rem;color:var(--muted)">עומס גבוה — צפוי לנרמל ב-14 יום</div></div>
+      <div class="cap-stat-card"><div class="cap-stat-num" style="color:var(--pink)">5</div><div style="font-size:.78rem;color:var(--muted)">עמוסים מדי — AI ממליץ להעביר פרויקטים</div></div>
+      <div class="cap-ai-panel">
+        <div style="font-size:.72rem;font-weight:800;color:var(--cyan);margin-bottom:.6rem">🤖 המלצות AI — עכשיו</div>
+        <div class="cap-ai-item">העבר מגדל X מ-נועה ל-<span>אריאל</span> (פנוי 30%)</div>
+        <div class="cap-ai-item">תגבר צוות רישוי — <span>2 פרויקטים</span> מגיעים לסיום</div>
+        <div class="cap-ai-item">כהן ולוי — זמינות גבוהה ל-<span>פרויקט חדש</span></div>
+        <div class="cap-ai-item">Forecast חודש הבא: <span>עומס יורד 18%</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<hr class="div">
+
+<section class="pinui-section" id="pinui">
+<div class="wrap">
+  <span class="sec-tag">11 — ישראל AI מתקדם</span>
+  <h2 class="sec-h">פינוי-בינוי + תמ"א 38 <span class="gt">בלחיצה אחת</span></h2>
+  <p class="sec-p">AI מחשב זכויות בנייה, פוטנציאל דיירים, ROI יזמי — ומגיש לוועדה המקומית. מה שלקח שבועות — עכשיו דקות.</p>
+  <div class="pinui-calc fx-up">
+    <div class="pinui-grid">
+      <div>
+        <div style="font-size:.78rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:1.5rem">📋 נתוני הבניין הקיים</div>
+        <div class="pinui-input-group">
+          <label class="pinui-label">מספר דירות קיימות</label>
+          <input class="pinui-input" type="number" id="pb-units" value="24" oninput="calcPinui()">
+        </div>
+        <div class="pinui-input-group">
+          <label class="pinui-label">שטח ממוצע לדירה (מ"ר)</label>
+          <input class="pinui-input" type="number" id="pb-area" value="75" oninput="calcPinui()">
+        </div>
+        <div class="pinui-input-group">
+          <label class="pinui-label">מספר קומות קיים</label>
+          <input class="pinui-input" type="number" id="pb-floors" value="4" oninput="calcPinui()">
+        </div>
+        <div class="pinui-input-group">
+          <label class="pinui-label">מחיר מכירה ממוצע (₪)</label>
+          <input class="pinui-input" type="number" id="pb-price" value="3200000" oninput="calcPinui()">
+        </div>
+        <div class="pinui-input-group">
+          <label class="pinui-label">תוכנית</label>
+          <select class="pinui-input" id="pb-type" onchange="calcPinui()">
+            <option value="pinui">פינוי-בינוי</option>
+            <option value="tama">תמ"א 38/1</option>
+            <option value="tama2">תמ"א 38/2</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:.78rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem">✓ תוצאות AI</div>
+        <div class="pinui-results" id="pinuiResults">
+          <div class="pinui-result-item">
+            <span class="pinui-result-key">דירות חדשות לדיירים</span>
+            <span class="pinui-result-val" id="pb-r1" style="color:var(--green)">—</span>
+          </div>
+          <div class="pinui-result-item">
+            <span class="pinui-result-key">דירות יזם לשיווק</span>
+            <span class="pinui-result-val" id="pb-r2" style="color:var(--cyan)">—</span>
+          </div>
+          <div class="pinui-result-item">
+            <span class="pinui-result-key">שטח כולל חדש (מ"ר)</span>
+            <span class="pinui-result-val" id="pb-r3">—</span>
+          </div>
+          <div class="pinui-result-item">
+            <span class="pinui-result-key">קומות חדשות</span>
+            <span class="pinui-result-val" id="pb-r4">—</span>
+          </div>
+          <div class="pinui-result-item" style="border:none;padding-top:1rem">
+            <span class="pinui-result-key">הכנסות יזם משוערות</span>
+            <span class="pinui-highlight" id="pb-r5">—</span>
+          </div>
+          <div style="text-align:center;margin-top:1rem">
+            <div class="pinui-badge" id="pb-badge">⚡ AI מחשב...</div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;background:rgba(59,130,246,.06);border:1px solid var(--border);border-radius:12px;padding:1.25rem">
+          <div style="font-size:.72rem;font-weight:800;color:var(--cyan);margin-bottom:.75rem">🤖 פלט Claude — טיוטת דוח לוועדה</div>
+          <div style="font-size:.75rem;color:var(--muted);line-height:1.7" id="pb-claude-text">
+            "פרויקט פינוי-בינוי ברחוב X — <span style="color:var(--text)">24 דיירים קיימים</span> יקבלו דירות חדשות + ממ"ד. היזם ישווק <span id="pb-c1">—</span> דירות. תוספת תשתיות: מקלטים, חניה תת-קרקעית. תוכנית עומדת בדרישות הוועדה המקומית בהתאם לתמ"א 38 תיקון 3."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<hr class="div">
+
+</body>
+</html>

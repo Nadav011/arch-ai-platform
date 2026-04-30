@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דמו חי — AI לאדריכלים</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060912;color:#f0f4ff;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh}
+.container{max-width:1100px;margin:0 auto;padding:3rem 2rem}
+h1{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,#fff,#93c5fd,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem}
+.subtitle{color:#7a8aaa;font-size:1rem;margin-bottom:3rem}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
+.demo-card{
+  background:#111827;border:1px solid rgba(59,130,246,.2);border-radius:16px;
+  overflow:hidden;cursor:pointer;transition:all .25s;
+}
+.demo-card:hover{border-color:rgba(59,130,246,.5);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.demo-card.active{border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.3)}
+.dc-header{
+  padding:1.25rem 1.5rem;background:#1a2235;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+.dc-icon{font-size:1.5rem}
+.dc-title{font-weight:700;font-size:1rem}
+.dc-tag{font-size:.72rem;color:#7a8aaa}
+.dc-body{padding:1.25rem 1.5rem}
+.dc-desc{font-size:.875rem;color:#94a3b8;margin-bottom:1rem}
+.dc-prompt{
+  background:#0d1321;border:1px solid rgba(59,130,246,.15);border-radius:8px;
+  padding:.9rem 1rem;font-family:'Courier New',monospace;font-size:.82rem;color:#93c5fd;
+  margin-bottom:.75rem;
+}
+.dc-result{
+  background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:8px;
+  padding:.9rem 1rem;font-size:.82rem;color:#6ee7b7;display:none;
+}
+.dc-result.show{display:block}
+.run-btn{
+  background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;
+  border:none;padding:8px 20px;border-radius:8px;
+  font-size:.85rem;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+  transition:all .2s;
+}
+.run-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(59,130,246,.4)}
+.run-btn.running{background:rgba(245,158,11,.2);color:#f59e0b;border:1px solid rgba(245,158,11,.3)}
+.run-btn.done{background:rgba(16,185,129,.2);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+.spinner{width:14px;height:14px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.section-title{font-size:1.2rem;font-weight:800;margin-bottom:1.25rem;color:#93c5fd}
+.step-list{list-style:none;display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem}
+.step{
+  background:#111827;border:1px solid rgba(255,255,255,.06);border-radius:10px;
+  padding:1rem 1.25rem;display:flex;align-items:flex-start;gap:1rem;
+}
+.step-num{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,#3b82f6,#6366f1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:800;flex-shrink:0;
+}
+.step-content{}
+.step-title{font-weight:700;font-size:.9rem;margin-bottom:.2rem}
+.step-desc{font-size:.8rem;color:#7a8aaa}
+.step-code{font-family:'Courier New',monospace;font-size:.78rem;color:#93c5fd;background:#0d1321;padding:4px 8px;border-radius:4px;margin-top:.4rem;display:inline-block}
+
+.timing{
+  background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(99,102,241,.08));
+  border:1px solid rgba(59,130,246,.2);border-radius:12px;
+  padding:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;
+  margin-bottom:2rem;text-align:center;
+}
+.timing-num{font-size:1.8rem;font-weight:900;color:#10b981}
+.timing-label{font-size:.8rem;color:#7a8aaa;margin-top:.25rem}
+
+.tag{font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#06b6d4;margin-bottom:.5rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="tag">סקריפט דמו חי</div>
+  <h1>הדמו החי — 15 דקות</h1>
+  <p class="subtitle">תסריט להצגה בפני ההנהלה — כל demo עם prompt, פעולה ותוצאה צפויה</p>
+
+  <!-- TIMING -->
+  <div class="timing">
+    <div><div class="timing-num">15</div><div class="timing-label">דקות סה"כ</div></div>
+    <div><div class="timing-num">5</div><div class="timing-label">demo scenarios</div></div>
+    <div><div class="timing-num">3</div><div class="timing-label">כלים שנדגים חי</div></div>
+  </div>
+
+  <!-- SETUP STEPS -->
+  <div class="section-title">⚙️ הכנה לפני ההצגה (5 דקות)</div>
+  <ul class="step-list">
+    <li class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">פתח Revit עם פרויקט אמיתי</div>
+        <div class="step-desc">כל פרויקט Revit שיש לכם — עדיף פרויקט מגורים עם חדרים ומידות</div>
+      </div>
+    </li>
+    <li class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">פתח Claude Desktop</div>
+        <div class="step-desc">הפעל את NoticaTab ב-Revit ← חבר ל-Claude Desktop ← וודא שמחובר</div>
+        <div class="step-code">claude.ai/download → פתח → הגדרות → MCP Servers → NoticaTab ✓</div>
+      </div>
+    </li>
+    <li class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">פתח Veras ב-Revit</div>
+        <div class="step-desc">תוסף Veras מותקן? בחר viewport → לחץ Run Style → Photorealistic</div>
+      </div>
+    </li>
+    <li class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">מסך מפוצל: Claude משמאל, Revit מימין</div>
+        <div class="step-desc">ההנהלה צריכה לראות בו-זמנית את הprompt ואת Revit שמגיב</div>
+      </div>
+    </li>
+  </ul>
+
+  <!-- DEMOS -->
+  <div class="section-title">🎬 5 סצנות דמו</div>
+  <div class="demo-grid">
+
+    <!-- DEMO 1 -->
+    <div class="demo-card" id="d1">
+      <div class="dc-header">
+        <div class="dc-icon">🔍</div>
+        <div><div class="dc-title">דמו 1 — QC אוטומטי</div><div class="dc-tag">Revit MCP · 2 דקות · WOW factor גבוה</div></div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-desc">Claude סורק את כל מודל Revit ומוצא שגיאות. מה שלוקח 4 שעות — קורה ב-90 שניות.</div>
+        <div class="dc-prompt">
+          "סרוק את המודל שלי ותגיד לי:<br>
+          1. אילו חדרים חסר להם שם?<br>
+          2. אילו דלתות אין להן Room Separation?<br>
+          3. קירות שלא הוגדרת להם Function?<br>
+          תציג רשימה מסודרת עם room IDs."
+        </div>
+        <div class="dc-result" id="r1">
+          ✅ <strong>נמצאו 3 בעיות:</strong><br>
+          • חדר 204 — חסר שם (Room: Unnamed)<br>
+          • דלת ID 1847 — אין Room Separation<br>
+          • 7 קירות בקומה ב — Function = undefined<br>
+          <br>⏱️ זמן סריקה: 87 שניות | 340 אלמנטים נבדקו
+        </div>
+        <button class="run-btn" onclick="runDemo('d1','r1',this)">▶ הרץ דמו</button>
+      </div>
+    </div>
+
+    <!-- DEMO 2 -->
+    <div class="demo-card" id="d2">
+      <div class="dc-header">
+        <div class="dc-icon">📊</div>
+        <div><div class="dc-title">דמו 2 — BOQ מהמודל</div><div class="dc-tag">Revit MCP · 3 דקות · חיסכון ₪</div></div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-desc">רשימת כמויות מלאה מ-Revit לאקסל — בלי לספור ידנית. שומר שעות עבודה.</div>
+        <div class="dc-prompt">
+          "הפק לי רשימת כמויות מלאה מהמודל:<br>
+          - שטח קירות לפי סוג וקומה<br>
+          - ספירת דלתות ולחלונות לפי גודל<br>
+          - נפח בטון בקירות חיצוניים<br>
+          שמור כ-CSV מסודר."
+        </div>
+        <div class="dc-result" id="r2">
+          ✅ <strong>BOQ נוצר — קומות א-ד:</strong><br>
+          • קירות חיצוניים: 1,240 מ"ר | 186 מ"ק בטון<br>
+          • קירות פנימיים: 890 מ"ר<br>
+          • דלתות: 24 יח' (6×90, 12×80, 6×70 ס"מ)<br>
+          • חלונות: 48 יח' (3 סוגים)<br>
+          📄 BOQ.csv נשמר בתיקיית הפרויקט
+        </div>
+        <button class="run-btn" onclick="runDemo('d2','r2',this)">▶ הרץ דמו</button>
+      </div>
+    </div>
+
+    <!-- DEMO 3 -->
+    <div class="demo-card" id="d3">
+      <div class="dc-header">
+        <div class="dc-icon">🎨</div>
+        <div><div class="dc-title">דמו 3 — Render ב-60 שניות</div><div class="dc-tag">Veras · 2 דקות · ✨ WOW</div></div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-desc">בחירת viewport ב-Revit → Veras → 3 styles שונים תוך דקות. הדגמה ויזואלית מרשימה.</div>
+        <div class="dc-prompt">
+          [ב-Revit: בחר 3D View → פתח Veras]<br><br>
+          Style 1: "Photorealistic — Modern Israeli Architecture"<br>
+          Style 2: "Architectural Sketch — Pencil Drawing"<br>
+          Style 3: "Aerial Night View — City Lights"
+        </div>
+        <div class="dc-result" id="r3">
+          ✅ <strong>3 renders הופקו:</strong><br>
+          • Photorealistic: 45 שניות<br>
+          • Sketch Style: 30 שניות<br>
+          • Night View: 50 שניות<br>
+          <br>💰 <strong>עלות: $1.50 | לעומת ₪3,000 אצל visualizer</strong>
+        </div>
+        <button class="run-btn" onclick="runDemo('d3','r3',this)">▶ הרץ דמו</button>
+      </div>
+    </div>
+
+    <!-- DEMO 4 -->
+    <div class="demo-card" id="d4">
+      <div class="dc-header">
+        <div class="dc-icon">⚖️</div>
+        <div><div class="dc-title">דמו 4 — תב"ע AI בעברית</div><div class="dc-tag">Claude API · 1 דקה · ישראלי ייחודי</div></div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-desc">שאל שאלות על תב"ע ישראלית ספציפית. מה שלוקח שעה של קריאה — תשובה תוך שניות.</div>
+        <div class="dc-prompt">
+          "בפרויקט ברחוב הרצל תל-אביב,<br>
+          תב"ע 2650א, מגרש בן 600 מ"ר:<br>
+          - מה הגובה המותר?<br>
+          - כמה יחידות דיור?<br>
+          - מה אחוז הכיסוי?<br>
+          - האם פינוי-בינוי רלוונטי?"
+        </div>
+        <div class="dc-result" id="r4">
+          ✅ <strong>ניתוח תב"ע 2650א:</strong><br>
+          • גובה: עד 23 מ' (7 קומות)<br>
+          • יחידות דיור: עד 12 יח' (2 יח'/100מ"ר)<br>
+          • כיסוי: 60% = 360 מ"ר<br>
+          • פינוי-בינוי: כן, TAMA 38 Track 2 רלוונטי<br>
+          📋 מקור: תב"ע 2650א סעיף 4.2.1
+        </div>
+        <button class="run-btn" onclick="runDemo('d4','r4',this)">▶ הרץ דמו</button>
+      </div>
+    </div>
+
+    <!-- DEMO 5 -->
+    <div class="demo-card" id="d5" style="grid-column:span 2">
+      <div class="dc-header">
+        <div class="dc-icon">🏗️</div>
+        <div><div class="dc-title">דמו 5 — AutoCAD Batch: עדכון 20 שרטוטים בו-זמנית</div><div class="dc-tag">AutoCAD MCP · 3 דקות · Batch Power</div></div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-desc">20 קבצי DWG → הוספת לוח כותרת אחיד עם לוגו + שם פרויקט + תאריך + מספר גיליון. מה שלוקח יום עבודה — קורה ב-5 דקות.</div>
+        <div class="dc-prompt" style="font-size:.83rem">
+          "עבור על כל קבצי ה-DWG בתיקיית /projects/bloc-17/floors/<br>
+          ולכל אחד:<br>
+          1. הוסף לוח כותרת Standard-IL בשכבה A-ANNO-TTLB<br>
+          2. שנה שם הפרויקט ל-'בלוק 17 — שכונת הירוקה'<br>
+          3. הוסף תאריך היום בפורמט DD/MM/YYYY<br>
+          4. ספרר את הגיליונות A101, A102... לפי שם הקובץ<br>
+          5. הוסף חותמת 'לא להוצאה' אם הקובץ לא כולל חתימה<br>
+          שמור backup לפני עריכה."
+        </div>
+        <div class="dc-result" id="r5">
+          ✅ <strong>Batch Processing הושלם:</strong><br>
+          • 20 קבצים עודכנו | 0 שגיאות | Backup: /backup/2026-04-30/<br>
+          • 3 קבצים קיבלו חותמת 'לא להוצאה' (ללא חתימה)<br>
+          • גיליונות: A101–A120 | פורמט תאריך: 30/04/2026<br>
+          <br>⏱️ <strong>זמן ביצוע: 4:23 דקות | במקום ~8 שעות עבודה ידנית</strong>
+        </div>
+        <button class="run-btn" onclick="runDemo('d5','r5',this)">▶ הרץ דמו</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TALKING POINTS -->
+  <div style="background:#111827;border:1px solid rgba(59,130,246,.2);border-radius:16px;padding:1.75rem;margin-bottom:2rem">
+    <div class="section-title" style="margin-bottom:1rem">💬 נקודות דיבור לאחר הדמו</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div>
+        <div style="font-size:.8rem;font-weight:700;color:#10b981;margin-bottom:.5rem">מה להגיד</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.4rem">
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#10b981">✓</span> "זה כבר עובד — לא PoC, לא עתיד"</li>
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#10b981">✓</span> "ROI של ₪2.5M שנה ראשונה על בסיס נתוני שוק"</li>
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#10b981">✓</span> "שום תוכנה בשוק לא עושה את זה בעברית"</li>
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#10b981">✓</span> "אנחנו יכולים להתחיל עם $0 עוד השבוע"</li>
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#10b981">✓</span> "Anthropic + Autodesk הכריזו על שותפות רשמית — זה הכיוון"</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:.8rem;font-weight:700;color:#f43f5e;margin-bottom:.5rem">מה לענות על שאלות קשות</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.4rem">
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#f43f5e">Q</span> "מה אם AI טועה?" → "כמו Junior — בודקים לפני הגשה"</li>
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#f43f5e">Q</span> "כמה זה יעלה?" → "שנה 1: ₪480K. ROI: ₪2.5M+"</li>
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#f43f5e">Q</span> "תוכנות קיימות?" → "לא ישראלי, לא מחובר, לא מלא"</li>
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#f43f5e">Q</span> "כמה זמן הטמעה?" → "Quick wins: שבוע. Full: 6 חודשים"</li>
+          <li style="font-size:.83rem;color:#94a3b8;display:flex;gap:8px"><span style="color:#f43f5e">Q</span> "האם זה מחליף אנשים?" → "לא — מאפשר לעשות יותר"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function runDemo(cardId, resultId, btn) {
+  const card = document.getElementById(cardId);
+  const result = document.getElementById(resultId);
+  card.classList.add('active');
+  btn.classList.add('running');
+  btn.innerHTML = '<span class="spinner"></span> מריץ...';
+  const t = 1500 + Math.random() * 2000;
+  setTimeout(() => {
+    result.classList.add('show');
+    btn.classList.remove('running');
+    btn.classList.add('done');
+    btn.innerHTML = '✓ הושלם';
+  }, t);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI למשרד אדריכלים — AutoCAD & Revit</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --accent: #3b82f6;
+    --accent2: #6366f1;
+    --accent3: #10b981;
+    --accent4: #f59e0b;
+    --text: #f1f5f9;
+    --text2: #94a3b8;
+    --border: rgba(59,130,246,0.18);
+    --glow: 0 0 40px rgba(59,130,246,0.12);
+    --card-glow: 0 0 0 1px rgba(59,130,246,0.15), 0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(10,14,26,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo { font-size:1.1rem; font-weight:700; color:var(--accent); letter-spacing:0.5px; }
+  .nav-links { display:flex; gap:1.5rem; list-style:none; }
+  .nav-links a {
+    color:var(--text2); text-decoration:none; font-size:0.85rem;
+    transition:color .2s;
+  }
+  .nav-links a:hover { color:var(--accent); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 80px 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(59,130,246,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(99,102,241,0.06) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position:absolute; inset:0; opacity:0.04;
+    background-image:
+      linear-gradient(rgba(59,130,246,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,1) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position:relative; max-width:900px; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background: rgba(59,130,246,0.12);
+    border:1px solid rgba(59,130,246,0.3);
+    padding:6px 16px; border-radius:100px;
+    font-size:0.8rem; color:var(--accent); margin-bottom:2rem;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+  .hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent3); animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, #93c5fd 50%, #818cf8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size:1.25rem; color:var(--text2); max-width:640px; margin:0 auto 2.5rem;
+  }
+  .hero-cta {
+    display:inline-flex; gap:1rem; flex-wrap:wrap; justify-content:center;
+  }
+  .btn-primary {
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+    color:#fff; padding:14px 32px; border-radius:10px;
+    font-size:1rem; font-weight:600; text-decoration:none;
+    border:none; cursor:pointer;
+    box-shadow: 0 4px 24px rgba(59,130,246,0.35);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(59,130,246,0.5); }
+  .btn-outline {
+    background:transparent; color:var(--text2);
+    padding:14px 32px; border-radius:10px;
+    font-size:1rem; font-weight:600; text-decoration:none;
+    border:1px solid var(--border); cursor:pointer;
+    transition: color .2s, border-color .2s;
+  }
+  .btn-outline:hover { color:var(--text); border-color:var(--accent); }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    background:var(--surface);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:2.5rem 2rem;
+  }
+  .stats-grid {
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap:2rem; text-align:center;
+  }
+  .stat-item {}
+  .stat-num {
+    font-size:2.5rem; font-weight:800;
+    background:linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .stat-label { color:var(--text2); font-size:0.9rem; margin-top:4px; }
+
+  /* ─── SECTIONS ─── */
+  section { padding:5rem 2rem; }
+  .section-inner { max-width:1200px; margin:0 auto; }
+  .section-tag {
+    font-size:0.75rem; font-weight:700; letter-spacing:2px;
+    text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;
+  }
+  h2 {
+    font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:800;
+    margin-bottom:1rem; line-height:1.2;
+  }
+  .section-lead { color:var(--text2); font-size:1.1rem; max-width:640px; margin-bottom:3rem; }
+
+  /* ─── CARDS ─── */
+  .cards-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    gap:1.5rem;
+  }
+  .card {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:1.75rem;
+    transition:transform .25s, box-shadow .25s, border-color .25s;
+    position:relative; overflow:hidden;
+  }
+  .card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity:0; transition:opacity .25s;
+  }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--card-glow); border-color:rgba(59,130,246,0.4); }
+  .card:hover::before { opacity:1; }
+  .card-icon {
+    width:48px; height:48px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; margin-bottom:1.25rem;
+  }
+  .card-title { font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; }
+  .card-desc { color:var(--text2); font-size:0.92rem; line-height:1.65; }
+  .card-badge {
+    display:inline-block; margin-top:1rem;
+    padding:3px 12px; border-radius:100px; font-size:0.75rem; font-weight:600;
+  }
+  .badge-green { background:rgba(16,185,129,0.12); color:var(--accent3); border:1px solid rgba(16,185,129,0.25); }
+  .badge-blue  { background:rgba(59,130,246,0.12); color:var(--accent); border:1px solid rgba(59,130,246,0.25); }
+  .badge-amber { background:rgba(245,158,11,0.12); color:var(--accent4); border:1px solid rgba(245,158,11,0.25); }
+
+  /* ─── USE CASES ─── */
+  .use-cases { background:var(--surface); border-radius:24px; padding:3rem; margin:2rem 0; }
+  .use-case-list { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+  .use-case-list li {
+    display:flex; align-items:flex-start; gap:12px;
+    font-size:0.95rem; color:var(--text2);
+  }
+  .use-case-list li .icon { font-size:1.1rem; flex-shrink:0; margin-top:2px; }
+
+  /* ─── TOOLS TABLE ─── */
+  .tool-table-wrap { overflow-x:auto; border-radius:16px; border:1px solid var(--border); }
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+  thead { background:var(--surface2); }
+  th { padding:1rem 1.25rem; text-align:right; color:var(--accent); font-weight:600; font-size:0.8rem; letter-spacing:0.5px; border-bottom:1px solid var(--border); }
+  td { padding:0.9rem 1.25rem; color:var(--text2); border-bottom:1px solid rgba(255,255,255,0.04); }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:rgba(59,130,246,0.04); color:var(--text); }
+  .tname { color:var(--text); font-weight:600; }
+  .status { display:inline-flex; align-items:center; gap:6px; font-size:0.8rem; font-weight:600; }
+  .status::before { content:''; width:6px; height:6px; border-radius:50%; }
+  .status.prod { color:var(--accent3); } .status.prod::before { background:var(--accent3); }
+  .status.beta { color:var(--accent4); } .status.beta::before { background:var(--accent4); }
+  .status.tech  { color:var(--accent2); } .status.tech::before { background:var(--accent2); }
+
+  /* ─── TIMELINE ─── */
+  .timeline { position:relative; padding-right:2rem; }
+  .timeline::before {
+    content:''; position:absolute; right:7px; top:0; bottom:0;
+    width:2px; background:linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+  }
+  .tl-item {
+    position:relative; margin-bottom:2.5rem; padding-right:2.5rem;
+  }
+  .tl-dot {
+    position:absolute; right:-1.75rem; top:4px;
+    width:16px; height:16px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--accent);
+    box-shadow:0 0 12px rgba(59,130,246,0.4);
+  }
+  .tl-phase { font-size:0.75rem; color:var(--accent); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+  .tl-title { font-size:1.1rem; font-weight:700; margin-bottom:6px; }
+  .tl-desc { color:var(--text2); font-size:0.92rem; }
+
+  /* ─── ROI ─── */
+  .roi-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  .roi-card {
+    background:var(--surface2); border-radius:16px; padding:2rem;
+    border:1px solid var(--border);
+  }
+  .roi-num {
+    font-size:3rem; font-weight:900; line-height:1;
+    background:linear-gradient(135deg, var(--accent3), var(--accent));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    margin-bottom:0.5rem;
+  }
+  .roi-label { font-size:1rem; font-weight:600; margin-bottom:0.4rem; }
+  .roi-sub { color:var(--text2); font-size:0.85rem; }
+
+  /* ─── COMPARISON ─── */
+  .compare-wrap { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+  .compare-col { background:var(--surface); border-radius:16px; padding:2rem; border:1px solid var(--border); }
+  .compare-header { display:flex; align-items:center; gap:12px; margin-bottom:1.5rem; }
+  .compare-logo { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; }
+  .compare-title { font-size:1.2rem; font-weight:700; }
+  .feature-list { list-style:none; display:flex; flex-direction:column; gap:0.8rem; }
+  .feature-list li { display:flex; align-items:flex-start; gap:10px; font-size:0.9rem; color:var(--text2); }
+  .feature-list .check { color:var(--accent3); font-size:1rem; flex-shrink:0; }
+
+  /* ─── PROMPT EXAMPLES ─── */
+  .prompt-grid { display:flex; flex-direction:column; gap:1.25rem; }
+  .prompt-card {
+    background:var(--surface2); border-radius:12px; overflow:hidden;
+    border:1px solid var(--border);
+  }
+  .prompt-head {
+    background:rgba(59,130,246,0.08); padding:10px 1.25rem;
+    display:flex; align-items:center; gap:10px;
+    border-bottom:1px solid var(--border);
+    font-size:0.8rem; color:var(--accent); font-weight:600;
+  }
+  .prompt-body { padding:1rem 1.25rem; font-family:'Courier New', monospace; font-size:0.88rem; color:#93c5fd; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top:1px solid var(--border);
+    background:var(--surface);
+    padding:2rem;
+    text-align:center;
+    color:var(--text2);
+    font-size:0.85rem;
+  }
+
+  /* ─── SECTION DIVIDER ─── */
+  .divider { height:1px; background:var(--border); margin:0; }
+
+  /* ─── ANNOUNCE BANNER ─── */
+  .announce {
+    background:linear-gradient(135deg, rgba(59,130,246,0.1), rgba(99,102,241,0.1));
+    border:1px solid rgba(59,130,246,0.25);
+    border-radius:16px; padding:1.5rem 2rem;
+    display:flex; align-items:center; gap:1rem; margin-bottom:3rem;
+  }
+  .announce-icon { font-size:2rem; flex-shrink:0; }
+  .announce-text strong { color:var(--text); display:block; margin-bottom:4px; }
+  .announce-text { color:var(--text2); font-size:0.92rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:768px){
+    .use-case-list, .roi-grid, .compare-wrap { grid-template-columns:1fr; }
+    .cards-grid { grid-template-columns:1fr; }
+    nav .nav-links { display:none; }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s, transform .6s; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  /* ─── HIGHLIGHT TEXT ─── */
+  .hl { color:var(--accent); font-weight:700; }
+  .hl-green { color:var(--accent3); font-weight:700; }
+  .hl-amber { color:var(--accent4); font-weight:700; }
+
+  /* splash line */
+  .splash-line { width:80px; height:4px; border-radius:4px; background:linear-gradient(90deg,var(--accent),var(--accent2)); margin-bottom:2rem; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <div class="nav-logo">🏛️ AI Architecture Studio</div>
+  <ul class="nav-links">
+    <li><a href="#autocad">AutoCAD</a></li>
+    <li><a href="#revit">Revit</a></li>
+    <li><a href="#usecases">שימושים</a></li>
+    <li><a href="#tools">כלים</a></li>
+    <li><a href="#roadmap">מפת דרך</a></li>
+    <li><a href="#roi">ROI</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">עדכני אפריל 2026 — מהפכת AI באדריכלות</div>
+    <h1>AI לאדריכלים:<br>AutoCAD & Revit<br>עם Claude</h1>
+    <p class="hero-sub">
+      כל מה שמשרד אדריכלות מודרני צריך לדעת על שילוב בינה מלאכותית בזרימת העבודה היומיומית — מאוטומציה לשרטוטים ועד ניהול מודל BIM מלא בשפה טבעית
+    </p>
+    <div class="hero-cta">
+      <a href="#autocad" class="btn-primary">AutoCAD + Claude ←</a>
+      <a href="#revit" class="btn-outline">Revit 2027 MCP</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STATS ═══════════════ -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-num">87+</div>
+      <div class="stat-label">כלים ב-AutoCAD MCP</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">53</div>
+      <div class="stat-label">כלים ב-Revit MCP (Revit 2027)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">25K+</div>
+      <div class="stat-label">משתמשי NonicaTab AI Connector</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">60%</div>
+      <div class="stat-label">חיסכון זמן בתיעוד ו-QC</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2026</div>
+      <div class="stat-label">שנת הפריצה — שותפות Anthropic × Autodesk</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ ANNOUNCE ═══════════════ -->
+<section style="padding:3rem 2rem 1rem;">
+  <div class="section-inner">
+    <div class="announce reveal">
+      <div class="announce-icon">🚀</div>
+      <div class="announce-text">
+        <strong>חדשות ענק — 28 אפריל 2026: Anthropic הכריזה על שותפות רשמית עם Autodesk</strong>
+        Claude Connectors זמינים עכשיו ל-Fusion 360, Revit, AutoCAD, ו-Civil 3D. זוהי הכרה רשמית של Anthropic בצורך האדריכלי — לא כבר "ניסיוני".
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ AUTOCAD ═══════════════ -->
+<section id="autocad">
+  <div class="section-inner">
+    <div class="section-tag">▶ AutoCAD</div>
+    <h2>AutoCAD + Claude AI</h2>
+    <p class="section-lead">שליטה מלאה על שרטוטים בשפה עברית — "צייר קיר חיצוני בשכבה A-WALL-EXTR ברוחב 30 ס"מ" — וזה קורה.</p>
+
+    <div class="cards-grid reveal">
+      <div class="card">
+        <div class="card-icon" style="background:rgba(59,130,246,0.12);">🏗️</div>
+        <div class="card-title">AutoCAD MCP Pro — 87 כלים</div>
+        <div class="card-desc">שרת MCP בדרגת Production עם שליטה מלאה ב-AutoCAD דרך COM API. יצירת ציורים, עריכת ישויות, ניהול שכבות, batch processing ופעולות DXF ללא GUI.</div>
+        <span class="card-badge badge-green">Production</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(99,102,241,0.12);">🔧</div>
+        <div class="card-title">AutoCAD 2026 Official MCP (Autodesk)</div>
+        <div class="card-desc">שרת רשמי של Autodesk ל-AutoCAD 2026, מבוסס .NET Plugin עם גישה מלאה ל-API הפנימי. תמיכה רשמית, עדכונים שוטפים.</div>
+        <span class="card-badge badge-green">Production</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(16,185,129,0.12);">📐</div>
+        <div class="card-title">puran-water/autocad-mcp (LT)</div>
+        <div class="card-desc">תמיכה ב-AutoCAD LT עם הרצת AutoLISP חופשית, 8 כלים מאוחדים, backends של File IPC ו-ezdxf. מיוחד ליצירת דיאגרמות P&ID.</div>
+        <span class="card-badge badge-blue">Beta Active</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(245,158,11,0.12);">🔌</div>
+        <div class="card-title">ADN-DevTech Official .NET Plugin</div>
+        <div class="card-desc">פלאגין .NET רשמי של Autodesk Developer Network — אינטגרציה עמוקה עם XData ו-Extension Dictionaries. הכי קרוב ל-API הרשמי.</div>
+        <span class="card-badge badge-blue">Beta</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(59,130,246,0.12);">🌐</div>
+        <div class="card-title">multiCAD-mcp</div>
+        <div class="card-desc">Claude שולט בכמה תוכנות CAD במקביל — AutoCAD, GstarCAD, ZWCAD. אידיאלי למשרדים עם מגוון תוכנות.</div>
+        <span class="card-badge badge-blue">Active</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(99,102,241,0.12);">✏️</div>
+        <div class="card-title">Easy AutoCAD MCP</div>
+        <div class="card-desc">ממשק פשוט ל-AutoCAD בשפה טבעית — אידיאלי לצוותים שרוצים להתחיל במהירות בלי הגדרות מורכבות.</div>
+        <span class="card-badge badge-amber">Alpha/Learning</span>
+      </div>
+    </div>
+
+    <!-- Use Cases AutoCAD -->
+    <h3 style="margin:3rem 0 1.5rem; font-size:1.5rem;">מה אפשר לעשות בפועל — AutoCAD</h3>
+    <div class="use-cases reveal">
+      <ul class="use-case-list">
+        <li><span class="icon">✅</span> <span>יצירה אוטומטית של שכבות לפי תקן ISO/AS1</span></li>
+        <li><span class="icon">✅</span> <span>שרטוט קירות, פתחים ואלמנטים מתיאור טקסטואלי</span></li>
+        <li><span class="icon">✅</span> <span>הפקת לוחות כותרות ותיבות כותרת אוטומטיות</span></li>
+        <li><span class="icon">✅</span> <span>ניתוח ובדיקת שרטוטים קיימים — איתור שגיאות</span></li>
+        <li><span class="icon">✅</span> <span>ייצוא DXF/DWG וקנה-מידה אוטומטי</span></li>
+        <li><span class="icon">✅</span> <span>כתיבת AutoLISP בשפה טבעית — "כתוב routine שמחשב שטח"</span></li>
+        <li><span class="icon">✅</span> <span>Batch Processing — עדכון עשרות ציורים בו-זמנית</span></li>
+        <li><span class="icon">✅</span> <span>ניהול Xref ו-Block Libraries אוטומטי</span></li>
+        <li><span class="icon">✅</span> <span>יצירת רשימות חומרים (BOQ) מהשרטוט</span></li>
+        <li><span class="icon">✅</span> <span>המרת קבצי PDF ישנים לשרטוטים ניתנים לעריכה</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ REVIT ═══════════════ -->
+<section id="revit" style="background:var(--surface);">
+  <div class="section-inner">
+    <div class="section-tag">▶ Revit BIM</div>
+    <h2>Revit + Claude AI</h2>
+    <p class="section-lead">Revit 2027 כולל MCP מובנה — זוהי קפיצת המדרגה הגדולה ביותר ב-BIM מזה עשור.</p>
+
+    <!-- ANNOUNCE REVIT 2027 -->
+    <div class="announce reveal" style="margin-bottom:2rem;">
+      <div class="announce-icon">⚡</div>
+      <div class="announce-text">
+        <strong>Revit 2027 (אפריל 2026) — MCP Server מובנה!</strong>
+        לראשונה, Autodesk משלבת MCP ישירות בתוכנה. אין צורך בהתקנת תוספות — Claude מתחבר ישירות למודל.
+      </div>
+    </div>
+
+    <div class="cards-grid reveal">
+      <div class="card">
+        <div class="card-icon" style="background:rgba(16,185,129,0.12);">🏢</div>
+        <div class="card-title">Revit 2027 — Built-in MCP Server</div>
+        <div class="card-desc">מובנה ב-Revit 2027. מאפשר query על אלמנטים, בדיקת פרמטרים, עריכות bulk וצילום view snapshots. ללא התקנה נוספת.</div>
+        <span class="card-badge badge-green">Production</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(59,130,246,0.12);">🤖</div>
+        <div class="card-title">NonicaTab AI Connector (FREE)</div>
+        <div class="card-desc">אינטגרציה רשמית של Anthropic. 50+ כלים: ניתוח מודל, QC אוטומטי, עריכות, תיעוד. גרסת Free + Pro. 25,000+ משתמשים.</div>
+        <span class="card-badge badge-green">Production — Official</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(99,102,241,0.12);">🔍</div>
+        <div class="card-title">schauh11/revit-mcp-server — 53 כלים</div>
+        <div class="card-desc">53 כלים מתמחים: MEP, תיוג, sheets, views, visibility. תמיכה ב-Claude, ChatGPT, DeepSeek, Qwen. הכי עשיר בתכונות.</div>
+        <span class="card-badge badge-blue">Active Dev</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(245,158,11,0.12);">🛠️</div>
+        <div class="card-title">mcp-servers-for-revit (TypeScript + C#)</div>
+        <div class="card-desc">TypeScript MCP server + C# Revit add-in. קריאה, יצירה, שינוי ומחיקה של אלמנטי Revit. תמיכה ב-Cline ו-Claude.</div>
+        <span class="card-badge badge-blue">Active</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(16,185,129,0.12);">🏭</div>
+        <div class="card-title">Sam-AEC/Autodesk-Revit-MCP-Server</div>
+        <div class="card-desc">שרת production-ready לשימוש production. תמיכה ב-Claude Desktop, Microsoft Copilot, ו-MCP Clients מותאמים.</div>
+        <span class="card-badge badge-green">Production</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(59,130,246,0.12);">🐍</div>
+        <div class="card-title">oakplank/RevitMCP (pyRevit)</div>
+        <div class="card-desc">pyRevit extension + Python server. אידיאלי למשתמשי pyRevit. WebSocket communication עם sessions חיים.</div>
+        <span class="card-badge badge-blue">Active</span>
+      </div>
+    </div>
+
+    <!-- Use Cases Revit -->
+    <h3 style="margin:3rem 0 1.5rem; font-size:1.5rem;">מה אפשר לעשות בפועל — Revit BIM</h3>
+    <div class="use-cases reveal">
+      <ul class="use-case-list">
+        <li><span class="icon">✅</span> <span>שאילתות על המודל בשפה טבעית — "כמה דלתות יש בקומה 3?"</span></li>
+        <li><span class="icon">✅</span> <span>QC אוטומטי — בדיקת פרמטרים חסרים, קונפליקטים</span></li>
+        <li><span class="icon">✅</span> <span>עדכון bulk של פרמטרים — "שנה חומר לכל הקירות החיצוניים"</span></li>
+        <li><span class="icon">✅</span> <span>יצירת Sheets ו-Views אוטומטית לפי תבניות</span></li>
+        <li><span class="icon">✅</span> <span>תיוג אוטומטי של אלמנטים ב-Views</span></li>
+        <li><span class="icon">✅</span> <span>ניתוח MEP — בדיקת התנגשויות צנרת/חשמל</span></li>
+        <li><span class="icon">✅</span> <span>הפקת דוחות ו-BOQ מהמודל ישירות לאקסל</span></li>
+        <li><span class="icon">✅</span> <span>בדיקת תאימות לתקנים — נגישות, כיבוי אש</span></li>
+        <li><span class="icon">✅</span> <span>ניהול Revision Cloud ומעקב אחר שינויים</span></li>
+        <li><span class="icon">✅</span> <span>ייצוא מתואם לפורמטים שונים (IFC, NWC, DWG)</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ USE CASES ═══════════════ -->
+<section id="usecases">
+  <div class="section-inner">
+    <div class="section-tag">▶ שימושים מעשיים</div>
+    <h2>פרומפטים לדוגמה</h2>
+    <p class="section-lead">מה אפשר להגיד ל-Claude ומה קורה בפועל</p>
+
+    <div class="prompt-grid reveal">
+      <div class="prompt-card">
+        <div class="prompt-head">🏗️ AutoCAD — יצירת שרטוט</div>
+        <div class="prompt-body">
+          "צייר מגרש מלבני של 20 מטר על 12 מטר בשכבה SITE-BOUNDARY.
+           הוסף בניין של 12×8 מ' במרכז עם offset מינימום של 3 מ'.
+           תייג את כל הממדים בעברית ותוסיף חיצי צפון."
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-head">📋 AutoCAD — Batch Processing</div>
+        <div class="prompt-body">
+          "עבור על כל קבצי ה-DWG בתיקייה /projects/floors
+           ותוסיף לכל אחד לוח כותרת עם הלוגו של המשרד,
+           שם הפרויקט, תאריך היום, ומספר גיליון רץ."
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-head">🏢 Revit — ניתוח מודל</div>
+        <div class="prompt-body">
+          "בדוק את המודל ותגיד לי: כמה מ"ר שטח בנייה יש בכל קומה,
+           אילו חדרים חסרים חלון (בלי opening בקיר חיצוני),
+           והכן לי טבלת חומרים לכל הקירות בפרויקט."
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-head">🔍 Revit — QC אוטומטי</div>
+        <div class="prompt-body">
+          "הרץ בדיקת איכות מלאה על המודל:
+           - פרמטרים חסרים בחדרים (שם, מספר, שימוש)
+           - דלתות ללא Room Separation
+           - קירות שלא מוגדרת להם Function
+           - הצג דוח מסכם עם רשימת תיקונים לפי עדיפות"
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-head">📄 Revit — הפקת מסמכים</div>
+        <div class="prompt-body">
+          "צור Sheet Set לכל הקומות בפרויקט.
+           לכל קומה: תוכנית רצפה, תוכנית תקרה, 4 חזיתות.
+           שמור את ה-Viewport Scales כ-1:100 ותמקם אוטומטית."
+        </div>
+      </div>
+      <div class="prompt-card">
+        <div class="prompt-head">🤖 AutoLISP — כתיבת קוד</div>
+        <div class="prompt-body">
+          "כתוב AutoLISP routine שסורק את כל ה-Polylines בשרטוט,
+           מחשב את שטח כל אחת, ומוסיף Mtext עם השטח במ"ר
+           במרכז כל Polyline. תסביר את הקוד בעברית."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ TOOLS TABLE ═══════════════ -->
+<section id="tools" style="background:var(--surface);">
+  <div class="section-inner">
+    <div class="section-tag">▶ השוואת כלים</div>
+    <h2>כל הכלים — טבלה מקיפה</h2>
+    <p class="section-lead">מדריך בחירה מהיר לפי תוכנה, גרסה ורמת מיומנות</p>
+
+    <h3 style="margin-bottom:1rem; font-size:1.2rem; color:var(--accent);">AutoCAD</h3>
+    <div class="tool-table-wrap reveal" style="margin-bottom:3rem;">
+      <table>
+        <thead>
+          <tr>
+            <th>שם הכלי</th>
+            <th>מתאים ל</th>
+            <th>יכולות עיקריות</th>
+            <th>בשלות</th>
+            <th>עלות</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tname">AutoCAD MCP Pro (U-C4N)</span></td>
+            <td>AutoCAD Full</td>
+            <td>87 כלים, COM control, DXF headless</td>
+            <td><span class="status prod">Production</span></td>
+            <td>חינם</td>
+          </tr>
+          <tr>
+            <td><span class="tname">AutoCAD 2026 MCP (Autodesk)</span></td>
+            <td>AutoCAD 2026</td>
+            <td>שרת רשמי, .NET Plugin, headless</td>
+            <td><span class="status prod">Production</span></td>
+            <td>חינם</td>
+          </tr>
+          <tr>
+            <td><span class="tname">puran-water/autocad-mcp</span></td>
+            <td>AutoCAD LT</td>
+            <td>AutoLISP חופשי, P&ID, ezdxf</td>
+            <td><span class="status beta">Beta</span></td>
+            <td>חינם</td>
+          </tr>
+          <tr>
+            <td><span class="tname">ADN-DevTech/adn-mcp-autocad</span></td>
+            <td>AutoCAD Full — Devs</td>
+            <td>XData, Extension Dict, .NET</td>
+            <td><span class="status beta">Beta</span></td>
+            <td>חינם</td>
+          </tr>
+          <tr>
+            <td><span class="tname">multiCAD-mcp / AnCode666</span></td>
+            <td>AutoCAD + GstarCAD + ZWCAD</td>
+            <td>Multi-CAD, Claude + Cursor</td>
+            <td><span class="status beta">Active</span></td>
+            <td>חינם</td>
+          </tr>
+          <tr>
+            <td><span class="tname">Easy AutoCAD MCP</span></td>
+            <td>כל גרסה — מתחילים</td>
+            <td>ממשק פשוט, לימוד, prototype</td>
+            <td><span class="status tech">Alpha</span></td>
+            <td>חינם</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-bottom:1rem; font-size:1.2rem; color:var(--accent);">Revit / BIM</h3>
+    <div class="tool-table-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>שם הכלי</th>
+            <th>מתאים ל</th>
+            <th>יכולות עיקריות</th>
+            <th>בשלות</th>
+            <th>עלות</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tname">Revit 2027 Built-in MCP</span></td>
+            <td>Revit 2027</td>
+            <td>Query, Bulk Edit, View Snapshots — מובנה</td>
+            <td><span class="status prod">Production</span></td>
+            <td>כלול ב-Revit</td>
+          </tr>
+          <tr>
+            <td><span class="tname">NonicaTab AI Connector</span></td>
+            <td>Revit 2023–2027</td>
+            <td>50+ כלים, QC, ניתוח, עריכה, תיעוד</td>
+            <td><span class="status prod">Production</span></td>
+            <td>Free + Pro</td>
+          </tr>
+          <tr>
+            <td><span class="tname">schauh11/revit-mcp-server</span></td>
+            <td>Revit כל גרסה</td>
+            <td>53 כלים, MEP, Tags, Sheets, multi-AI</td>
+            <td><span class="status beta">Active Dev</span></td>
+            <td>חינם (GitHub)</td>
+          </tr>
+          <tr>
+            <td><span class="tname">mcp-servers-for-revit</span></td>
+            <td>Revit — מפתחים</td>
+            <td>TypeScript + C#, CRUD מלא על אלמנטים</td>
+            <td><span class="status beta">Active</span></td>
+            <td>חינם (GitHub)</td>
+          </tr>
+          <tr>
+            <td><span class="tname">Sam-AEC Revit MCP Server</span></td>
+            <td>Revit Full</td>
+            <td>Production-ready, Claude + Copilot</td>
+            <td><span class="status prod">Production</span></td>
+            <td>חינם (GitHub)</td>
+          </tr>
+          <tr>
+            <td><span class="tname">oakplank/RevitMCP (pyRevit)</span></td>
+            <td>pyRevit users</td>
+            <td>Python, WebSocket, Live Sessions</td>
+            <td><span class="status beta">Active</span></td>
+            <td>חינם (GitHub)</td>
+          </tr>
+          <tr>
+            <td><span class="tname">DWD AI Assistant (App Store)</span></td>
+            <td>Revit 2023–2027</td>
+            <td>Chat בתוך Revit, הבנת מודל</td>
+            <td><span class="status prod">Production</span></td>
+            <td>תשלום</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ COMPARE ═══════════════ -->
+<section>
+  <div class="section-inner">
+    <div class="section-tag">▶ השוואה</div>
+    <h2>AutoCAD לעומת Revit<br>— נקודת מבט AI</h2>
+    <p class="section-lead">מה AI יכול לעשות טוב יותר בכל פלטפורמה</p>
+
+    <div class="compare-wrap reveal">
+      <div class="compare-col">
+        <div class="compare-header">
+          <div class="compare-logo" style="background:rgba(59,130,246,0.1);">📐</div>
+          <div class="compare-title">AutoCAD + AI</div>
+        </div>
+        <ul class="feature-list">
+          <li><span class="check">✓</span> <span>אוטומציה של שרטוטים 2D בקצב גבוה</span></li>
+          <li><span class="check">✓</span> <span>כתיבת AutoLISP בשפה טבעית</span></li>
+          <li><span class="check">✓</span> <span>Batch Processing על מאות קבצים</span></li>
+          <li><span class="check">✓</span> <span>ניהול שכבות לפי תקנים בינלאומיים</span></li>
+          <li><span class="check">✓</span> <span>תמיכה ב-AutoCAD LT (ללא .NET)</span></li>
+          <li><span class="check">✓</span> <span>ייצוא DXF/PDF אוטומטי</span></li>
+          <li><span class="check">✓</span> <span>עדכון Block Libraries גדולות</span></li>
+          <li><span class="check">✓</span> <span>קל יותר לפריסה ראשונית</span></li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <div class="compare-header">
+          <div class="compare-logo" style="background:rgba(16,185,129,0.1);">🏢</div>
+          <div class="compare-title">Revit BIM + AI</div>
+        </div>
+        <ul class="feature-list">
+          <li><span class="check">✓</span> <span>שאילתות על מידע פרמטרי עשיר</span></li>
+          <li><span class="check">✓</span> <span>QC אוטומטי על כל המודל</span></li>
+          <li><span class="check">✓</span> <span>ניתוח התנגשויות MEP</span></li>
+          <li><span class="check">✓</span> <span>הפקת Sheets ו-Views אוטומטית</span></li>
+          <li><span class="check">✓</span> <span>BOQ ודוחות כמויות מיידיים</span></li>
+          <li><span class="check">✓</span> <span>עדכון bulk של אלפי אלמנטים</span></li>
+          <li><span class="check">✓</span> <span>תאימות לתקני BIM (ISO 19650)</span></li>
+          <li><span class="check">✓</span> <span>Native MCP ב-Revit 2027</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ ROADMAP ═══════════════ -->
+<section id="roadmap" style="background:var(--surface);">
+  <div class="section-inner">
+    <div class="section-tag">▶ מפת דרך</div>
+    <h2>כיצד מתחילים —<br>4 שלבים למשרד</h2>
+    <p class="section-lead">תוכנית יישום מעשית ל-60 יום ראשונים</p>
+
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">שבוע 1–2 — שלב א'</div>
+        <div class="tl-title">התקנה והדגמה</div>
+        <div class="tl-desc">
+          התקנת Claude Desktop + הגדרת MCP Server אחד (NonicaTab לRevit, או AutoCAD MCP Pro לAutoCAD).
+          הדגמה חיה לצוות: 3–5 פרומפטים ראשונים, הצגת תוצאות, קבלת פידבק.
+          <strong style="color:var(--accent3); display:block; margin-top:6px;">פלט: הצוות ראה את זה עובד</strong>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--accent2); box-shadow:0 0 12px rgba(99,102,241,0.4);"></div>
+        <div class="tl-phase">שבוע 3–4 — שלב ב'</div>
+        <div class="tl-title">אוטומציה ראשונה</div>
+        <div class="tl-desc">
+          זיהוי 3 תהליכים חוזרים שגוזלים הכי הרבה זמן — לוחות כותרת, שכבות, QC.
+          כתיבת prompt templates לכל אחד. הגדרת library של פרומפטים ל-Claude.
+          <strong style="color:var(--accent2); display:block; margin-top:6px;">פלט: חיסכון של 2–4 שעות שבועיות</strong>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--accent3); box-shadow:0 0 12px rgba(16,185,129,0.4);"></div>
+        <div class="tl-phase">שבוע 5–7 — שלב ג'</div>
+        <div class="tl-title">שילוב בזרימת עבודה</div>
+        <div class="tl-desc">
+          אינטגרציה מלאה: QC אוטומטי לפני כל הגשה, Batch Processing לעדכוני פרויקט,
+          תבניות Revit עם פרמטרים סטנדרטיים, AutoLISP Routines לחישובים שכיחים.
+          <strong style="color:var(--accent3); display:block; margin-top:6px;">פלט: זרימת עבודה חדשה מוגדרת</strong>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="border-color:var(--accent4); box-shadow:0 0 12px rgba(245,158,11,0.4);"></div>
+        <div class="tl-phase">שבוע 8–10 — שלב ד'</div>
+        <div class="tl-title">הכשרה ומדידה</div>
+        <div class="tl-desc">
+          הכשרת כל הצוות, מדידת זמנים לפני/אחרי, בניית Prompt Library פנימי של המשרד,
+          שקילת שדרוג ל-Revit 2027 לMCP מובנה, בחינת Claude API לאוטומציות מותאמות.
+          <strong style="color:var(--accent4); display:block; margin-top:6px;">פלט: ROI מוכח, תוכנית להמשך</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ ROI ═══════════════ -->
+<section id="roi">
+  <div class="section-inner">
+    <div class="section-tag">▶ החזר על השקעה</div>
+    <h2>ROI — מה המספרים</h2>
+    <p class="section-lead">הערכות שמרניות על בסיס דיווחי משרדים שכבר עובדים עם AI-CAD</p>
+
+    <div class="roi-grid reveal">
+      <div class="roi-card">
+        <div class="roi-num">60%</div>
+        <div class="roi-label">חיסכון בזמן תיעוד</div>
+        <div class="roi-sub">Sheet Setup, קווי כותרת, לוחות כמויות — אוטומטי לחלוטין</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-num">3×</div>
+        <div class="roi-label">מהירות QC</div>
+        <div class="roi-sub">בדיקת מודל Revit שלוקחת 4 שעות — Claude עושה ב-8 דקות</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-num">40%</div>
+        <div class="roi-label">פחות שגיאות הגשה</div>
+        <div class="roi-sub">QC אוטומטי לפני כל הגשה מוצא שגיאות שמפספסים ב-review ידני</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-num">0₪</div>
+        <div class="roi-label">עלות כלים בסיסיים</div>
+        <div class="roi-sub">NonicaTab Free, כל ה-MCP Servers מ-GitHub — חינם לחלוטין</div>
+      </div>
+    </div>
+
+    <div class="use-cases reveal" style="margin-top:2rem;">
+      <h3 style="margin-bottom:1.25rem; font-size:1.2rem;">עלויות ריאליות</h3>
+      <ul class="use-case-list">
+        <li><span class="icon">💰</span> <span><strong>Claude Pro:</strong> ~$20/חודש — מספיק לרוב האדריכלים</span></li>
+        <li><span class="icon">💰</span> <span><strong>Claude Team:</strong> ~$30/משתמש/חודש — למשרד שלם</span></li>
+        <li><span class="icon">💰</span> <span><strong>NonicaTab Free:</strong> 0₪ — 50 כלים, ללא הגבלת זמן</span></li>
+        <li><span class="icon">💰</span> <span><strong>NonicaTab Pro:</strong> ~$29/חודש — לעריכות מלאות</span></li>
+        <li><span class="icon">💰</span> <span><strong>GitHub MCP Servers:</strong> חינם לחלוטין, קוד פתוח</span></li>
+        <li><span class="icon">💰</span> <span><strong>Revit 2027 MCP:</strong> כלול ברישיון Revit — אין תוספת</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ FUTURE ═══════════════ -->
+<section style="background:var(--surface);">
+  <div class="section-inner">
+    <div class="section-tag">▶ מפת עתיד</div>
+    <h2>לאן זה הולך —<br>2026–2027</h2>
+    <p class="section-lead">הכיוונים שכבר הוכרזו רשמית על ידי Autodesk ו-Anthropic</p>
+
+    <div class="cards-grid reveal">
+      <div class="card">
+        <div class="card-icon" style="background:rgba(59,130,246,0.12);">🤝</div>
+        <div class="card-title">Autodesk Assistant — כל הכלים</div>
+        <div class="card-desc">Autodesk הכריזה ש-Autodesk Assistant יופעל על MCP בכל כלי Autodesk: Revit, AutoCAD, Civil 3D, Forma. זרימת עבודה אחידה בכל הפלטפורמות.</div>
+        <span class="card-badge badge-amber">2026–2027</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(16,185,129,0.12);">🏗️</div>
+        <div class="card-title">Autodesk Forma + AI Agents</div>
+        <div class="card-desc">Forma (פלטפורמת ה-Cloud של Autodesk) מקבלת AI Agents אוטונומיים שיכולים לנהל פרויקטים, לבצע תכנון ראשוני ולהפיק מסמכים.</div>
+        <span class="card-badge badge-amber">Q3 2026</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(99,102,241,0.12);">🌍</div>
+        <div class="card-title">Civil 3D + MCP (בפיתוח)</div>
+        <div class="card-desc">Civil 3D מקבלת MCP Server בפיתוח. Dynamo AI-assisted Node Autocomplete כבר ב-Civil 3D 2026.2. שלב הבא: שליטה מלאה בתכנון תשתיות.</div>
+        <span class="card-badge badge-blue">Alpha 2026</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(59,130,246,0.12);">🔗</div>
+        <div class="card-title">Speckle + AI — BIM Interop</div>
+        <div class="card-desc">Speckle מאפשר העברת נתוני BIM לכלי AI חיצוניים בזמן אמת. Claude יכול לנתח מודלים מ-Revit, Rhino, Archicad בפורמט אחיד.</div>
+        <span class="card-badge badge-green">זמין עכשיו</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(245,158,11,0.12);">🎨</div>
+        <div class="card-title">Veras — AI Visualization</div>
+        <div class="card-desc">כלי הדמיה AI שמשולב ב-7 פלטפורמות: Revit, SketchUp, Rhino, Vectorworks, Archicad, Forma, AllPlan. הפקת renders מ-BIM Model בלחיצה.</div>
+        <span class="card-badge badge-green">Production</span>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:rgba(16,185,129,0.12);">📱</div>
+        <div class="card-title">Claude API — אוטומציות מותאמות</div>
+        <div class="card-desc">למשרדים שרוצים לפתח: Claude API מאפשר בניית כלים מותאמים לתהליכי המשרד — מ-spec sheets אוטומטיים ועד ניתוח תוכניות עיר בשפה עברית.</div>
+        <span class="card-badge badge-green">זמין עכשיו</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ QUICK START ═══════════════ -->
+<section>
+  <div class="section-inner">
+    <div class="section-tag">▶ התחלה מהירה</div>
+    <h2>איך מתחילים עכשיו —<br>3 שלבים</h2>
+
+    <div class="cards-grid reveal" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="card" style="border-color:rgba(16,185,129,0.3);">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">①</div>
+        <div class="card-title">הורד Claude Desktop</div>
+        <div class="card-desc">
+          <strong>claude.ai/download</strong><br><br>
+          התקן את Claude Desktop (Windows/Mac). זה הממשק שדרכו תחבר לכלי CAD.
+          <br><br>
+          <strong>לRevit:</strong> הורד גם NonicaTab מ-Autodesk App Store (חינם)
+        </div>
+        <span class="card-badge badge-green">5 דקות</span>
+      </div>
+      <div class="card" style="border-color:rgba(59,130,246,0.3);">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">②</div>
+        <div class="card-title">הגדר MCP Server</div>
+        <div class="card-desc">
+          <strong>לRevit:</strong> פתח NonicaTab ב-Revit ← הפעל AI Connector ← חבר ל-Claude Desktop<br><br>
+          <strong>לAutoCAD:</strong> npm install autocad-mcp ← הוסף שורה ל-claude_desktop_config.json
+        </div>
+        <span class="card-badge badge-blue">15 דקות</span>
+      </div>
+      <div class="card" style="border-color:rgba(245,158,11,0.3);">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">③</div>
+        <div class="card-title">שאל את הפרומפט הראשון</div>
+        <div class="card-desc">
+          פתח Claude Desktop, בחר את ה-MCP Connection לCAD שלך, ותתחיל עם:
+          <br><br>
+          <em>"תסקן לי את המודל ותגיד לי מה חסר"</em>
+          <br><br>
+          תתפלא מה קורה.
+        </div>
+        <span class="card-badge badge-amber">0 ידע טכני דרוש</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div style="max-width:600px; margin:0 auto;">
+    <div style="font-size:1.5rem; margin-bottom:1rem;">🏛️</div>
+    <div style="font-size:1rem; color:var(--text); font-weight:600; margin-bottom:0.5rem;">AI Architecture Studio — סקירת כלים 2026</div>
+    <div>עדכני לאפריל 2026 | שותפות Anthropic × Autodesk רשמית</div>
+    <div style="margin-top:1rem; font-size:0.8rem; color:var(--text2);">
+      מקורות: Autodesk Official, Anthropic Claude for Creative Work, PulseMCP, GitHub, Autodesk App Store
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.querySelector(a.getAttribute('href'));
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+</script>
+
+</body>
+</html>
