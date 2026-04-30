@@ -3202,6 +3202,12 @@ footer {
   }
 }
 
+@media(max-width:500px){
+  .cmp-table-wrap, .compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cmp-table { min-width: 600px; }
+  svg { max-width: 100%; height: auto; }
+}
+
 </style>
 </head>
 <body>
@@ -3989,7 +3995,7 @@ footer {
     <div class="render-slider-wrapper" id="rsc">
       <div class="render-before">
         <div class="render-label render-label--before">לפני — Revit Wireframe</div>
-        <svg class="render-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+        <svg class="render-svg" width="100%" height="auto" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
           <rect width="600" height="400" fill="#1a1a2e"/>
           <!-- Building wireframe -->
           <rect x="80" y="100" width="200" height="260" fill="none" stroke="#4a6fa5" stroke-width="1.5"/>
@@ -4022,7 +4028,7 @@ footer {
 
       <div class="render-after">
         <div class="render-label render-label--after">אחרי — Veras AI Photorealistic Night</div>
-        <svg class="render-svg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+        <svg class="render-svg" width="100%" height="auto" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="nightSky" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#050510"/>
@@ -4441,7 +4447,7 @@ footer {
     <h2 class="section-title">אנחנו vs. המתחרים</h2>
     <p class="section-sub">למה אין אלטרנטיבה אמיתית לפלטפורמה ישראלית עם Claude AI</p>
 
-    <div class="compare-table-wrap">
+    <div class="compare-table-wrap cmp-table-wrap">
       <table class="compare-table cmp-table">
         <thead>
           <tr>
