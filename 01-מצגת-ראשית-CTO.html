@@ -128,6 +128,7 @@ h2 {
   display:flex; flex-direction:column;
   justify-content:center; align-items:flex-start;
   padding:6rem 2rem 4rem;
+  overflow:hidden;
 }
 .hero .inner { width:100%; max-width:1160px; margin:0 auto; }
 .hero-badge-row {
@@ -178,7 +179,7 @@ h2 {
 .hero-glow {
   position:absolute; top:30%; left:50%;
   transform:translate(-50%,-50%);
-  width:700px; height:500px; pointer-events:none;
+  width:min(700px, 100vw); height:500px; pointer-events:none;
   background:radial-gradient(ellipse, rgba(59,130,246,.06) 0%, transparent 70%);
   z-index:0;
 }
@@ -535,6 +536,11 @@ h2 {
 /* ─ Misc ─ */
 .two-col { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
 @media(max-width:800px){ .two-col { grid-template-columns:1fr; } }
+@media(max-width:500px){
+  .hero-stat { flex: 0 0 calc(50% - .75rem); }
+  section { padding: 5.5rem 1rem; }
+  .inner { padding: 0 1rem; }
+}
 </style>
 </head>
 <body>
