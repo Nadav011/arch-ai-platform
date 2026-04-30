@@ -2815,6 +2815,7 @@ footer {
   padding: 7rem 2rem;
 }
 
+
 .capacity-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -2858,6 +2859,13 @@ footer {
 .cap-dot:hover {
   transform: scale(1.2);
   z-index: 10;
+}
+
+@media(max-width:500px){
+  .capacity-section { padding: 4rem 1rem; }
+  .capacity-map { padding: 1rem; }
+  .capacity-dots { grid-template-columns: repeat(5,1fr) !important; gap:.25rem; }
+  .cap-dot { width:100% !important; height:auto !important; aspect-ratio:1; font-size:.5rem; }
 }
 
 .cap-dot .tooltip {
