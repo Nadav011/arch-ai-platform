@@ -3276,50 +3276,64 @@ footer {
 ═══════════════════════════════════════════════════════════════ -->
 <section class="how-it-works" id="how">
   <div class="section-container">
-    <div class="section-label">איך זה עובד</div>
-    <h2 class="section-title">שלושה שלבים לשינוי</h2>
-    <div class="steps-grid">
+    <div class="section-label">יום עבודה</div>
+    <h2 class="section-title">יום עבודה רגיל — <span class="gt">לפני ואחרי AI</span></h2>
+    <p class="section-sub">אותו אדריכל, אותו פרויקט, אותו יום — אבל עם AI לצידו</p>
+    <div class="how-flow">
 
-      <div class="step-card">
-        <div class="step-num">01</div>
-        <div class="step-icon">🔌</div>
-        <h3 class="step-title">מחברים את Claude ל-Revit</h3>
-        <p class="step-desc">
-          התקנת Revit MCP הרשמי + NoticaTab (50+ כלים בחינם). תוך יום אחד Claude מדבר ישירות עם קבצי ה-RVT שלך — queries, validation, export אוטומטי.
-        </p>
-        <ul class="step-list">
-          <li>MCP Official Installation</li>
-          <li>NoticaTab FREE 50+ tools</li>
-          <li>API keys + permissions</li>
-        </ul>
+      <div class="how-step">
+        <div class="how-num">08:30</div>
+        <div class="how-title">QC לפני מסירה</div>
+        <div class="how-desc">
+          <div style="color:var(--pink);font-size:.78rem;font-weight:700;margin-bottom:4px">לפני: 8 שעות ידני</div>
+          בודק room tags, clashes, parameters — כל פעם אחרת
+          <div style="color:var(--green);font-size:.78rem;font-weight:700;margin-top:6px">אחרי: 87 שניות</div>
+          Claude + Revit MCP. 0 שגיאות שמגיעות ללקוח.
+        </div>
       </div>
 
-      <div class="step-card step-card--accent">
-        <div class="step-num">02</div>
-        <div class="step-icon">🧠</div>
-        <h3 class="step-title">AI לומד את המשרד</h3>
-        <p class="step-desc">
-          מעלים את תקני המשרד, פרויקטים עבר, תמחור, ומסמכי רגולציה. ה-RAG הישראלי (pgvector + עברית) בונה Knowledge Base מקיף.
-        </p>
-        <ul class="step-list">
-          <li>Hebrew RAG + pgvector</li>
-          <li>Firm standards upload</li>
-          <li>Regulation library (ת"י, תמ"א)</li>
-        </ul>
+      <div class="how-step">
+        <div class="how-num">11:00</div>
+        <div class="how-title">הדמיה דחופה ללקוח</div>
+        <div class="how-desc">
+          <div style="color:var(--pink);font-size:.78rem;font-weight:700;margin-bottom:4px">לפני: 2 ימים + ₪1,500</div>
+          Lumion, גרפיקאי חיצוני, לא תמיד זמין
+          <div style="color:var(--green);font-size:.78rem;font-weight:700;margin-top:6px">אחרי: 60 שניות, $3</div>
+          Veras ישירות מ-Revit. 10 סגנונות. 4K.
+        </div>
       </div>
 
-      <div class="step-card">
-        <div class="step-num">03</div>
-        <div class="step-icon">🚀</div>
-        <h3 class="step-title">ROI מיידי</h3>
-        <p class="step-desc">
-          מהשבוע הראשון — QC אוטומטי תוך 87 שניות, הדמיות ב-₪12 במקום ₪1,500, ותיעוד שנכתב לבד. ROI נמדד ומדווח ב-dashboard חי.
-        </p>
-        <ul class="step-list">
-          <li>Live ROI dashboard</li>
-          <li>Weekly savings report</li>
-          <li>Billable hours tracker</li>
-        </ul>
+      <div class="how-step">
+        <div class="how-num">14:00</div>
+        <div class="how-title">BOQ לקבלן — מחר</div>
+        <div class="how-desc">
+          <div style="color:var(--pink);font-size:.78rem;font-weight:700;margin-bottom:4px">לפני: 2-3 ימי חישוב</div>
+          ספירה ידנית, טעויות, עדכון אחרי כל שינוי
+          <div style="color:var(--green);font-size:.78rem;font-weight:700;margin-top:6px">אחרי: 2 דקות</div>
+          Claude מחלץ מה-Revit + הערכת עלות.
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="how-num">16:00</div>
+        <div class="how-title">בדיקת תב"ע לחלקה</div>
+        <div class="how-desc">
+          <div style="color:var(--pink);font-size:.78rem;font-weight:700;margin-bottom:4px">לפני: 4 שעות + יועץ ₪3,500</div>
+          MAVAT ידני, פרשנויות, לפעמים טועים
+          <div style="color:var(--green);font-size:.78rem;font-weight:700;margin-top:6px">אחרי: 2 דקות, ₪0</div>
+          Claude מתחבר ל-MAVAT, בודק ת"י, תמ"א 38.
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="how-num">20:00</div>
+        <div class="how-title">לקוח שולח WhatsApp</div>
+        <div class="how-desc">
+          <div style="color:var(--pink);font-size:.78rem;font-weight:700;margin-bottom:4px">לפני: מפריע לערב שלך</div>
+          "מה הסטטוס?" — חייב לענות, אחרת לא ישן
+          <div style="color:var(--green);font-size:.78rem;font-weight:700;margin-top:6px">אחרי: Claude Bot עונה 24/7</div>
+          תשובה מדויקת תוך 0.8 שניות. אתה ישן.
+        </div>
       </div>
 
     </div>
@@ -3646,65 +3660,53 @@ footer {
 ═══════════════════════════════════════════════════════════════ -->
 <section class="stack-section" id="stack">
   <div class="section-container">
-    <div class="section-label">הטכנולוגיה</div>
-    <h2 class="section-title">AI Stack — State of the Art 2026</h2>
+    <div class="section-label">אינטגרציות</div>
+    <h2 class="section-title">עובד עם הכלים שכבר יש לך</h2>
+    <p class="section-sub">אין צורך לשנות איך עובדים — AI נכנס לתוך הכלים שאתה כבר משתמש בהם</p>
     <div class="stack-layers">
 
       <div class="stack-layer">
-        <div class="stack-layer-label">AI Models</div>
-        <div class="stack-layer-items">
-          <span class="stack-chip stack-chip--ai">Claude Opus 4.7</span>
-          <span class="stack-chip stack-chip--ai">Sonnet 4.6</span>
-          <span class="stack-chip stack-chip--ai">Haiku 4.5</span>
-          <span class="stack-chip stack-chip--ai">GPT-4o Vision</span>
-        </div>
-      </div>
-
-      <div class="stack-layer">
-        <div class="stack-layer-label">BIM Layer</div>
+        <div class="stack-layer-label">Revit + BIM</div>
         <div class="stack-layer-items">
           <span class="stack-chip stack-chip--bim">Revit MCP Official</span>
-          <span class="stack-chip stack-chip--bim">NoticaTab FREE</span>
+          <span class="stack-chip stack-chip--bim">NoticaTab FREE — 50+ כלים</span>
           <span class="stack-chip stack-chip--bim">AutoCAD MCP</span>
-          <span class="stack-chip stack-chip--bim">Veras</span>
-          <span class="stack-chip stack-chip--bim">Autodesk Forma</span>
-          <span class="stack-chip stack-chip--bim">Speckle IFC</span>
+          <span class="stack-chip stack-chip--bim">Veras — AI Renders</span>
+          <span class="stack-chip stack-chip--bim">IFC / Speckle</span>
         </div>
       </div>
 
       <div class="stack-layer">
-        <div class="stack-layer-label">Israel Stack</div>
+        <div class="stack-layer-label">ישראל — רגולציה</div>
         <div class="stack-layer-items">
-          <span class="stack-chip stack-chip--israel">MAVAT API</span>
+          <span class="stack-chip stack-chip--israel">MAVAT API — תב"ע ישירה</span>
           <span class="stack-chip stack-chip--israel">רישוי זמין</span>
-          <span class="stack-chip stack-chip--israel">גרין-אינבויס</span>
-          <span class="stack-chip stack-chip--israel">ת"י 1918</span>
+          <span class="stack-chip stack-chip--israel">ת"י 1918 נגישות</span>
+          <span class="stack-chip stack-chip--israel">ת"י 5282 אנרגיה</span>
           <span class="stack-chip stack-chip--israel">תמ"א 38 Engine</span>
-          <span class="stack-chip stack-chip--israel">ת"י 5282</span>
+          <span class="stack-chip stack-chip--israel">פינוי-בינוי Calc</span>
         </div>
       </div>
 
       <div class="stack-layer">
-        <div class="stack-layer-label">Backend</div>
+        <div class="stack-layer-label">תקשורת + ניהול</div>
         <div class="stack-layer-items">
-          <span class="stack-chip stack-chip--backend">Node.js TypeScript</span>
-          <span class="stack-chip stack-chip--backend">PostgreSQL pgvector</span>
-          <span class="stack-chip stack-chip--backend">Redis</span>
-          <span class="stack-chip stack-chip--backend">FastAPI</span>
-          <span class="stack-chip stack-chip--backend">Supabase</span>
-          <span class="stack-chip stack-chip--backend">AWS/GCP</span>
+          <span class="stack-chip stack-chip--ai">WhatsApp → Claude Bot</span>
+          <span class="stack-chip stack-chip--ai">גרין-אינבויס API</span>
+          <span class="stack-chip stack-chip--ai">Google Calendar / Outlook</span>
+          <span class="stack-chip stack-chip--ai">Zoom / Teams → פרוטוקול</span>
+          <span class="stack-chip stack-chip--ai">Dropbox / Google Drive</span>
         </div>
       </div>
 
       <div class="stack-layer">
-        <div class="stack-layer-label">Frontend</div>
+        <div class="stack-layer-label">AI — Anthropic רשמי</div>
         <div class="stack-layer-items">
-          <span class="stack-chip stack-chip--frontend">React + Next.js 15</span>
-          <span class="stack-chip stack-chip--frontend">RTL Hebrew UI</span>
-          <span class="stack-chip stack-chip--frontend">Revit Plugin C#</span>
-          <span class="stack-chip stack-chip--frontend">Mobile PWA</span>
-          <span class="stack-chip stack-chip--frontend">Electron</span>
-          <span class="stack-chip stack-chip--frontend">Three.js 3D</span>
+          <span class="stack-chip stack-chip--backend">Claude Opus 4.7 — הכי חזק</span>
+          <span class="stack-chip stack-chip--backend">Claude Sonnet 4.6 — מהיר</span>
+          <span class="stack-chip stack-chip--backend">Anthropic × Autodesk ✓</span>
+          <span class="stack-chip stack-chip--backend">Hebrew RAG pgvector</span>
+          <span class="stack-chip stack-chip--backend">שרתים בישראל / EU</span>
         </div>
       </div>
 
