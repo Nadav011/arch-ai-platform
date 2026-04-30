@@ -4831,158 +4831,255 @@ footer {
 /* ─────────────────────────────────────────────────────────────
    1. THREE.JS CITY (~lines 1–150)
    ───────────────────────────────────────────────────────────── */
-(function initCity() {
+(function initBimScanner() {
   var canvas = document.getElementById('c3d');
-  if (!canvas || typeof THREE === 'undefined') return;
+  if (!canvas) return;
+  canvas.style.background = '#060912';
+  var ctx = canvas.getContext('2d');
 
-  var W = window.innerWidth, H = window.innerHeight;
-  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer.setSize(W, H);
-  renderer.shadowMap.enabled = true;
+  function resize() {
+    canvas.width  = canvas.offsetWidth  || window.innerWidth;
+    canvas.height = canvas.offsetHeight || window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-  var scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x04070f, 0.016);
+  /* ── Floor plan rooms (percentage coords) ─────────────────── */
+  var rooms = [
+    { id:'R-01', label:'סלון',     x:.05, y:.10, w:.30, h:.32, tag:true  },
+    { id:'R-02', label:'מטבח',    x:.05, y:.47, w:.18, h:.22, tag:true  },
+    { id:'R-03', label:'פינ.אוכל',x:.24, y:.47, w:.11, h:.22, tag:true  },
+    { id:'R-04', label:'שינה1',   x:.40, y:.10, w:.22, h:.24, tag:true  },
+    { id:'R-05', label:'שינה2',   x:.63, y:.10, w:.18, h:.24, tag:true  },
+    { id:'R-06', label:'ש.רחצה', x:.40, y:.37, w:.14, h:.14, tag:true  },
+    { id:'R-07', label:'שירותים',x:.55, y:.37, w:.11, h:.14, tag:false },
+    { id:'R-08', label:'כניסה',   x:.37, y:.55, w:.14, h:.18, tag:true  },
+    { id:'R-09', label:'מחסן',    x:.63, y:.40, w:.12, h:.16, tag:false },
+    { id:'R-10', label:'מרפסת',  x:.77, y:.10, w:.16, h:.32, tag:true  },
+  ];
 
-  var cam = new THREE.PerspectiveCamera(55, W / H, 0.1, 500);
-  cam.position.set(0, 22, 55);
-  cam.lookAt(0, 2, 0);
+  /* ── Doors & windows ───────────────────────────────────────── */
+  var doors = [
+    { x:.35, y:.24, w:.05, h:.01 },
+    { x:.35, y:.52, w:.05, h:.01 },
+    { x:.54, y:.22, w:.01, h:.06 },
+    { x:.61, y:.22, w:.01, h:.06 },
+    { x:.51, y:.40, w:.01, h:.05 },
+  ];
+  var windows = [
+    { id:'W-11', x:.10, y:.09, w:.12, h:.01, ok:true  },
+    { id:'W-12', x:.28, y:.09, w:.08, h:.01, ok:true  },
+    { id:'W-13', x:.45, y:.09, w:.10, h:.01, ok:true  },
+    { id:'W-14', x:.67, y:.09, w:.09, h:.01, ok:false },
+    { id:'W-15', x:.79, y:.09, w:.08, h:.01, ok:true  },
+    { id:'W-16', x:.04, y:.20, w:.01, h:.10, ok:true  },
+    { id:'W-17', x:.04, y:.50, w:.01, h:.08, ok:true  },
+  ];
 
-  /* Grid ground */
-  var gridGeo = new THREE.PlaneGeometry(300, 300, 60, 60);
-  var gridMat = new THREE.MeshBasicMaterial({
-    color: 0x1a2744,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.18
-  });
-  var grid = new THREE.Mesh(gridGeo, gridMat);
-  grid.rotation.x = -Math.PI / 2;
-  grid.position.y = -1;
-  scene.add(grid);
+  /* ── QC log entries ────────────────────────────────────────── */
+  var checks = [
+    { t:.12, color:'#22c55e', text:'✓  תיוג חדרים: 8/8 ✓' },
+    { t:.22, color:'#22c55e', text:'✓  שטח ממ"ד: 9.3 מ"ר ✓' },
+    { t:.32, color:'#f59e0b', text:'⚠  חלון W-14: חסר' },
+    { t:.44, color:'#22c55e', text:'✓  ת"י 1918 כניסה: 90cm ✓' },
+    { t:.55, color:'#ef4444', text:'✗  דלת D-22: 87cm < 90cm' },
+    { t:.66, color:'#22c55e', text:'✓  ניקוז מרפסת: ✓' },
+    { t:.75, color:'#22c55e', text:'✓  חדרי שינה: כיוון ✓' },
+    { t:.85, color:'#22c55e', text:'✓  מטבח: ✓ 6.1 מ"ר' },
+    { t:.93, color:'#f59e0b', text:'⚠  3 הערות קלות' },
+  ];
 
-  /* 100 buildings with construction animation (grow from ground) */
-  var buildings = [];
-  var bColors = [0x1e3a5f, 0x0f2035, 0x162747, 0x1a2d4a, 0x0d1e33];
-  for (var i = 0; i < 100; i++) {
-    var w = 1.2 + Math.random() * 3.5;
-    var h = 2 + Math.random() * 28;
-    var d = 1.2 + Math.random() * 3.5;
-    var geo = new THREE.BoxGeometry(w, h, d);
-    var color = bColors[Math.floor(Math.random() * bColors.length)];
-    var mat = new THREE.MeshPhongMaterial({
-      color: color,
-      transparent: true,
-      opacity: 0.9,
-      emissive: new THREE.Color(color).multiplyScalar(0.15)
-    });
-    var mesh = new THREE.Mesh(geo, mat);
+  /* ── State ─────────────────────────────────────────────────── */
+  var scanX  = 0;   // 0→1 progress
+  var phase  = 0;   // 0=scan, 1=hold, 2=reset
+  var phaseT = 0;
+  var logLines = [];
+  var checkIdx = 0;
+  var lastTs = null;
 
-    /* Wireframe overlay */
-    var edges = new THREE.EdgesGeometry(geo);
-    var wMat = new THREE.LineBasicMaterial({
-      color: Math.random() > 0.6 ? 0x3b82f6 : 0x1e2d44,
-      transparent: true,
-      opacity: Math.random() > 0.6 ? 0.45 : 0.2
-    });
-    mesh.add(new THREE.LineSegments(edges, wMat));
-
-    var bx = (Math.random() - 0.5) * 90;
-    var bz = (Math.random() - 0.5) * 90;
-    mesh.position.set(bx, -1, bz);
-    mesh.scale.y = 0.001;
-    scene.add(mesh);
-    buildings.push({ mesh: mesh, h: h, finalY: h / 2 - 1 });
+  function roomColor(room, scanPct) {
+    var cx = room.x + room.w / 2;
+    if (cx > scanPct) return null;  // not yet scanned
+    if (!room.tag) return '#f59e0b22';
+    return '#22c55e22';
+  }
+  function roomBorder(room, scanPct) {
+    var cx = room.x + room.w / 2;
+    if (cx > scanPct) return '#1e3a5f';
+    if (!room.tag) return '#f59e0b';
+    return '#22c55e';
   }
 
-  /* Staggered construction delays */
-  var startTime = performance.now();
-  buildings.forEach(function (b, idx) {
-    b.animDelay = 300 + idx * 30;
-    b.animDuration = 1200;
-  });
+  function draw(ts) {
+    if (!lastTs) lastTs = ts;
+    var dt = Math.min((ts - lastTs) / 1000, 0.05);
+    lastTs = ts;
 
-  /* Particles (stars / dust) */
-  var pN = 1500;
-  var pGeo = new THREE.BufferGeometry();
-  var pPos = new Float32Array(pN * 3);
-  for (var pi = 0; pi < pN; pi++) {
-    pPos[pi * 3]     = (Math.random() - 0.5) * 160;
-    pPos[pi * 3 + 1] = Math.random() * 60;
-    pPos[pi * 3 + 2] = (Math.random() - 0.5) * 160;
-  }
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-  var pts = new THREE.Points(pGeo, new THREE.PointsMaterial({
-    color: 0x3b82f6,
-    size: 0.12,
-    transparent: true,
-    opacity: 0.5
-  }));
-  scene.add(pts);
+    var W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
 
-  /* Lights */
-  scene.add(new THREE.AmbientLight(0x0a1628, 3));
-  var pl1 = new THREE.PointLight(0x3b82f6, 5, 130);
-  pl1.position.set(0, 25, 0);
-  scene.add(pl1);
-  var pl2 = new THREE.PointLight(0x06b6d4, 3, 90);
-  pl2.position.set(25, 15, -25);
-  scene.add(pl2);
-  var pl3 = new THREE.PointLight(0x818cf8, 2, 80);
-  pl3.position.set(-30, 10, 20);
-  scene.add(pl3);
-  /* Warm window-glow lights */
-  var wl1 = new THREE.PointLight(0xf59e0b, 1.5, 40);
-  wl1.position.set(5, 8, 5);
-  scene.add(wl1);
-  var wl2 = new THREE.PointLight(0xfbbf24, 1, 30);
-  wl2.position.set(-10, 12, -8);
-  scene.add(wl2);
+    /* Background */
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#060912');
+    bg.addColorStop(1, '#0a1020');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
 
-  var t = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    t += 0.005;
+    /* ── Layout ─────────────────────────────────────────────── */
+    var panelW = Math.min(W * 0.55, 520);
+    var panelH = Math.min(H * 0.72, 420);
+    var ox = (W - panelW) * 0.32;
+    var oy = (H - panelH) * 0.42;
 
-    /* Orbiting lights */
-    pl1.position.x = Math.sin(t) * 40;
-    pl1.position.z = Math.cos(t) * 40;
-    pl2.position.x = Math.sin(t + 2) * 25;
-    pl2.position.z = Math.cos(t + 2) * 25;
-    pl3.position.x = Math.sin(t + 4) * 30;
-    pl3.position.z = Math.cos(t + 4) * 30;
-
-    /* Camera slow orbit */
-    cam.position.x = Math.sin(t * 0.2) * 5;
-    cam.position.z = 55 + Math.cos(t * 0.15) * 5;
-    cam.lookAt(0, 2, 0);
-
-    /* Particles drift */
-    pts.rotation.y += 0.0003;
-
-    /* Building construction animation */
-    var now = performance.now();
-    buildings.forEach(function (b) {
-      var elapsed = now - startTime - b.animDelay;
-      if (elapsed > 0) {
-        var progress = Math.min(elapsed / b.animDuration, 1);
-        /* Ease-out cubic */
-        var e = 1 - Math.pow(1 - progress, 3);
-        b.mesh.scale.y = Math.max(e, 0.001);
-        b.mesh.position.y = -1 + b.h * b.mesh.scale.y / 2;
+    /* ── Grid dots ──────────────────────────────────────────── */
+    ctx.fillStyle = '#1e2d44';
+    for (var gx = 0; gx < W; gx += 32) {
+      for (var gy = 0; gy < H; gy += 32) {
+        ctx.fillRect(gx, gy, 1, 1);
       }
+    }
+
+    /* ── Title ───────────────────────────────────────────────── */
+    ctx.font = 'bold 13px "JetBrains Mono",monospace';
+    ctx.fillStyle = '#64748b';
+    ctx.fillText('BIM QC SCANNER  //  rev-A23  //  תוכנית דירה 4 חדרים', ox, oy - 22);
+    ctx.fillStyle = '#3b82f6';
+    ctx.fillText('▶ LIVE', ox + panelW - 38, oy - 22);
+
+    /* ── Outer wall ──────────────────────────────────────────── */
+    ctx.strokeStyle = '#334155';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(ox, oy, panelW, panelH);
+
+    /* ── Rooms ───────────────────────────────────────────────── */
+    rooms.forEach(function(r) {
+      var rx = ox + r.x * panelW;
+      var ry = oy + r.y * panelH;
+      var rw = r.w * panelW;
+      var rh = r.h * panelH;
+      var fill = roomColor(r, scanX);
+      if (fill) {
+        ctx.fillStyle = fill;
+        ctx.fillRect(rx, ry, rw, rh);
+      }
+      ctx.strokeStyle = roomBorder(r, scanX);
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(rx, ry, rw, rh);
+      /* Label */
+      ctx.font = '10px "JetBrains Mono",monospace';
+      ctx.fillStyle = '#94a3b8';
+      ctx.textAlign = 'center';
+      ctx.fillText(r.label, rx + rw/2, ry + rh/2 + 4);
+      ctx.textAlign = 'left';
     });
 
-    renderer.render(scene, cam);
-  }
-  animate();
+    /* ── Doors ───────────────────────────────────────────────── */
+    ctx.strokeStyle = '#60a5fa';
+    ctx.lineWidth = 3;
+    doors.forEach(function(d) {
+      ctx.strokeRect(ox + d.x*panelW, oy + d.y*panelH, d.w*panelW, d.h*panelH + 4);
+    });
 
-  window.addEventListener('resize', function () {
-    var W2 = window.innerWidth, H2 = window.innerHeight;
-    cam.aspect = W2 / H2;
-    cam.updateProjectionMatrix();
-    renderer.setSize(W2, H2);
-  });
+    /* ── Windows ─────────────────────────────────────────────── */
+    windows.forEach(function(win) {
+      var scanned = win.x < scanX;
+      ctx.strokeStyle = scanned ? (win.ok ? '#22c55e' : '#ef4444') : '#3b82f6';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(ox + win.x*panelW - 1, oy + win.y*panelH - 1,
+                     win.w*panelW + 2, win.h*panelH + 6);
+    });
+
+    /* ── Scan line ───────────────────────────────────────────── */
+    if (phase === 0) {
+      var sx = ox + scanX * panelW;
+      var grad = ctx.createLinearGradient(sx - 18, 0, sx + 4, 0);
+      grad.addColorStop(0, 'rgba(168,85,247,0)');
+      grad.addColorStop(0.6, 'rgba(168,85,247,0.18)');
+      grad.addColorStop(1, 'rgba(168,85,247,0.85)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(sx - 18, oy, 22, panelH);
+      ctx.strokeStyle = '#a855f7';
+      ctx.lineWidth = 2;
+      ctx.shadowColor = '#a855f7';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.moveTo(sx, oy);
+      ctx.lineTo(sx, oy + panelH);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+
+    /* ── Compass rose ────────────────────────────────────────── */
+    ctx.font = '11px "JetBrains Mono",monospace';
+    ctx.fillStyle = '#475569';
+    ctx.fillText('N↑', ox + panelW - 22, oy + 14);
+
+    /* ── QC log panel ────────────────────────────────────────── */
+    var logX = ox + panelW + 28;
+    var logY = oy;
+    var logW = W - logX - 20;
+    if (logW > 60) {
+      ctx.font = 'bold 11px "JetBrains Mono",monospace';
+      ctx.fillStyle = '#64748b';
+      ctx.fillText('▌ QC LOG', logX, logY + 14);
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(logX, logY + 22, logW, panelH - 22);
+      ctx.strokeStyle = '#1e3a5f';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(logX, logY + 22, logW, panelH - 22);
+      ctx.font = '11px "JetBrains Mono",monospace';
+      logLines.forEach(function(line, i) {
+        ctx.fillStyle = line.color;
+        var txt = line.text.length > 28 ? line.text.slice(0,28) : line.text;
+        ctx.fillText(txt, logX + 8, logY + 42 + i * 18);
+      });
+    }
+
+    /* ── Progress bar ────────────────────────────────────────── */
+    ctx.fillStyle = '#1e293b';
+    ctx.fillRect(ox, oy + panelH + 14, panelW, 6);
+    ctx.fillStyle = '#a855f7';
+    ctx.fillRect(ox, oy + panelH + 14, panelW * scanX, 6);
+
+    /* ── Timing chip ─────────────────────────────────────────── */
+    var elapsed = Math.round(scanX * 87);
+    ctx.font = 'bold 12px "JetBrains Mono",monospace';
+    ctx.fillStyle = '#22c55e';
+    ctx.fillText('⏱ ' + elapsed + ' שנ׳  |  vs 8 שעות ידנית', ox, oy + panelH + 38);
+
+    /* ── Status badge ────────────────────────────────────────── */
+    if (phase === 1) {
+      ctx.fillStyle = 'rgba(239,68,68,0.18)';
+      ctx.fillRect(ox, oy + panelH + 50, panelW, 24);
+      ctx.font = 'bold 11px "JetBrains Mono",monospace';
+      ctx.fillStyle = '#ef4444';
+      ctx.fillText('✗  1 כשל קריטי  |  ⚠ 2 אזהרות  |  ✓ 6 תקינים', ox + 6, oy + panelH + 66);
+    }
+
+    /* ── Animation update ────────────────────────────────────── */
+    if (phase === 0) {
+      scanX += dt * 0.22;
+      while (checkIdx < checks.length && checks[checkIdx].t <= scanX) {
+        logLines.push(checks[checkIdx]);
+        if (logLines.length > 9) logLines.shift();
+        checkIdx++;
+      }
+      if (scanX >= 1) { scanX = 1; phase = 1; phaseT = 0; }
+    } else if (phase === 1) {
+      phaseT += dt;
+      if (phaseT > 2.4) { phase = 2; phaseT = 0; }
+    } else {
+      phaseT += dt;
+      if (phaseT > 0.8) {
+        scanX = 0; phase = 0; phaseT = 0;
+        logLines = []; checkIdx = 0;
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  requestAnimationFrame(draw);
 })();
 
 
